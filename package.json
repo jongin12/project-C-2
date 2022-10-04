@@ -1,7 +1,25 @@
 {
   "dependencies": {
-    "node-fetch": "^3.2.10",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "node-fetch": "^2.6.7",
     "request": "^2.88.2"
   },
-  "type":"module"
+  "name": "project-c2",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jongin12/project-C-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jongin12/project-C-2/issues"
+  },
+  "homepage": "https://github.com/jongin12/project-C-2#readme",
+  "description": ""
 }
