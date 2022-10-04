@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" placeholder="소환사명" id="name" />
+      <input
+        type="button"
+        value="검색"
+        onclick="document.location.href=getvalue()"
+      />
+    </form>
+    <script>
+      function getvalue() {
+        var text = document.getElementById("name").value;
+        var url = "summoner/" + text;
+        return url;
+      }
+    </script>
+  </body>
+</html>

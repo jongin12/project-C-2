@@ -1,8 +1,5 @@
 const fetch = require("node-fetch");
-
 const key = "RGAPI-321311ea-806e-460c-ae49-29e5eb4f2278";
-
-//jcZiz2UPniLoHifZvnBuhJTaNRggTJ6BzkbuSl5LpW_0CV-xB0gJ2SNAfm1Gxpo9pOyut3s8BtVQTw
 
 const LOL_API = {
   summoners: (name) => {
@@ -13,8 +10,16 @@ const LOL_API = {
         .then((data) => resolve(data));
     });
   },
+  summonersLeague: (id) => {
+    var url = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${key}`;
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => resolve(data));
+    });
+  },
   matchList: (puuid) => {
-    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20&api_key=${key}`;
+    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())
@@ -65,9 +70,9 @@ const LOL_API = {
   },
 };
 
-LOL_API.summoners("흰긴꼬리원숭이")
-  .then((data) => LOL_API.matchList(data.puuid))
-  .then((data) => LOL_API.matchInfo(data[0]))
-  .then((data) => console.log(data));
+// LOL_API.summoners("흰긴꼬리원숭이")
+//   .then((data) => LOL_API.matchList(data.puuid))
+//   .then((data) => LOL_API.matchInfo(data[0]))
+//   .then((data) => console.log(data));
 
 module.exports = LOL_API;
