@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-321311ea-806e-460c-ae49-29e5eb4f2278";
+const key = "RGAPI-1772bfed-1c4c-4f24-9536-081c9f237fa7";
 
 const LOL_API = {
   summoners: (name) => {
@@ -26,10 +26,10 @@ const LOL_API = {
         .then((data) => resolve(data));
     });
   },
-  matchInfo: (matchid) => {
+  matchInfo: (matchid, name) => {
     var url = `https://asia.api.riotgames.com/lol/match/v5/matches/${matchid}?api_key=${key}`;
     return new Promise((resolve, reject) => {
-      let matchData = {};
+      matchData = {};
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
@@ -64,6 +64,13 @@ const LOL_API = {
           matchData.gameEndTimestamp = krTime;
           matchData.gameDuration = data.info.gameDuration;
           matchData.userinfo = userinfo;
+        })
+        .then(() => {
+          for (let i = 0; i < 10; i++) {
+            if (matchData.userinfo[i].summonerName === name) {
+              matchData.myNum = i;
+            }
+          }
         })
         .then(() => resolve(matchData));
     });
