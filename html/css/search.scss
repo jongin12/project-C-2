@@ -1,7 +1,5 @@
 #root{
   width: 100vw;
-  height: 100vh;
-  background-color: skyblue;
 }
 
 header{
@@ -28,9 +26,9 @@ main{
     flex-direction: column;
     flex-wrap: wrap;
     >img{
-      width: 120px;
-      height: 120px;
-      border-radius: 60px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
       background-color: #888;
     }
     >div:nth-child(2){
@@ -40,12 +38,14 @@ main{
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
     >div:nth-child(3){
       width: 160px;
       height: 180px;
       display: flex;
       justify-content: center;
+      flex-direction: column;
     }
   }
 }

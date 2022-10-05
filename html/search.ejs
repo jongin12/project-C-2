@@ -16,30 +16,57 @@
   </head>
   <body>
     <div id="root">
-      <header
-        ><%=league[1].summonerName%><%=league[1].tier%><%=league[1].rank%></header
-      >
+      <%
+        let Name = league[0].summonerName;
+        let win = 0;
+        let lose = 0;
+        for(let i=0;i<league.length;i++){
+          win =+ league[i].wins
+          lose =+ league[i].losses 
+        }
+      %>
+      <header>
+        <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
+      </header>
       <main>
+        <% for(let i=0;i<searchData.length;i++) { %>
         <section class="searchBox">
           <div>
-            <img
-              src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=searchData.userinfo[me].championName%>.png"
-            />
-            <div
-              ><%=searchData.userinfo[me].kills%>/<%=searchData.userinfo[me].deaths%>/<%=searchData.userinfo[me].assists%></div
-            >
+            <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=searchData[i].userinfo[searchData[i].myNum].championName%>.png"/>
+            <%
+            var k = searchData[i].userinfo[searchData[i].myNum].kills;
+            var d = searchData[i].userinfo[searchData[i].myNum].deaths;
+            var a = searchData[i].userinfo[searchData[i].myNum].assists;
+            var kda = (k+a)/d;
+            var kda2 = kda.toFixed(2);
+            %>
             <div>
+              <div><%=k%> / <%=d%> / <%=a%></div>
+              <div><%=kda2%></div>
+            </div>
+            <div>
+              <div>
+                <%
+                var time = searchData[i].gameEndTimestamp;
+                var playtime = searchData[i].gameDuration;
+                var min = Math.floor(playtime/60);
+                var sec = playtime%60;
+                %>
+                <%=time%>
+                <%=min%>분<%=sec%>초
+              </div>
               <div class="itembox">
-                <% for(let i=0;i<6;i++) { %>
-                <img
-                  src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=searchData.userinfo[me].item[i]%>.png"
-                  onerror="this.src='no_img.jpg'"
-                />
+                <% for(let j=0;j<6;j++) { %>
+                <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=searchData[i].userinfo[searchData[i].myNum].item[j]%>.png"/>
                 <%} %>
+              </div>
+              <div>
+                <%=searchData[i].userinfo[searchData[i].myNum].totalDamageDealtToChampions%>
               </div>
             </div>
           </div>
         </section>
+        <%} %>
       </main>
     </div>
   </body>

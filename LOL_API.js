@@ -41,11 +41,19 @@ const LOL_API = {
               championName: item.championName,
               champLevel: item.champLevel,
               teamPosition: item.teamPosition,
+              summoner1Id: item.summoner1Id,
+              summoner2Id: item.summoner2Id,
+              perks: item.perks,
               kills: item.kills,
               deaths: item.deaths,
               assists: item.assists,
               gold: item.goldEarned,
+              csJg: item.neutralMinionsKilled,
+              csLine: item.totalMinionsKilled,
+              win: item.win,
               controlWard: item.challenges.controlWardsPlaced,
+              largestMultiKill: item.largestMultiKill,
+              totalDamageDealtToChampions: item.totalDamageDealtToChampions,
               laneMinionsFirst10Minutes:
                 item.challenges.laneMinionsFirst10Minutes,
               item: [
@@ -63,6 +71,8 @@ const LOL_API = {
           krTime = endTime.toString();
           matchData.gameEndTimestamp = krTime;
           matchData.gameDuration = data.info.gameDuration;
+          matchData.gameType = data.info.gameType;
+          matchData.gameMode = data.info.gameMode;
           matchData.userinfo = userinfo;
         })
         .then(() => {

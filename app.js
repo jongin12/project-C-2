@@ -20,15 +20,15 @@ app.get("/", function (req, res) {
 });
 
 app.get("/summoner/:name", async function (req, res) {
-  let list = { matchlist: [] };
+  let list = { matchData: [] };
   let name = req.params.name;
-  list.summoners = await LOL_API.summoners(req.params.name);
-  list.league = await LOL_API.summonersLeague(list.summoners.id);
-  list.matchList = await LOL_API.matchList(list.summoners.puuid);
+  list.summoner = await LOL_API.summoners(req.params.name);
+  list.league = await LOL_API.summonersLeague(list.summoner.id);
+  list.matchList = await LOL_API.matchList(list.summoner.puuid);
   for (let i = 0; i < list.matchList.length; i++) {
-    list.matchlist[i] = await LOL_API.matchInfo(list.matchList[i], name);
+    list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
   }
-  res.send(list);
+  // res.send(list);
   // LOL_API.summoners(req.params.name)
   //   .then((data) => (list.summoners = data))
   //   .then(() => LOL_API.summonersLeague(list.summoners.id))
@@ -39,17 +39,16 @@ app.get("/summoner/:name", async function (req, res) {
   // .then((data) => (list.matchlist[0] = data))
   // .then(() => res.send(list));
 
-  // .then(() => {
-  //   fs.readFile("html/search.ejs", "utf8", function (err, data) {
-  //     res.writeHead(200, { "Content-Type": "text/html" });
-  //     res.end(
-  //       ejs.render(data, {
-  //         searchData: list.matchlist[0],
-  //         league: list.league,
-  //       })
-  //     );
-  //   });
-  // });
+  fs.readFile("html/search.ejs", "utf8", function (err, data) {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(
+      ejs.render(data, {
+        searchData: list.matchData,
+        league: list.league,
+        summoner: list.summoner,
+      })
+    );
+  });
 });
 
 app.listen(8080, function () {
