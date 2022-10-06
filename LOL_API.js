@@ -1,6 +1,7 @@
 const fetch = require("node-fetch");
 const key = "RGAPI-9e8d0828-1bc8-48a1-aaff-02e80cacb721";
 const queueId = require("./queueId");
+const spell = require("./spell");
 
 const LOL_API = {
   summoners: (name) => {
@@ -92,8 +93,17 @@ const LOL_API = {
             }
           }
           var quNum = matchData.queueId;
-          var queueId_Kr = queueId[quNum];
-          matchData.queueId_Kr = queueId_Kr;
+          var queueId_kr = queueId[quNum];
+          matchData.queueId_kr = queueId_kr;
+
+          for (let i = 0; i < 10; i++) {
+            var spell1 = matchData.userinfo[i].summoner1Id;
+            var spell2 = matchData.userinfo[i].summoner2Id;
+            var summoner1Id_kr = spell[spell1];
+            var summoner2Id_kr = spell[spell2];
+            matchData.userinfo[i].summoner1Id_kr = summoner1Id_kr;
+            matchData.userinfo[i].summoner2Id_kr = summoner2Id_kr;
+          }
         })
         .then(() => resolve(matchData));
     });

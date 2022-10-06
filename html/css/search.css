@@ -29,12 +29,6 @@ main {
   flex-direction: column;
   flex-wrap: wrap;
 }
-.searchBox > div > img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  background-color: #888;
-}
 .searchBox > div > div:nth-child(2) {
   width: 100px;
   height: 80px;
@@ -49,6 +43,37 @@ main {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+.searchBox > div > div:nth-child(3) > div:nth-child(3) {
+  width: 180px;
+  height: 90px;
+  display: flex;
+}
+
+.champ_img {
+  width: 100px;
+  height: 100px;
+}
+.champ_img > img {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  background-color: #888;
+}
+
+.spellbox {
+  width: 40px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.spellbox img {
+  width: 40px;
+  height: 40px;
+  border: 1px gray solid;
+  border-radius: 10px;
 }
 
 .itembox {

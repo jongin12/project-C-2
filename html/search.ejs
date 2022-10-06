@@ -44,7 +44,10 @@
         <section class="searchBox" style="background-color: salmon">
           <% } %>
           <div>
-            <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=searchData[i].userinfo[searchData[i].myNum].championName%>.png"/>
+            <div class="champ_img">
+              <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=searchData[i].userinfo[searchData[i].myNum].championName%>.png"/>
+
+            </div>
             <%
             var user = searchData[i].userinfo[searchData[i].myNum]
             var kda = (user.kills+user.assists)/user.deaths;
@@ -56,6 +59,9 @@
               <div><%=kda2%> cs : <%=cs%></div>
             </div>
             <div>
+              <div>
+                <%=searchData[i].queueId_kr%>
+              </div>
               <div>
                 <%
                 var now = new Date();
@@ -70,17 +76,20 @@
                 <%=time%>시간 전
                 (<%=min%>분<%=sec%>초)
               </div>
-              <div class="spellbox">
+              <div>
+                <div class="spellbox">
                 <%
-                var spell1 = searchData[i].userinfo[searchData[i].myNum].summoner1Id
-                var spell2 = searchData[i].userinfo[searchData[i].myNum].summoner2Id
+                var spell1_img = searchData[i].userinfo[searchData[i].myNum].summoner1Id_kr.img;
+                var spell2_img = searchData[i].userinfo[searchData[i].myNum].summoner2Id_kr.img;
                 %>
-                <%=spell1%>,<%=spell2%>
+                <img src="<%=spell1_img%>">
+                <img src="<%=spell2_img%>">
               </div>
               <div class="itembox">
                 <% for(let j=0;j<6;j++) { %>
-                <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=searchData[i].userinfo[searchData[i].myNum].item[j]%>.png"/>
-                <%} %>
+                  <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=searchData[i].userinfo[searchData[i].myNum].item[j]%>.png"/>
+                  <%} %>
+                </div>
               </div>
               <div>
                 <%
