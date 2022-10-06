@@ -26,6 +26,14 @@
         }
       %>
       <header>
+        <form>
+          <input type="text" placeholder="소환사명" id="name" />
+          <input
+            type="button"
+            value="검색"
+            onclick="document.location.href=getvalue()"
+          />
+        </form>
         <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
       </header>
       <main>
@@ -82,5 +90,12 @@
         <%} %>
       </main>
     </div>
+    <script>
+      function getvalue() {
+        var text = document.getElementById("name").value;
+        var url = "/summoner/" + text;
+        return url;
+      }
+    </script>
   </body>
 </html>

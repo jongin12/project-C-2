@@ -28,27 +28,29 @@ app.get("/summoner/:name", async function (req, res) {
   for (let i = 0; i < list.matchList.length; i++) {
     list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
   }
-  res.send(list);
-  // LOL_API.summoners(req.params.name)
-  //   .then((data) => (list.summoners = data))
-  //   .then(() => LOL_API.summonersLeague(list.summoners.id))
-  //   .then((data) => (list.league = data))
-  //   .then(() => LOL_API.matchList(list.summoners.puuid))
-  //   .then((data) => (list.matchList = data))
-  // .then(() => LOL_API.matchInfo(list.matchList[0], req.params.name))
-  // .then((data) => (list.matchlist[0] = data))
-  // .then(() => res.send(list));
-
-  // fs.readFile("html/search.ejs", "utf8", function (err, data) {
-  //   res.writeHead(200, { "Content-Type": "text/html" });
-  //   res.end(
-  //     ejs.render(data, {
-  //       searchData: list.matchData,
-  //       league: list.league,
-  //       summoner: list.summoner,
-  //     })
-  //   );
-  // });
+  // res.send(list);
+  new Promise((resolve, reject) => {
+    if (!list.matchList[0]) {
+      reject();
+    } else {
+      resolve();
+    }
+  })
+    .then(() => {
+      fs.readFile("html/search.ejs", "utf8", function (err, data) {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(
+          ejs.render(data, {
+            searchData: list.matchData,
+            league: list.league,
+            summoner: list.summoner,
+          })
+        );
+      });
+    })
+    .catch((err) => {
+      res.send("없는 소환사명입니다.");
+    });
 });
 
 app.listen(8080, function () {
