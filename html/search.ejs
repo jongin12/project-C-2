@@ -37,6 +37,7 @@
         <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
       </header>
       <main>
+        <div>
         <% for(let i=0;i<searchData.length;i++) { %>
           <% var myData = searchData[i].userinfo[searchData[i].myNum] %>
           <% if(myData.win === true) {%>
@@ -71,12 +72,22 @@
                 var endtime = searchData[i].gameEndTimestamp;
                 var value = now - endtime;
                 var hour = value / 1000 / 60 / 60;
-                var time = Math.floor(hour);
+                if (hour >= 24) {
+                  time = Math.floor(hour / 24);
+                  time = time + "일 전";
+                } else if (24 > hour && hour >= 1) {
+                  time = Math.floor(hour);
+                  time = time + "시간 전";
+                } else if (1 > hour) {
+                  time = Math.floor(hour * 60);
+                  time = time + "분 전";
+                }
+                
                 var playtime = searchData[i].gameDuration;
                 var min = Math.floor(playtime/60);
                 var sec = playtime%60;
                 %>
-                <%=time%>시간 전
+                <%=time%>
                 (<%=min%>분<%=sec%>초)
               </div>
               <div>
@@ -90,7 +101,9 @@
               </div>
               <div class="itembox">
                 <% for(let j=0;j<6;j++) { %>
-                  <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png"/>
+                  <div>
+                    <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png" onerror="this.style.display='none'"/>
+                  </div>
                   <%} %>
                 </div>
               </div>
@@ -107,6 +120,7 @@
           </div>
         </section>
         <%} %>
+        </div>
       </main>
     </div>
     <script>

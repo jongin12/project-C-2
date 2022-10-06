@@ -11,6 +11,10 @@ const rune = {
     name: "어둠의 수확",
     img: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/DarkHarvest/DarkHarvest.png",
   },
+  9923: {
+    name: "칼날비",
+    img: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png",
+  },
   8351: {
     name: "빙결 강화",
     img: "https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png",

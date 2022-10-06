@@ -10,6 +10,15 @@ header{
 main{
   width: 100vw;
   height: 90vh;
+  display: flex;
+  justify-content: center;
+  >div{
+    width: 700px;
+    height: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
 .searchBox{
@@ -20,6 +29,7 @@ main{
   align-items: center;
   border:1px solid black;
   border-radius: 10px;
+  margin: 20px;
   >div{
     width: 280px;
     height: 180px;
@@ -58,10 +68,10 @@ main{
     border-radius: 48px;
   }
   >div:nth-child(2){
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     background-color: #888;
-    border-radius: 12px;
+    border-radius: 14px;
     position:absolute;
     color:white;
     bottom: 4px;
@@ -71,10 +81,10 @@ main{
     justify-content: center;
   }
   >img:nth-child(3){
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     background-color: black;
-    border-radius: 12px;
+    border-radius: 14px;
     position: absolute;
     bottom: 4px;
     right: 4px;
@@ -87,7 +97,7 @@ main{
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  img{
+  >img{
     width: 40px;
     height: 40px;
     border:1px gray solid;
@@ -101,10 +111,15 @@ main{
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  img{
+  >div{
     width: 40px;
     height: 40px;
     border:1px gray solid;
     border-radius: 10px;
+    overflow: hidden;
+    >img{
+      width: 40px;
+      height: 40px;
+    }
   }
 }

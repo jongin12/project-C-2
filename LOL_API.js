@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 const key = "RGAPI-9e8d0828-1bc8-48a1-aaff-02e80cacb721";
 const queueId = require("./queueId");
-const spell = require("./spell");
-const rune = require("./rune");
+const spell = require("./module/spell");
+const rune = require("./module/rune");
 
 const LOL_API = {
   summoners: (name) => {

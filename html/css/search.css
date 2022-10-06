@@ -11,6 +11,15 @@ header {
 main {
   width: 100vw;
   height: 90vh;
+  display: flex;
+  justify-content: center;
+}
+main > div {
+  width: 700px;
+  height: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .searchBox {
@@ -21,6 +30,7 @@ main {
   align-items: center;
   border: 1px solid black;
   border-radius: 10px;
+  margin: 20px;
 }
 .searchBox > div {
   width: 280px;
@@ -61,10 +71,10 @@ main {
   border-radius: 48px;
 }
 .champ_img > div:nth-child(2) {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background-color: #888;
-  border-radius: 12px;
+  border-radius: 14px;
   position: absolute;
   color: white;
   bottom: 4px;
@@ -74,10 +84,10 @@ main {
   justify-content: center;
 }
 .champ_img > img:nth-child(3) {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background-color: black;
-  border-radius: 12px;
+  border-radius: 14px;
   position: absolute;
   bottom: 4px;
   right: 4px;
@@ -91,7 +101,7 @@ main {
   justify-content: space-around;
   align-items: center;
 }
-.spellbox img {
+.spellbox > img {
   width: 40px;
   height: 40px;
   border: 1px gray solid;
@@ -106,9 +116,14 @@ main {
   justify-content: space-around;
   align-items: center;
 }
-.itembox img {
+.itembox > div {
   width: 40px;
   height: 40px;
   border: 1px gray solid;
   border-radius: 10px;
+  overflow: hidden;
+}
+.itembox > div > img {
+  width: 40px;
+  height: 40px;
 }/*# sourceMappingURL=search.css.map */
