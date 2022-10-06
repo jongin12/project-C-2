@@ -16,15 +16,6 @@
   </head>
   <body>
     <div id="root">
-      <%
-        let Name = league[0].summonerName;
-        let win = 0;
-        let lose = 0;
-        for(let i=0;i<league.length;i++){
-          win =+ league[i].wins
-          lose =+ league[i].losses 
-        }
-      %>
       <header>
         <form>
           <input type="text" placeholder="소환사명" id="name" />
@@ -34,6 +25,15 @@
             onclick="document.location.href=getvalue()"
           />
         </form>
+        <%
+        let Name = league[0].summonerName;
+        let win = 0;
+        let lose = 0;
+        for(let i=0;i<league.length;i++){
+          win =+ league[i].wins
+          lose =+ league[i].losses 
+        }
+        %>
         <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
       </header>
       <main>
@@ -69,6 +69,13 @@
                 %>
                 <%=time%>시간 전
                 (<%=min%>분<%=sec%>초)
+              </div>
+              <div class="spellbox">
+                <%
+                var spell1 = searchData[i].userinfo[searchData[i].myNum].summoner1Id
+                var spell2 = searchData[i].userinfo[searchData[i].myNum].summoner2Id
+                %>
+                <%=spell1%>,<%=spell2%>
               </div>
               <div class="itembox">
                 <% for(let j=0;j<6;j++) { %>

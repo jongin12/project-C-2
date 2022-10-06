@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const key = "RGAPI-9e8d0828-1bc8-48a1-aaff-02e80cacb721";
+const queueId = require("./queueId");
 
 const LOL_API = {
   summoners: (name) => {
@@ -38,6 +39,7 @@ const LOL_API = {
             return {
               summonerName: item.summonerName,
               puuid: item.puuid,
+              championId: item.championId,
               championName: item.championName,
               champLevel: item.champLevel,
               teamPosition: item.teamPosition,
@@ -52,6 +54,9 @@ const LOL_API = {
               csLine: item.totalMinionsKilled,
               win: item.win,
               controlWard: item.challenges.controlWardsPlaced,
+              skillshotsDodged: item.challenges.skillshotsDodged,
+              skillshotsHit: item.challenges.skillshotsHit,
+              snowballsHit: item.challenges.snowballsHit,
               largestMultiKill: item.largestMultiKill,
               totalDamageDealtToChampions: item.totalDamageDealtToChampions,
               teamDamagePercentage: item.challenges.teamDamagePercentage,
@@ -70,8 +75,10 @@ const LOL_API = {
           });
           matchData.gameEndTimestamp = data.info.gameEndTimestamp;
           matchData.gameDuration = data.info.gameDuration;
-          matchData.gameType = data.info.gameType;
           matchData.gameMode = data.info.gameMode;
+          matchData.gameType = data.info.gameType;
+          matchData.queueId = data.info.queueId;
+          matchData.matchId = data.metadata.matchId;
           matchData.userinfo = userinfo;
         })
         .then(() => {
@@ -84,6 +91,9 @@ const LOL_API = {
               matchData.myNum = i;
             }
           }
+          var quNum = matchData.queueId;
+          var queueId_Kr = queueId[quNum];
+          matchData.queueId_Kr = queueId_Kr;
         })
         .then(() => resolve(matchData));
     });

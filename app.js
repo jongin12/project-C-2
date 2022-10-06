@@ -19,6 +19,18 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/html/index.html");
 });
 
+app.get("/list/:name", async function (req, res) {
+  let list = { matchData: [] };
+  let name = req.params.name;
+  list.summoner = await LOL_API.summoners(req.params.name);
+  list.league = await LOL_API.summonersLeague(list.summoner.id);
+  list.matchList = await LOL_API.matchList(list.summoner.puuid);
+  for (let i = 0; i < list.matchList.length; i++) {
+    list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
+  }
+  res.send(list);
+});
+
 app.get("/summoner/:name", async function (req, res) {
   let list = { matchData: [] };
   let name = req.params.name;
@@ -28,7 +40,6 @@ app.get("/summoner/:name", async function (req, res) {
   for (let i = 0; i < list.matchList.length; i++) {
     list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
   }
-  // res.send(list);
   new Promise((resolve, reject) => {
     if (!list.matchList[0]) {
       reject();
