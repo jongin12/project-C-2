@@ -2,6 +2,7 @@ const fetch = require("node-fetch");
 const key = "RGAPI-9e8d0828-1bc8-48a1-aaff-02e80cacb721";
 const queueId = require("./queueId");
 const spell = require("./spell");
+const rune = require("./rune");
 
 const LOL_API = {
   summoners: (name) => {
@@ -104,8 +105,23 @@ const LOL_API = {
             matchData.userinfo[i].summoner1Id_kr = summoner1Id_kr;
             matchData.userinfo[i].summoner2Id_kr = summoner2Id_kr;
           }
+
+          for (let i = 0; i < 10; i++) {
+            var runeNum =
+              matchData.userinfo[i].perks.styles[0].selections[0].perk;
+            var mainRune_kr = rune[runeNum];
+            matchData.userinfo[i].mainRune_kr = mainRune_kr;
+          }
         })
         .then(() => resolve(matchData));
+    });
+  },
+  activeGame: (id) => {
+    var url = `https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${key}`;
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => resolve(data));
     });
   },
 };

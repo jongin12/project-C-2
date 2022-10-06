@@ -38,25 +38,28 @@
       </header>
       <main>
         <% for(let i=0;i<searchData.length;i++) { %>
-          <% if(searchData[i].userinfo[searchData[i].myNum].win === true) {%>
+          <% var myData = searchData[i].userinfo[searchData[i].myNum] %>
+          <% if(myData.win === true) {%>
         <section class="searchBox" style="background-color: skyblue">
-          <% } else if (searchData[i].userinfo[searchData[i].myNum].win === false) { %>
+          <% } else if (myData.win === false) { %>
         <section class="searchBox" style="background-color: salmon">
           <% } %>
           <div>
             <div class="champ_img">
-              <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=searchData[i].userinfo[searchData[i].myNum].championName%>.png"/>
-
+              <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
+              <div><%=myData.champLevel%></div>
+              <% var rune_img = myData.mainRune_kr.img; %>
+              <img src="<%=rune_img%>">
             </div>
             <%
-            var user = searchData[i].userinfo[searchData[i].myNum]
-            var kda = (user.kills+user.assists)/user.deaths;
+            var kda = (myData.kills+myData.assists)/myData.deaths;
             var kda2 = kda.toFixed(2);
-            var cs = user.csJg + user.csLine
+            var cs = myData.csJg + myData.csLine
             %>
             <div>
-              <div><%=user.kills%> / <%=user.deaths%> / <%=user.assists%></div>
-              <div><%=kda2%> cs : <%=cs%></div>
+              <div><%=myData.kills%> / <%=myData.deaths%> / <%=myData.assists%></div>
+              <div>평점 : <%=kda2%></div>
+              <div>cs : <%=cs%></div>
             </div>
             <div>
               <div>
@@ -79,25 +82,25 @@
               <div>
                 <div class="spellbox">
                 <%
-                var spell1_img = searchData[i].userinfo[searchData[i].myNum].summoner1Id_kr.img;
-                var spell2_img = searchData[i].userinfo[searchData[i].myNum].summoner2Id_kr.img;
+                var spell1_img = myData.summoner1Id_kr.img;
+                var spell2_img = myData.summoner2Id_kr.img;
                 %>
                 <img src="<%=spell1_img%>">
                 <img src="<%=spell2_img%>">
               </div>
               <div class="itembox">
                 <% for(let j=0;j<6;j++) { %>
-                  <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=searchData[i].userinfo[searchData[i].myNum].item[j]%>.png"/>
+                  <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png"/>
                   <%} %>
                 </div>
               </div>
               <div>
                 <%
-                var tdp = searchData[i].userinfo[searchData[i].myNum].teamDamagePercentage
+                var tdp = myData.teamDamagePercentage
                 var tdp2 = Math.floor(tdp*1000);
                 var tdp3 = tdp2/10
                 %>
-                Deal : <%=searchData[i].userinfo[searchData[i].myNum].totalDamageDealtToChampions%>
+                Deal : <%=myData.totalDamageDealtToChampions%>
                 (<%=tdp3%>%)
               </div>
             </div>
