@@ -20,6 +20,7 @@ main {
   justify-content: center;
   align-items: center;
   border: 1px solid black;
+  border-radius: 10px;
 }
 .searchBox > div {
   width: 280px;
@@ -35,16 +36,15 @@ main {
   background-color: #888;
 }
 .searchBox > div > div:nth-child(2) {
-  width: 120px;
-  height: 60px;
-  background-color: #fff;
+  width: 100px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 .searchBox > div > div:nth-child(3) {
-  width: 160px;
+  width: 180px;
   height: 180px;
   display: flex;
   justify-content: center;

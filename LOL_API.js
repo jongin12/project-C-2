@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-1772bfed-1c4c-4f24-9536-081c9f237fa7";
+const key = "RGAPI-9e8d0828-1bc8-48a1-aaff-02e80cacb721";
 
 const LOL_API = {
   summoners: (name) => {
@@ -54,6 +54,7 @@ const LOL_API = {
               controlWard: item.challenges.controlWardsPlaced,
               largestMultiKill: item.largestMultiKill,
               totalDamageDealtToChampions: item.totalDamageDealtToChampions,
+              teamDamagePercentage: item.challenges.teamDamagePercentage,
               laneMinionsFirst10Minutes:
                 item.challenges.laneMinionsFirst10Minutes,
               item: [
@@ -67,9 +68,7 @@ const LOL_API = {
               ],
             };
           });
-          endTime = new Date(data.info.gameEndTimestamp);
-          krTime = endTime.toString();
-          matchData.gameEndTimestamp = krTime;
+          matchData.gameEndTimestamp = data.info.gameEndTimestamp;
           matchData.gameDuration = data.info.gameDuration;
           matchData.gameType = data.info.gameType;
           matchData.gameMode = data.info.gameMode;

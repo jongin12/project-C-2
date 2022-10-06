@@ -30,30 +30,37 @@
       </header>
       <main>
         <% for(let i=0;i<searchData.length;i++) { %>
-        <section class="searchBox">
+          <% if(searchData[i].userinfo[searchData[i].myNum].win === true) {%>
+        <section class="searchBox" style="background-color: skyblue">
+          <% } else if (searchData[i].userinfo[searchData[i].myNum].win === false) { %>
+        <section class="searchBox" style="background-color: salmon">
+          <% } %>
           <div>
             <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=searchData[i].userinfo[searchData[i].myNum].championName%>.png"/>
             <%
-            var k = searchData[i].userinfo[searchData[i].myNum].kills;
-            var d = searchData[i].userinfo[searchData[i].myNum].deaths;
-            var a = searchData[i].userinfo[searchData[i].myNum].assists;
-            var kda = (k+a)/d;
+            var user = searchData[i].userinfo[searchData[i].myNum]
+            var kda = (user.kills+user.assists)/user.deaths;
             var kda2 = kda.toFixed(2);
+            var cs = user.csJg + user.csLine
             %>
             <div>
-              <div><%=k%> / <%=d%> / <%=a%></div>
-              <div><%=kda2%></div>
+              <div><%=user.kills%> / <%=user.deaths%> / <%=user.assists%></div>
+              <div><%=kda2%> cs : <%=cs%></div>
             </div>
             <div>
               <div>
                 <%
-                var time = searchData[i].gameEndTimestamp;
+                var now = new Date();
+                var endtime = searchData[i].gameEndTimestamp;
+                var value = now - endtime;
+                var hour = value / 1000 / 60 / 60;
+                var time = Math.floor(hour);
                 var playtime = searchData[i].gameDuration;
                 var min = Math.floor(playtime/60);
                 var sec = playtime%60;
                 %>
-                <%=time%>
-                <%=min%>분<%=sec%>초
+                <%=time%>시간 전
+                (<%=min%>분<%=sec%>초)
               </div>
               <div class="itembox">
                 <% for(let j=0;j<6;j++) { %>
@@ -61,7 +68,13 @@
                 <%} %>
               </div>
               <div>
-                <%=searchData[i].userinfo[searchData[i].myNum].totalDamageDealtToChampions%>
+                <%
+                var tdp = searchData[i].userinfo[searchData[i].myNum].teamDamagePercentage
+                var tdp2 = Math.floor(tdp*1000);
+                var tdp3 = tdp2/10
+                %>
+                Deal : <%=searchData[i].userinfo[searchData[i].myNum].totalDamageDealtToChampions%>
+                (<%=tdp3%>%)
               </div>
             </div>
           </div>
