@@ -75,8 +75,12 @@ const LOL_API = {
           matchData.userinfo = userinfo;
         })
         .then(() => {
+          var smallname = name.toLowerCase();
+          var smallname2 = smallname.split(" ").join("");
           for (let i = 0; i < 10; i++) {
-            if (matchData.userinfo[i].summonerName === name) {
+            var smalluser = matchData.userinfo[i].summonerName.toLowerCase();
+            var smalluser2 = smalluser.split(" ").join("");
+            if (smalluser2 === smallname2) {
               matchData.myNum = i;
             }
           }
