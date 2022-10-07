@@ -35,6 +35,7 @@ app.get("/summoner/:name", async function (req, res) {
   let list = { matchData: [] };
   let name = req.params.name;
   list.summoner = await LOL_API.summoners(req.params.name);
+  list.activeGame = await LOL_API.activeGame(list.summoner.id);
   list.league = await LOL_API.summonersLeague(list.summoner.id);
   list.matchList = await LOL_API.matchList(list.summoner.puuid);
   for (let i = 0; i < list.matchList.length; i++) {
@@ -59,7 +60,7 @@ app.get("/summoner/:name", async function (req, res) {
         );
       });
     })
-    .catch((err) => {
+    .catch(() => {
       res.send("없는 소환사명입니다.");
     });
 });

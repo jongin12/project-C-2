@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-9e8d0828-1bc8-48a1-aaff-02e80cacb721";
-const queueId = require("./queueId");
+const key = "RGAPI-89b9fa65-ee08-409f-88b2-b3173ff34650";
+const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
 
@@ -37,6 +37,12 @@ const LOL_API = {
         .then((res) => res.json())
         .then((data) => {
           let user = data.info.participants;
+          matchData.gameEndTimestamp = data.info.gameEndTimestamp;
+          matchData.gameDuration = data.info.gameDuration;
+          matchData.gameMode = data.info.gameMode;
+          matchData.gameType = data.info.gameType;
+          matchData.queueId = data.info.queueId;
+          matchData.matchId = data.metadata.matchId;
           let userinfo = user.map((item) => {
             return {
               summonerName: item.summonerName,
@@ -55,15 +61,14 @@ const LOL_API = {
               csJg: item.neutralMinionsKilled,
               csLine: item.totalMinionsKilled,
               win: item.win,
-              controlWard: item.challenges.controlWardsPlaced,
-              skillshotsDodged: item.challenges.skillshotsDodged,
-              skillshotsHit: item.challenges.skillshotsHit,
-              snowballsHit: item.challenges.snowballsHit,
               largestMultiKill: item.largestMultiKill,
               totalDamageDealtToChampions: item.totalDamageDealtToChampions,
-              teamDamagePercentage: item.challenges.teamDamagePercentage,
-              laneMinionsFirst10Minutes:
-                item.challenges.laneMinionsFirst10Minutes,
+              // controlWard: item.challenges.controlWardsPlaced,
+              // skillshotsDodged: item.challenges.skillshotsDodged,
+              // skillshotsHit: item.challenges.skillshotsHit,
+              // snowballsHit: item.challenges.snowballsHit,
+              // teamDamagePercentage: item.challenges.teamDamagePercentage,
+              // 우르프모드는 challenges 객체가 없어서 데이터를 못받아와서 오류생김.
               item: [
                 item.item0,
                 item.item1,
@@ -75,13 +80,35 @@ const LOL_API = {
               ],
             };
           });
-          matchData.gameEndTimestamp = data.info.gameEndTimestamp;
-          matchData.gameDuration = data.info.gameDuration;
-          matchData.gameMode = data.info.gameMode;
-          matchData.gameType = data.info.gameType;
-          matchData.queueId = data.info.queueId;
-          matchData.matchId = data.metadata.matchId;
           matchData.userinfo = userinfo;
+          if (
+            matchData.gameMode === "CLASSIC" ||
+            matchData.gameMode === "ARAM"
+          ) {
+            for (let i = 0; i < 10; i++) {
+              matchData.userinfo[i].controlWard =
+                data.info.participants[i].challenges.controlWardsPlaced;
+              matchData.userinfo[i].teamDamagePercentage =
+                data.info.participants[i].challenges.teamDamagePercentage;
+            } //게임모드 클래식, 칼바람만 challengs 가져오기
+          } else {
+            var sum1 = 0;
+            var sum2 = 0;
+            for (let i = 0; i < 5; i++) {
+              sum1 += matchData.userinfo[i].totalDamageDealtToChampions;
+            }
+            for (let i = 0; i < 5; i++) {
+              matchData.userinfo[i].teamDamagePercentage =
+                matchData.userinfo[i].totalDamageDealtToChampions / sum1;
+            }
+            for (let i = 5; i < 10; i++) {
+              sum2 += matchData.userinfo[i].totalDamageDealtToChampions;
+            }
+            for (let i = 5; i < 10; i++) {
+              matchData.userinfo[i].teamDamagePercentage =
+                matchData.userinfo[i].totalDamageDealtToChampions / sum2;
+            } // 나머지는 직접 계산.
+          }
         })
         .then(() => {
           var smallname = name.toLowerCase();

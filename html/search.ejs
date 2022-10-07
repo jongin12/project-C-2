@@ -30,8 +30,8 @@
         let win = 0;
         let lose = 0;
         for(let i=0;i<league.length;i++){
-          win =+ league[i].wins
-          lose =+ league[i].losses 
+          win += league[i].wins
+          lose += league[i].losses 
         }
         %>
         <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
@@ -55,12 +55,23 @@
             <%
             var kda = (myData.kills+myData.assists)/myData.deaths;
             var kda2 = kda.toFixed(2);
-            var cs = myData.csJg + myData.csLine
+            var multikill = myData.largestMultiKill;
+            if(multikill === 5){
+              multikillText = '펜타킬'
+            } else if (multikill === 4){
+              multikillText = '쿼드라킬'
+            } else if (multikill === 3){
+              multikillText = '트리플킬'
+            } else if (multikill === 2){
+              multikillText = '더블킬'
+            } else if (multikill === 1){
+              multikillText = ''
+            }
             %>
             <div>
               <div><%=myData.kills%> / <%=myData.deaths%> / <%=myData.assists%></div>
               <div>평점 : <%=kda2%></div>
-              <div>cs : <%=cs%></div>
+              <div><%=multikillText%></div>
             </div>
             <div>
               <div>
@@ -110,12 +121,13 @@
               <div>
                 <%
                 var tdp = myData.teamDamagePercentage
-                var tdp2 = Math.floor(tdp*1000);
-                var tdp3 = tdp2/10
+                var tdp2 = (Math.floor(tdp*1000))/10;
+                var cs = myData.csJg + myData.csLine
                 %>
                 Deal : <%=myData.totalDamageDealtToChampions%>
-                (<%=tdp3%>%)
+                (<%=tdp2%>%)
               </div>
+              <div>cs : <%=cs%></div>
             </div>
           </div>
         </section>

@@ -4,6 +4,7 @@ const queueId = {
   430: "일반",
   440: "자랭",
   450: "칼바람",
+  1900: "URF",
 };
 
 module.exports = queueId;
