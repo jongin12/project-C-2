@@ -41,43 +41,19 @@
         <% for(let i=0;i<searchData.length;i++) { %>
           <% var myData = searchData[i].userinfo[searchData[i].myNum] %>
           <% if(myData.win === true) {%>
-        <section class="searchBox" style="background-color: skyblue">
+        <section class="searchBox win" >
           <% } else if (myData.win === false) { %>
-        <section class="searchBox" style="background-color: salmon">
+        <section class="searchBox lose">
           <% } %>
           <div>
-            <div class="champ_img">
-              <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
-              <div><%=myData.champLevel%></div>
-              <% var rune_img = myData.mainRune_kr.img; %>
-              <img src="<%=rune_img%>">
-            </div>
-            <%
-            var kda = (myData.kills+myData.assists)/myData.deaths;
-            var kda2 = kda.toFixed(2);
-            var multikill = myData.largestMultiKill;
-            if(multikill === 5){
-              multikillText = '펜타킬'
-            } else if (multikill === 4){
-              multikillText = '쿼드라킬'
-            } else if (multikill === 3){
-              multikillText = '트리플킬'
-            } else if (multikill === 2){
-              multikillText = '더블킬'
-            } else if (multikill === 1){
-              multikillText = ''
-            }
-            %>
-            <div>
-              <div><%=myData.kills%> / <%=myData.deaths%> / <%=myData.assists%></div>
-              <div>평점 : <%=kda2%></div>
-              <div><%=multikillText%></div>
-            </div>
-            <div>
-              <div>
-                <%=searchData[i].queueId_kr%>
+            <div><!--111111111111111111111111111-->
+              <div class="champ_img">
+                <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
+                <div><%=myData.champLevel%></div>
+                <% var rune_img = myData.mainRune_kr.img; %>
+                <img src="<%=rune_img%>">
               </div>
-              <div>
+              <div class="info_box">
                 <%
                 var now = new Date();
                 var endtime = searchData[i].gameEndTimestamp;
@@ -98,11 +74,35 @@
                 var min = Math.floor(playtime/60);
                 var sec = playtime%60;
                 %>
-                <%=time%>
-                (<%=min%>분<%=sec%>초)
+                <div>
+                  <div><%=searchData[i].queueId_kr%></div>
+                  <div><%=time%></div>
+                  <div>(<%=min%>분<%=sec%>초)</div>
+                </div>
+                <%
+                var multikill = myData.largestMultiKill;
+                if(multikill === 5){
+                  multikillText = '펜타킬'
+                } else if (multikill === 4){
+                  multikillText = '쿼드라킬'
+                } else if (multikill === 3){
+                  multikillText = '트리플킬'
+                } else if (multikill === 2){
+                  multikillText = '더블킬'
+                } else if (multikill === 1){
+                  multikillText = ''
+                }
+                %>
+                <div>
+                  <div><%=myData.kills%> / <%=myData.deaths%> / <%=myData.assists%></div>
+                  <% if(multikill > 1){ %>
+                  <div><%=multikillText%></div>
+                  <% } %>
+                </div>
               </div>
-              <div>
-                <div class="spellbox">
+            </div><!--111111111111111111111111111-->
+            <div><!--22222222222222222222-->
+              <div class="spell_box">
                 <%
                 var spell1_img = myData.summoner1Id_kr.img;
                 var spell2_img = myData.summoner2Id_kr.img;
@@ -110,25 +110,37 @@
                 <img src="<%=spell1_img%>">
                 <img src="<%=spell2_img%>">
               </div>
-              <div class="itembox">
-                <% for(let j=0;j<6;j++) { %>
-                  <div>
+              <div class="item_box">
+                <div>
+                  <% for(let j=0;j<6;j++) { %>
                     <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png" onerror="this.style.display='none'"/>
-                  </div>
                   <%} %>
                 </div>
               </div>
-              <div>
+            </div><!--22222222222222222222-->
+            <div><!--33333333333333333333333333-->
+              <div class="kda_box">
                 <%
-                var tdp = myData.teamDamagePercentage
-                var tdp2 = (Math.floor(tdp*1000))/10;
-                var cs = myData.csJg + myData.csLine
+                var kda = (myData.kills+myData.assists)/myData.deaths;
+                var kda2 = kda.toFixed(1);
                 %>
-                Deal : <%=myData.totalDamageDealtToChampions%>
-                (<%=tdp2%>%)
+                <div>평점 : <%=kda2%></div>
               </div>
-              <div>cs : <%=cs%></div>
-            </div>
+              <div class="info_box2">
+                <%
+                var tdp = myData.teamDamagePercentage;
+                var tdp2 = (Math.floor(tdp*1000))/10;
+                var deal = myData.totalDamageDealtToChampions;
+                var cs = myData.csJg + myData.csLine;
+                var gold = myData.gold;
+                %>
+                <div>
+                  <div>Deal : <%=deal%> (<%=tdp2%>%)</div>
+                  <div>cs : <%=cs%></div>
+                  <div>Gold : <%=gold%></div>
+                </div>
+              </div>
+            </div><!--33333333333333333333333333-->
           </div>
         </section>
         <%} %>

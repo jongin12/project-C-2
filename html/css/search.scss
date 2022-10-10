@@ -1,125 +1,207 @@
+@mixin box($width,$height) {
+  width: $width;
+  height: $height;
+}
+
+body{
+  overflow-x: hidden;
+}
+
 #root{
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 header{
-  width: 100vw;
-  height: 10vh;
+  @include box(100%,10vh);
   background-color: white;
+  border-bottom: 1px solid black;
 }
 main{
-  width: 100vw;
-  height: 90vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   >div{
-    width: 700px;
+    width: 600px;
     height: inherit;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+}
+.win{
+  border-top:5px solid blue;
+  border-bottom:5px solid blue;
+  background-color: rgb(217, 241, 251);
+}
+.lose{
+  border-top:5px solid red;
+  border-bottom:5px solid red;
+  background-color: rgb(255, 229, 226);
 }
 
 .searchBox{
-  width: 300px;
+  width: 80%;
   height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border:1px solid black;
-  border-radius: 10px;
-  margin: 20px;
+  margin: 10px;
+  box-shadow: 0px 2px 5px 5px rgba(0,0,0,0.1);
   >div{
-    width: 280px;
+    width: 320px;
     height: 180px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    >div:nth-child(2){
-      width: 100px;
-      height: 80px;
+    >div{
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-    >div:nth-child(3){
-      width: 180px;
-      height: 180px;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      >div:nth-child(3){
-        width: 180px;
-        height: 90px;
-        display: flex;
-      }
     }
   }
 }
 .champ_img{
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   position: relative;
+  display: flex;
+  justify-self: center;
+  align-self: center;
   >img{
-    width: 96px;
-    height: 96px;
-    border-radius: 48px;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
   }
   >div:nth-child(2){
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     background-color: #888;
-    border-radius: 14px;
+    border-radius: 12px;
     position:absolute;
     color:white;
-    bottom: 4px;
+    bottom: 0px;
     left: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   >img:nth-child(3){
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     background-color: black;
-    border-radius: 14px;
+    border-radius: 12px;
     position: absolute;
-    bottom: 4px;
-    right: 4px;
+    bottom: 0px;
+    right: 0px;
   }
 }
-.spellbox{
-  width: 40px;
-  height: 90px;
+.info_box{
+  @include box(240px,80px);
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  >div:nth-child(1){
+    @include box(210px,30px);
+    display: flex;
+    justify-content: space-between;
+    >div{
+      display: flex;
+      align-items: center;
+    }
+    >div:nth-child(1){
+      font-size:20px;
+    }
+    >div:nth-child(2){
+      font-size:16px;
+    }
+    >div:nth-child(3){
+      font-size:12px;
+    }
+  }
+  >div:nth-child(2){
+    @include box(210px,50px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    >div:nth-child(1){
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      white-space: pre;
+    }
+    >div:nth-child(2){
+      display: inline-block;
+      background-color: violet;
+      border-radius: 40px;
+      text-align: center;
+      color:white;
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  }
+}
+
+.spell_box{
+  width: 80px;
+  height: 60px;
+  display: flex;
   justify-content: space-around;
   align-items: center;
   >img{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border:1px gray solid;
-    border-radius: 10px;
+    border-radius: 8px;
   }
 }
-.itembox{
-  width: 140px;
-  height: 90px;
+.item_box{
+  width: 240px;
+  height: 60px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-end;
+  >div{
+    width: 210px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    >img{
+      width: 35px;
+      height: 35px;
+      border:1px gray solid;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  }
+}
+
+.kda_box{
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
   align-items: center;
   >div{
-    width: 40px;
-    height: 40px;
-    border:1px gray solid;
-    border-radius: 10px;
-    overflow: hidden;
-    >img{
-      width: 40px;
-      height: 40px;
+    font-size: 20px;
+    font-weight: 800;
+    white-space: pre;
+  }
+}
+.info_box2{
+  width: 240px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  >div{
+    @include box(210px,40px);
+    display: flex;
+    flex-wrap: wrap;
+    >div:nth-child(1){
+      width: 210px;
+    }
+    >div:nth-child(2){
+      width: 80px;
     }
   }
 }
