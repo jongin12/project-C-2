@@ -39,9 +39,26 @@
           }
           let win_lose = Math.floor((win*1000)/(win+lose))/10;
           %>
+          <div>
           <%=Name%><%=league[0].tier%>
           <%=league[0].rank%> <%=win%>승 <%=lose%>패
           <%=win_lose%>%
+            <form action="./activegame">
+              <input type="button">
+            </form>
+          </div>
+          <div>
+            <%
+            let win20 = math.win;
+            let lose20 = math.matchData - win20;
+            %>
+            <div>
+              최근 <%=math.matchData%>게임 결과
+            </div>
+            <div>
+              <%=win20%>승 <%=lose20%>패
+            </div>
+          </div>
         </div>
       </header>
       <main>

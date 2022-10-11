@@ -22,7 +22,7 @@ const LOL_API = {
     });
   },
   matchList: (puuid) => {
-    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`;
+    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20&api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())
