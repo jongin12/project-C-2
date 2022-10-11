@@ -1,0 +1,13 @@
+@mixin box($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+#root{
+  @include box(100vw,100vh);
+}
+
+header{
+  @include box(400px,100px);
+  background-color: red;
+}

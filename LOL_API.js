@@ -145,10 +145,27 @@ const LOL_API = {
   },
   activeGame: (id) => {
     var url = `https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${key}`;
+    matchData = {};
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())
-        .then((data) => resolve(data));
+        .then((data) => {
+          if (!data.status) {
+            //status에 데이터가 없다면 = 오류가 안뜨면
+            let quNum = data.gameQueueConfigId;
+            let queueId_kr = queueId[quNum];
+            data.queueId_kr = queueId_kr;
+            for (let i = 0; i < 10; i++) {
+              let spell1 = data.participants[i].spell1Id;
+              let spell2 = data.participants[i].spell2Id;
+              let summoner1Id_kr = spell[spell1];
+              let summoner2Id_kr = spell[spell2];
+              data.participants[i].spell1Id_kr = summoner1Id_kr;
+              data.participants[i].spell2Id_kr = summoner2Id_kr;
+            }
+          }
+          resolve(data);
+        });
     });
   },
 };

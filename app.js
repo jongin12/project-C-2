@@ -67,16 +67,31 @@ app.get("/summoner/:name", async function (req, res) {
 });
 
 app.get("/summoner/:name/activegame", async function (req, res) {
-  let list = { matchData: [] };
-  let name = req.params.name;
+  let list = {};
   list.summoner = await LOL_API.summoners(req.params.name);
   list.activeGame = await LOL_API.activeGame(list.summoner.id);
-  list.league = await LOL_API.summonersLeague(list.summoner.id);
-  list.matchList = await LOL_API.matchList(list.summoner.puuid);
-  for (let i = 0; i < list.matchList.length; i++) {
-    list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
-  }
-  res.send(list);
+  new Promise((resolve, reject) => {
+    if (list.summoner.status) {
+      reject("없는 소환사명입니다.");
+    } else if (list.activeGame.status) {
+      reject("진행중인 게임이 없습니다.");
+    } else {
+      resolve();
+    }
+  })
+    .then(() => {
+      fs.readFile("html/active-game.ejs", "utf8", function (err, data) {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(
+          ejs.render(data, {
+            Data: list.activeGame,
+          })
+        );
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 app.listen(8080, function () {
