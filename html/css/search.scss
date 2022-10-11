@@ -2,6 +2,12 @@
   width: $width;
   height: $height;
 }
+@mixin flex($justify,$align) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 
 body{
   overflow-x: hidden;
@@ -24,12 +30,9 @@ main{
   display: flex;
   justify-content: center;
   >div{
-    width: 600px;
-    height: inherit;
-    display: flex;
+    @include box(600px,inherit);
+    @include flex(center,center);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 }
 .win{
@@ -44,16 +47,12 @@ main{
 }
 
 .searchBox{
-  width: 80%;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include box(80%,200px);
+  @include flex(center,center);
   margin: 10px;
   box-shadow: 0px 2px 5px 5px rgba(0,0,0,0.1);
   >div{
-    width: 320px;
-    height: 180px;
+    @include box(320px,180px);
     display: flex;
     flex-direction: column;
     >div{
@@ -62,33 +61,25 @@ main{
   }
 }
 .champ_img{
-  width: 80px;
-  height: 80px;
+  @include box(80px,80px);
   position: relative;
-  display: flex;
-  justify-self: center;
-  align-self: center;
+  @include flex(center,center);
   >img{
-    width: 80px;
-    height: 80px;
+    @include box(80px,80px);
     border-radius: 40px;
   }
   >div:nth-child(2){
-    width: 24px;
-    height: 24px;
+    @include box(24px,24px);
     background-color: #888;
     border-radius: 12px;
     position:absolute;
     color:white;
     bottom: 0px;
     left: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex(center,center);
   }
   >img:nth-child(3){
-    width: 24px;
-    height: 24px;
+    @include box(24px,24px);
     background-color: black;
     border-radius: 12px;
     position: absolute;
@@ -121,9 +112,7 @@ main{
   }
   >div:nth-child(2){
     @include box(210px,50px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(space-between,center);
     >div:nth-child(1){
       font-size: 22px;
       font-weight: 800;
@@ -144,31 +133,24 @@ main{
 }
 
 .spell_box{
-  width: 80px;
-  height: 60px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  @include box(80px,60px);
+  @include flex(space-around,center);
   >img{
-    width: 35px;
-    height: 35px;
+    @include box(35px,35px);
     border:1px gray solid;
     border-radius: 8px;
   }
 }
 .item_box{
-  width: 240px;
-  height: 60px;
+  @include box(240px,60px);
   display: flex;
   justify-content: flex-end;
   >div{
-    width: 210px;
-    height: 60px;
+    @include box(210px,60px);
     display: flex;
     align-items: center;
     >img{
-      width: 35px;
-      height: 35px;
+      @include box(35px,35px);
       border:1px gray solid;
       border-radius: 8px;
       overflow: hidden;
@@ -177,11 +159,8 @@ main{
 }
 
 .kda_box{
-  width: 80px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include box(80px,40px);
+  @include flex(center,center);
   >div{
     font-size: 20px;
     font-weight: 800;
@@ -189,8 +168,7 @@ main{
   }
 }
 .info_box2{
-  width: 240px;
-  height: 40px;
+  @include box(240px,40px);
   display: flex;
   justify-content: flex-end;
   >div{
