@@ -17,33 +17,41 @@
   <body>
     <div id="root">
       <header>
-        <form>
-          <input type="text" placeholder="소환사명" id="name" />
-          <input
+        <div class="search_box">
+          <form>
+            <input type="text" placeholder="소환사명" id="name" />
+            <input
+            id="button"
             type="button"
             value="검색"
             onclick="document.location.href=getvalue()"
-          />
-        </form>
-        <%
-        let Name = league[0].summonerName;
-        let win = 0;
-        let lose = 0;
-        for(let i=0;i<league.length;i++){
-          win += league[i].wins
-          lose += league[i].losses 
-        }
-        %>
-        <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
+            />
+          </form>
+        </div>
+        <div class="user_info">
+          <%
+          let Name = league[0].summonerName;
+          let win = 0;
+          let lose = 0;
+          for(let i=0;i<league.length;i++){
+            win += league[i].wins
+            lose += league[i].losses 
+          }
+          let win_lose = Math.floor((win*1000)/(win+lose))/10;
+          %>
+          <%=Name%><%=league[0].tier%>
+          <%=league[0].rank%> <%=win%>승 <%=lose%>패
+          <%=win_lose%>%
+        </div>
       </header>
       <main>
         <div>
         <% for(let i=0;i<searchData.length;i++) { %>
           <% var myData = searchData[i].userinfo[searchData[i].myNum] %>
           <% if(myData.win === true) {%>
-        <section class="searchBox win" >
+        <section class="game_Box win" >
           <% } else if (myData.win === false) { %>
-        <section class="searchBox lose">
+        <section class="game_Box lose">
           <% } %>
           <div>
             <div><!--111111111111111111111111111-->

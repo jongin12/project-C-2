@@ -4,6 +4,7 @@ body {
 
 #root {
   width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,22 +13,56 @@ body {
 header {
   width: 100%;
   height: 10vh;
-  background-color: white;
-  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(217, 241, 251);
+  flex-direction: column;
+}
+
+.search_box {
+  width: 80%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search_box > form {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search_box > form #name {
+  width: 90%;
+  height: 90%;
+}
+.search_box > form #button {
+  width: 10%;
+  height: 90%;
+}
+
+.user_info {
+  width: 80%;
+  height: 70%;
 }
 
 main {
   width: 100%;
+  height: 90vh;
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 10vh;
 }
 main > div {
   width: 600px;
   height: inherit;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
 }
 
 .win {
@@ -42,7 +77,7 @@ main > div {
   background-color: rgb(255, 229, 226);
 }
 
-.searchBox {
+.game_Box {
   width: 80%;
   height: 200px;
   display: flex;
@@ -51,13 +86,13 @@ main > div {
   margin: 10px;
   box-shadow: 0px 2px 5px 5px rgba(0, 0, 0, 0.1);
 }
-.searchBox > div {
+.game_Box > div {
   width: 320px;
   height: 180px;
   display: flex;
   flex-direction: column;
 }
-.searchBox > div > div {
+.game_Box > div > div {
   display: flex;
 }
 
@@ -66,8 +101,8 @@ main > div {
   height: 80px;
   position: relative;
   display: flex;
-  justify-self: center;
-  align-self: center;
+  justify-content: center;
+  align-items: center;
 }
 .champ_img > img {
   width: 80px;
@@ -84,8 +119,8 @@ main > div {
   bottom: 0px;
   left: 0px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 .champ_img > img:nth-child(3) {
   width: 24px;
@@ -176,7 +211,6 @@ main > div {
 .item_box > div > img {
   width: 35px;
   height: 35px;
-  border: 1px gray solid;
   border-radius: 8px;
   overflow: hidden;
 }
