@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-ed1cd981-7ede-416d-9dfd-b61c6fcc8b5a";
+const key = "RGAPI-2af93fd3-4973-413b-96cf-321cd0cc7c94";
 const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
