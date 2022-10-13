@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-2af93fd3-4973-413b-96cf-321cd0cc7c94";
+const key = "RGAPI-dc7d6cde-b1e8-4aa2-9538-89fbd2082c37";
 const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
@@ -16,13 +16,23 @@ const LOL_API = {
   summonersLeague: (id) => {
     var url = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${key}`;
     return new Promise((resolve, reject) => {
+      let league = {};
       fetch(url)
         .then((res) => res.json())
-        .then((data) => resolve(data));
+        .then((data) => {
+          data.forEach(function (value) {
+            if (value.queueType === "RANKED_SOLO_5x5") {
+              league.solo = value;
+            } else if (value.queueType === "RANKED_FLEX_SR") {
+              league.flex = value;
+            }
+          });
+        })
+        .then(() => resolve(league));
     });
   },
   matchList: (puuid) => {
-    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20&api_key=${key}`;
+    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())

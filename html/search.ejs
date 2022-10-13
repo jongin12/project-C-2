@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/search.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <style>
       * {
         margin: 0;
@@ -29,12 +30,12 @@
         </div>
         <div class="user_info">
           <%
-          let Name = league[0].summonerName;
+          let Name = summoner.name;
           let win = 0;
           let lose = 0;
-          for(let i=0;i<league.length;i++){
-            win += league[i].wins
-            lose += league[i].losses 
+          for (key in league){
+            win += league[key].wins
+            lose += league[key].losses 
           }
           let win_lose = Math.floor((win*1000)/(win+lose))/10;
           %>
@@ -42,9 +43,12 @@
             <div id="name_text">
               <%=Name%>
             </div>
-          <%=league[0].tier%>
-          <%=league[0].rank%> <%=win%>승 <%=lose%>패
+          <%=league.solo.tier%>
+          <%=league.solo.rank%> <%=win%>승 <%=lose%>패
           <%=win_lose%>%
+            <div>
+              <img src="/img/ranked-emblems/<%=league.solo.tier%>.png">
+            </div>
             <form>
               <input
               type="button"
@@ -62,7 +66,9 @@
               최근 <%=math.matchData%>게임 결과
             </div>
             <div>
-              <%=win20%>승 <%=lose20%>패
+              <div id="win_text" style="display : none"><%=win20%></div>
+              <div id="lose_text" style="display : none"><%=lose20%></div>
+              <canvas id="myChart"></canvas>
             </div>
           </div>
         </div>
@@ -178,18 +184,49 @@
         </div>
       </main>
     </div>
-    <script>
+    <script type="text/javascript">
       function getvalue() {
         var text = document.getElementById("name").value;
         var url = "/summoner/" + text;
         return url;
       }
       const name = document.getElementById('name_text');
-      console.dir(name);
       function activegame() {
         var url = "/summoner/" + name.innerText + "/activegame";
         return url;
       }
+      const win = document.getElementById('win_text');
+      const lose = document.getElementById('lose_text');
+      var context = document
+        .getElementById('myChart')
+        .getContext('2d');
+      var myChart = new Chart(context, {
+        type: 'doughnut', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+          labels:['패','승'],
+          datasets: [
+            { //데이터
+              label: '승률', //차트 제목
+              data: [
+                lose.innerText, win.innerText //x축 label에 대응되는 데이터 값
+              ],
+              backgroundColor: [//색상
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+              ],
+              borderColor: [//경계선 색상
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+              ],
+              borderWidth: 1, //경계선 굵기
+            }
+          ]
+        },
+        options: {
+          legend: false,
+          animation: false,
+        }
+      });
     </script>
   </body>
 </html>

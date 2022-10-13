@@ -54,9 +54,26 @@ header {
   width: 50%;
   height: 100%;
 }
+.user_info > div:nth-child(1) > div:nth-child(2) > img {
+  width: 50px;
+  height: 50px;
+}
 .user_info > div:nth-child(2) {
   width: 50%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.user_info > div:nth-child(2) > div:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user_info > div:nth-child(2) > div:nth-child(2) {
+  width: 160px;
+  height: 160px;
 }
 
 main {

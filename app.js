@@ -60,6 +60,7 @@ app.get("/summoner/:name", async function (req, res) {
             league: list.league,
             summoner: list.summoner,
             math: list.math,
+            activeGame: list.activeGame,
           })
         );
       });
