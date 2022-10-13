@@ -43,11 +43,33 @@
             <div id="name_text">
               <%=Name%>
             </div>
-          <%=league.solo.tier%>
-          <%=league.solo.rank%> <%=win%>승 <%=lose%>패
-          <%=win_lose%>%
             <div>
-              <img src="/img/ranked-emblems/<%=league.solo.tier%>.png">
+              <div class="rank">
+                <p>솔로 랭크</p>
+                <img src="/img/ranked-emblems/<%=league.solo.tier%>.png">
+                <p style="font-size : 12px">
+                  <%=league.solo.tier%>
+                  <%=league.solo.rank%>
+                  <%=league.solo.leaguePoints%>
+                </p>
+                <p style="font-size : 14px">
+                  <%=league.solo.wins%>승 
+                  <%=league.solo.losses%>패
+                </p>
+              </div>
+              <div class="rank">
+                <p>자유 랭크</p>
+                <img src="/img/ranked-emblems/<%=league.flex.tier%>.png">
+                <p style="font-size : 12px">
+                  <%=league.flex.tier%>
+                  <%=league.flex.rank%>
+                  <%=league.flex.leaguePoints%>
+                </p>
+                <p style="font-size : 14px">
+                  <%=league.flex.wins%>승 
+                  <%=league.flex.losses%>패
+                </p>
+              </div>
             </div>
             <form>
               <input

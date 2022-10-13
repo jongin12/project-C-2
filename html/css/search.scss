@@ -47,10 +47,16 @@ header{
   @include flex;
   >div:nth-child(1){
     @include box(50%,100%);
+    >div:nth-child(1){
+      @include box(100%,40px);
+      @include flex;
+    }
     >div:nth-child(2){
-      >img{
-        @include box(50px,50px);
-      }
+      @include box(100%,140px);
+      display: flex;
+    }
+    >form{
+      @include flex;
     }
   }
   >div:nth-child(2){
@@ -63,6 +69,14 @@ header{
     >div:nth-child(2){
       @include box(160px,160px);
     }
+  }
+}
+.rank{
+  @include box(50%,100%);
+  @include flex;
+  flex-direction: column;
+  >img{
+    @include box(80px,80px);
   }
 }
 
