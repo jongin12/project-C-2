@@ -71,7 +71,12 @@
                 </p>
               </div>
             </div>
+            <% if(!activeGame.status) {%>
             <form>
+              <% } else { %>
+            <div>진행중인 게임 없음</div>
+            <form style="display : none">
+                <% } %>
               <input
               type="button"
               value="진행중인 게임"

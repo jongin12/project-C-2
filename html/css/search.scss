@@ -55,6 +55,9 @@ header{
       @include box(100%,140px);
       display: flex;
     }
+    >div:nth-child(3){
+      @include flex;
+    }
     >form{
       @include flex;
     }

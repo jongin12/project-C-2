@@ -66,6 +66,11 @@ header {
   height: 140px;
   display: flex;
 }
+.user_info > div:nth-child(1) > div:nth-child(3) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .user_info > div:nth-child(1) > form {
   display: flex;
   justify-content: center;
