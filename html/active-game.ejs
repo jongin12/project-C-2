@@ -68,18 +68,22 @@
       console.dir(time);
       let now = time.innerText;
 
-      let min = Math.floor(now / 60);
-      let sec = now % 60;
-      let timeset = `${min}분 ${sec}초`;
-      time.innerText = timeset;
-
-      setInterval(() => {
-        now++;
+      if (now < 0) {
+        time.innerText = "loading..";
+      } else {
         let min = Math.floor(now / 60);
         let sec = now % 60;
         let timeset = `${min}분 ${sec}초`;
         time.innerText = timeset;
-      }, 1000);
+
+        setInterval(() => {
+          now++;
+          let min = Math.floor(now / 60);
+          let sec = now % 60;
+          let timeset = `${min}분 ${sec}초`;
+          time.innerText = timeset;
+        }, 1000);
+      }
     </script>
   </body>
 </html>
