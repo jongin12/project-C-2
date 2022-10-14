@@ -23,28 +23,42 @@
         <p><%=min%>분<%=sec%>초</p>
       </header>
       <main>
-        <% for(let i=0; i<5; i++) { %> <% let myData = Data.participants[i] %>
+        <% for(let i=0; i<5; i++) { %> <% let myData = Data.participants[i]; let
+        user = User[i];%>
         <div class="user_left">
           <div>
-            <img
-              src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championId%>.png"
-            />
+            <img src="<%=myData.championImg%>" />
           </div>
           <div>
-            <img src="" />
+            <img src="<%=myData.main_perk_kr.img%>" />
+            <img src="<%=myData.sub_perk_kr.img%>" />
           </div>
           <div>
             <img src="<%=myData.spell1Id_kr.img%>" />
             <img src="<%=myData.spell2Id_kr.img%>" />
           </div>
-          <div></div>
+          <div>
+            <p><%=myData.summonerName%></p>
+            <p><%=user.solo.tier%></p>
+          </div>
         </div>
-        <% } %> <% for(let i=5; i<10; i++) { %>
+        <% } %> <% for(let i=5; i<10; i++) { %> <% let myData =
+        Data.participants[i] %>
         <div class="user_right">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div>
+            <p><%=myData.summonerName%></p>
+          </div>
+          <div>
+            <img src="<%=myData.spell1Id_kr.img%>" />
+            <img src="<%=myData.spell2Id_kr.img%>" />
+          </div>
+          <div>
+            <img src="<%=myData.main_perk_kr.img%>" />
+            <img src="<%=myData.sub_perk_kr.img%>" />
+          </div>
+          <div>
+            <img src="<%=myData.championImg%>" />
+          </div>
         </div>
         <% } %>
       </main>

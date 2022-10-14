@@ -6,6 +6,7 @@ const fetch = require("node-fetch");
 const LOL_API = require("./LOL_API");
 const ejs = require("ejs");
 const math = require("./math");
+const { activeGame } = require("./LOL_API");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -71,9 +72,15 @@ app.get("/summoner/:name", async function (req, res) {
 });
 
 app.get("/summoner/:name/activegame", async function (req, res) {
-  let list = {};
+  let list = { userInfo: [] };
   list.summoner = await LOL_API.summoners(req.params.name);
   list.activeGame = await LOL_API.activeGame(list.summoner.id);
+  if (!list.activeGame.status) {
+    for (let i = 0; i < 10; i++) {
+      var userId = list.activeGame.participants[i].summonerId;
+      list.userInfo[i] = await LOL_API.summonersLeague(userId);
+    }
+  }
   new Promise((resolve, reject) => {
     if (list.summoner.status) {
       reject("없는 소환사명입니다.");
@@ -84,14 +91,16 @@ app.get("/summoner/:name/activegame", async function (req, res) {
     }
   })
     .then(() => {
-      fs.readFile("html/active-game.ejs", "utf8", function (err, data) {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(
-          ejs.render(data, {
-            Data: list.activeGame,
-          })
-        );
-      });
+      res.send(list);
+      // fs.readFile("html/active-game.ejs", "utf8", function (err, data) {
+      //   res.writeHead(200, { "Content-Type": "text/html" });
+      //   res.end(
+      //     ejs.render(data, {
+      //       Data: list.activeGame,
+      //       User: list.userInfo,
+      //     })
+      //   );
+      // });
     })
     .catch((err) => {
       res.send(err);
