@@ -88,11 +88,13 @@
             <%
             let win20 = math.win;
             let lose20 = math.matchData - win20;
+            let matchText = `(${win20}승 ${lose20}패)`
             %>
             <div>
               <p>
                 최근 <%=math.matchData%> 게임
               </p>
+              <p><%=matchText%></p>
               <canvas id="myChart"></canvas>
               <div id="win_text" style="display : none"><%=win20%></div>
               <div id="lose_text" style="display : none"><%=lose20%></div>
@@ -185,10 +187,15 @@
             <div><!--33333333333333333333333333-->
               <div class="kda_box">
                 <%
-                let kda = (myData.kills+myData.assists)/myData.deaths;
-                let kda2 = kda.toFixed(1);
+                if(myData.deaths === 0){
+                  kdaText = "perfect";
+                } else {
+                  let kda = (myData.kills+myData.assists)/myData.deaths;
+                  kda2 = kda.toFixed(1);
+                  kdaText = "평점 : "+kda2;
+                }
                 %>
-                <div>평점 : <%=kda2%></div>
+                <div><%=kdaText%></div>
               </div>
               <div class="info_box2">
                 <%
@@ -252,6 +259,7 @@
         options: {
           legend: false,
           animation: false,
+          events:[],
         }
       });
     </script>

@@ -69,11 +69,19 @@ header{
     >div:nth-child(1){
       @include box(160px,160px);
       position: relative;
-      >p{
-        @include box(80px,20px);
+      >p:nth-child(2){
+        @include box(80px,15px);
         @include flex;
         position: absolute;
-        top: 70px;
+        top: 65px;
+        left: 40px;
+        font-size: 12px;
+      }
+      >p:nth-child(3){
+        @include box(80px,15px);
+        @include flex;
+        position: absolute;
+        top: 80px;
         left: 40px;
         font-size: 12px;
       }
