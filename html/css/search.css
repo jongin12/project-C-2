@@ -85,13 +85,20 @@ header {
   flex-direction: column;
 }
 .user_info > div:nth-child(2) > div:nth-child(1) {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+.user_info > div:nth-child(2) > div:nth-child(1) > p {
+  width: 80px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.user_info > div:nth-child(2) > div:nth-child(2) {
-  width: 160px;
-  height: 160px;
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  font-size: 12px;
 }
 
 .rank {

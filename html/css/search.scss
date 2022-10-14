@@ -67,10 +67,16 @@ header{
     @include flex;
     flex-direction: column;
     >div:nth-child(1){
-      @include flex;
-    }
-    >div:nth-child(2){
       @include box(160px,160px);
+      position: relative;
+      >p{
+        @include box(80px,20px);
+        @include flex;
+        position: absolute;
+        top: 70px;
+        left: 40px;
+        font-size: 12px;
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-dc7d6cde-b1e8-4aa2-9538-89fbd2082c37";
 const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
+const key = require("./module/RiotApiKey");
 
 const LOL_API = {
   summoners: (name) => {
@@ -180,9 +180,6 @@ const LOL_API = {
   },
 };
 
-// LOL_API.summoners("흰긴꼬리원숭이")
-//   .then((data) => LOL_API.matchList(data.puuid))
-//   .then((data) => LOL_API.matchInfo(data[0]))
-//   .then((data) => console.log(data));
+// LOL_API.summoners("흰긴꼬리원숭이").then((data) => console.log(data));
 
 module.exports = LOL_API;

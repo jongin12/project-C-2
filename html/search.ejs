@@ -90,12 +90,12 @@
             let lose20 = math.matchData - win20;
             %>
             <div>
-              최근 <%=math.matchData%>게임 결과
-            </div>
-            <div>
+              <p>
+                최근 <%=math.matchData%> 게임
+              </p>
+              <canvas id="myChart"></canvas>
               <div id="win_text" style="display : none"><%=win20%></div>
               <div id="lose_text" style="display : none"><%=lose20%></div>
-              <canvas id="myChart"></canvas>
             </div>
           </div>
         </div>
