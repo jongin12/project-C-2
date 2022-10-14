@@ -21,13 +21,15 @@ const LOL_API = {
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          data.forEach(function (value) {
-            if (value.queueType === "RANKED_SOLO_5x5") {
-              league.solo = value;
-            } else if (value.queueType === "RANKED_FLEX_SR") {
-              league.flex = value;
-            }
-          });
+          if (!data.status) {
+            data.forEach(function (value) {
+              if (value.queueType === "RANKED_SOLO_5x5") {
+                league.solo = value;
+              } else if (value.queueType === "RANKED_FLEX_SR") {
+                league.flex = value;
+              }
+            });
+          }
           if (!league.solo) {
             league.solo = {
               queueType: "RANKED_SOLO_5x5",
@@ -188,7 +190,7 @@ const LOL_API = {
             data.queueId_kr = queueId_kr;
             for (let i = 0; i < 10; i++) {
               let championId = data.participants[i].championId;
-              data.championImg = `https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/${champion[championId]}.png`;
+              data.participants[i].championImg = champion[championId].img;
 
               let spell1 = data.participants[i].spell1Id;
               let spell2 = data.participants[i].spell2Id;
@@ -197,12 +199,12 @@ const LOL_API = {
               data.participants[i].spell1Id_kr = summoner1Id_kr;
               data.participants[i].spell2Id_kr = summoner2Id_kr;
 
-              let main_perk = data.participants[i].perks.perkIds[1];
-              //let sub_perk = data.participants[i].perks.perkSubStyle;
+              let main_perk = data.participants[i].perks.perkIds[0];
+              let sub_perk = data.participants[i].perks.perkSubStyle;
               let main_perk_kr = rune[main_perk];
-              // let sub_perk_kr = rune[sub_perk];
+              let sub_perk_kr = rune[sub_perk];
               data.participants[i].main_perk_kr = main_perk_kr;
-              // data.participants[i].sub_perk_kr = sub_perk_kr;
+              data.participants[i].sub_perk_kr = sub_perk_kr;
             }
           }
           resolve(data);

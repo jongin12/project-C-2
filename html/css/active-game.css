@@ -50,6 +50,10 @@ main {
   width: 40px;
   height: 80px;
 }
+.user_left > div:nth-child(2) > img {
+  width: 35px;
+  height: 35px;
+}
 .user_left > div:nth-child(3) {
   width: 40px;
   height: 80px;
@@ -61,6 +65,10 @@ main {
 .user_left > div:nth-child(4) {
   width: 140px;
   height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .user_right {
@@ -74,10 +82,18 @@ main {
 .user_right > div:nth-child(1) {
   width: 140px;
   height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .user_right > div:nth-child(2) {
   width: 40px;
   height: 80px;
+}
+.user_right > div:nth-child(2) > img {
+  width: 35px;
+  height: 35px;
 }
 .user_right > div:nth-child(3) {
   width: 40px;
@@ -90,4 +106,9 @@ main {
 .user_right > div:nth-child(4) {
   width: 80px;
   height: 80px;
+}
+.user_right > div:nth-child(4) > img {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
 }/*# sourceMappingURL=active-game.css.map */

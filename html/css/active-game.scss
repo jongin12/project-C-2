@@ -43,6 +43,9 @@ main{
   }
   >div:nth-child(2){
     @include box(40px,80px);
+    >img{
+      @include box(35px,35px);
+    }
   }
   >div:nth-child(3){
     @include box(40px,80px);
@@ -52,6 +55,8 @@ main{
   }
   >div:nth-child(4){
     @include box(140px,80px);
+    @include flex;
+    flex-direction: column;
   }
 }
 
@@ -61,9 +66,14 @@ main{
   border:1px black solid;
   >div:nth-child(1){
     @include box(140px,80px);
+    @include flex;
+    flex-direction: column;
   }
   >div:nth-child(2){
     @include box(40px,80px);
+    >img{
+      @include box(35px,35px);
+    }
   }
   >div:nth-child(3){
     @include box(40px,80px);
@@ -73,5 +83,9 @@ main{
   }
   >div:nth-child(4){
     @include box(80px,80px);
+    >img{
+      @include box(70px,70px);
+      border-radius: 35px;
+    }
   }
 }
