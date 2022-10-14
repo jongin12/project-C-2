@@ -1,10 +1,93 @@
 #root {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 header {
-  width: 400px;
-  height: 100px;
-  background-color: red;
+  width: 600px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: skyblue;
+}
+header > p {
+  font-size: 24px;
+}
+
+main {
+  width: 600px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.user_left {
+  width: 300px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px black solid;
+}
+.user_left > div:nth-child(1) {
+  width: 80px;
+  height: 80px;
+}
+.user_left > div:nth-child(1) > img {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+}
+.user_left > div:nth-child(2) {
+  width: 40px;
+  height: 80px;
+}
+.user_left > div:nth-child(3) {
+  width: 40px;
+  height: 80px;
+}
+.user_left > div:nth-child(3) > img {
+  width: 35px;
+  height: 35px;
+}
+.user_left > div:nth-child(4) {
+  width: 140px;
+  height: 80px;
+}
+
+.user_right {
+  width: 300px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px black solid;
+}
+.user_right > div:nth-child(1) {
+  width: 140px;
+  height: 80px;
+}
+.user_right > div:nth-child(2) {
+  width: 40px;
+  height: 80px;
+}
+.user_right > div:nth-child(3) {
+  width: 40px;
+  height: 80px;
+}
+.user_right > div:nth-child(3) > img {
+  width: 35px;
+  height: 35px;
+}
+.user_right > div:nth-child(4) {
+  width: 80px;
+  height: 80px;
 }/*# sourceMappingURL=active-game.css.map */

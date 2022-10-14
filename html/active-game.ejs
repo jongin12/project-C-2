@@ -16,12 +16,37 @@
   </head>
   <body>
     <div id="root">
-      <main>
+      <header>
         <% let time = Data.gameLength; let min = Math.floor(time/60); let sec =
         time%60; %>
-        <div><%=Data.queueId_kr%></div>
-        <div><%=min%><%=sec%></div>
-        <div id="user"></div>
+        <p><%=Data.queueId_kr%></p>
+        <p><%=min%>분<%=sec%>초</p>
+      </header>
+      <main>
+        <% for(let i=0; i<5; i++) { %> <% let myData = Data.participants[i] %>
+        <div class="user_left">
+          <div>
+            <img
+              src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championId%>.png"
+            />
+          </div>
+          <div>
+            <img src="" />
+          </div>
+          <div>
+            <img src="<%=myData.spell1Id_kr.img%>" />
+            <img src="<%=myData.spell2Id_kr.img%>" />
+          </div>
+          <div></div>
+        </div>
+        <% } %> <% for(let i=5; i<10; i++) { %>
+        <div class="user_right">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <% } %>
       </main>
     </div>
   </body>

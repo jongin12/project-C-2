@@ -10,9 +10,68 @@
 
 #root{
   @include box(100vw,100vh);
+  @include flex;
+  flex-direction: column;
 }
 
 header{
-  @include box(400px,100px);
-  background-color: red;
+  @include box(600px,50px);
+  @include flex(space-between,center);
+  background-color: skyblue;
+  >p{
+    font-size: 24px;
+  }
+}
+
+main{
+  @include box(600px,400px);
+  @include flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.user_left{
+  @include box(300px,80px);
+  @include flex;
+  border:1px black solid;
+  >div:nth-child(1){
+    @include box(80px,80px);
+    >img{
+      @include box(70px,70px);
+      border-radius: 35px;
+    }
+  }
+  >div:nth-child(2){
+    @include box(40px,80px);
+  }
+  >div:nth-child(3){
+    @include box(40px,80px);
+    >img{
+      @include box(35px,35px);
+    }
+  }
+  >div:nth-child(4){
+    @include box(140px,80px);
+  }
+}
+
+.user_right{
+  @include box(300px,80px);
+  @include flex;
+  border:1px black solid;
+  >div:nth-child(1){
+    @include box(140px,80px);
+  }
+  >div:nth-child(2){
+    @include box(40px,80px);
+  }
+  >div:nth-child(3){
+    @include box(40px,80px);
+    >img{
+      @include box(35px,35px);
+    }
+  }
+  >div:nth-child(4){
+    @include box(80px,80px);
+  }
 }
