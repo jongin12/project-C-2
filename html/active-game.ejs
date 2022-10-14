@@ -17,10 +17,9 @@
   <body>
     <div id="root">
       <header>
-        <% let time = Data.gameLength; let min = Math.floor(time/60); let sec =
-        time%60; %>
+        <% let time = Data.gameLength;%>
         <p><%=Data.queueId_kr%></p>
-        <p><%=min%>분<%=sec%>초</p>
+        <p id="time"><%=time%></p>
       </header>
       <main>
         <% for(let i=0; i<5; i++) { %> <% let myData = Data.participants[i]; let
@@ -38,15 +37,16 @@
             <img src="<%=myData.spell2Id_kr.img%>" />
           </div>
           <div>
-            <p><%=myData.summonerName%></p>
-            <p><%=user.solo.tier%></p>
+            <p style="font-size: 17px"><%=myData.summonerName%></p>
+            <p><%=user.solo.tier%> <%=user.solo.rank%></p>
           </div>
         </div>
         <% } %> <% for(let i=5; i<10; i++) { %> <% let myData =
-        Data.participants[i] %>
+        Data.participants[i]; let user = User[i];%>
         <div class="user_right">
           <div>
-            <p><%=myData.summonerName%></p>
+            <p style="font-size: 17px"><%=myData.summonerName%></p>
+            <p><%=user.solo.tier%> <%=user.solo.rank%></p>
           </div>
           <div>
             <img src="<%=myData.spell1Id_kr.img%>" />
@@ -63,5 +63,23 @@
         <% } %>
       </main>
     </div>
+    <script>
+      const time = document.getElementById("time");
+      console.dir(time);
+      let now = time.innerText;
+
+      let min = Math.floor(now / 60);
+      let sec = now % 60;
+      let timeset = `${min}분 ${sec}초`;
+      time.innerText = timeset;
+
+      setInterval(() => {
+        now++;
+        let min = Math.floor(now / 60);
+        let sec = now % 60;
+        let timeset = `${min}분 ${sec}초`;
+        time.innerText = timeset;
+      }, 1000);
+    </script>
   </body>
 </html>

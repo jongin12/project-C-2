@@ -91,16 +91,15 @@ app.get("/summoner/:name/activegame", async function (req, res) {
     }
   })
     .then(() => {
-      res.send(list);
-      // fs.readFile("html/active-game.ejs", "utf8", function (err, data) {
-      //   res.writeHead(200, { "Content-Type": "text/html" });
-      //   res.end(
-      //     ejs.render(data, {
-      //       Data: list.activeGame,
-      //       User: list.userInfo,
-      //     })
-      //   );
-      // });
+      fs.readFile("html/active-game.ejs", "utf8", function (err, data) {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(
+          ejs.render(data, {
+            Data: list.activeGame,
+            User: list.userInfo,
+          })
+        );
+      });
     })
     .catch((err) => {
       res.send(err);

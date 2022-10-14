@@ -30,6 +30,26 @@ const LOL_API = {
               }
             });
           }
+          if (!league.solo) {
+            league.solo = {
+              queueType: "RANKED_SOLO_5x5",
+              tier: "UNRANK",
+              rank: "",
+              leaguePoints: "",
+              wins: 0,
+              losses: 0,
+            };
+          }
+          if (!league.flex) {
+            league.flex = {
+              queueType: "RANKED_FLEX_5x5",
+              tier: "UNRANK",
+              rank: "",
+              leaguePoints: "",
+              wins: 0,
+              losses: 0,
+            };
+          }
         })
         .then(() => resolve(league));
     });
