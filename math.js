@@ -13,6 +13,21 @@ const math = {
     arr.win = win;
     return arr;
   },
+  goldDifference: (frames) => {
+    let value = [];
+    frames.foreach((item) => {
+      var team1 = 0;
+      for (let i = 0; i < 5; i++) {
+        team1 = +item.participantFrames[i].totalGold;
+      }
+      var team2 = 0;
+      for (let i = 5; i < 10; i++) {
+        team2 = +item.participantFrames[i].totalGold;
+      }
+      value.push(team1 - team2);
+    });
+    return value;
+  },
 };
 
 module.exports = math;
