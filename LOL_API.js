@@ -27,6 +27,26 @@ const LOL_API = {
               league.flex = value;
             }
           });
+          if (!league.solo) {
+            league.solo = {
+              queueType: "RANKED_SOLO_5x5",
+              tier: "UNRANK",
+              rank: "",
+              leaguePoints: "",
+              wins: 0,
+              losses: 0,
+            };
+          }
+          if (!league.flex) {
+            league.flex = {
+              queueType: "RANKED_FLEX_5x5",
+              tier: "UNRANK",
+              rank: "",
+              leaguePoints: "",
+              wins: 0,
+              losses: 0,
+            };
+          }
         })
         .then(() => resolve(league));
     });
@@ -166,12 +186,22 @@ const LOL_API = {
             let queueId_kr = queueId[quNum];
             data.queueId_kr = queueId_kr;
             for (let i = 0; i < 10; i++) {
+              let championId = data.participants[i].championId;
+              data.championImg = `https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/${champion[championId]}.png`;
+
               let spell1 = data.participants[i].spell1Id;
               let spell2 = data.participants[i].spell2Id;
               let summoner1Id_kr = spell[spell1];
               let summoner2Id_kr = spell[spell2];
               data.participants[i].spell1Id_kr = summoner1Id_kr;
               data.participants[i].spell2Id_kr = summoner2Id_kr;
+
+              let main_perk = data.participants[i].perks.perkIds[1];
+              //let sub_perk = data.participants[i].perks.perkSubStyle;
+              let main_perk_kr = rune[main_perk];
+              // let sub_perk_kr = rune[sub_perk];
+              data.participants[i].main_perk_kr = main_perk_kr;
+              // data.participants[i].sub_perk_kr = sub_perk_kr;
             }
           }
           resolve(data);
