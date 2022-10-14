@@ -1,125 +1,256 @@
+@mixin box($width,$height) {
+  width: $width;
+  height: $height;
+}
+@mixin flex($justify:center,$align:center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+
+body{
+  overflow-x: hidden;
+}
+
 #root{
-  width: 100vw;
+  @include box(100vw,100vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 header{
-  width: 100vw;
-  height: 10vh;
-  background-color: white;
+  @include box(100%,30vh);
+  @include flex(center,center);
+  background-color: rgb(217, 241, 251);
+  flex-direction: column;
 }
-main{
-  width: 100vw;
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  >div{
-    width: 700px;
-    height: inherit;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
+.search_box{
+  @include box(80%,30px);
+  @include flex(center,center);
+  >form{
+    @include box(90%,100%);
+    @include flex(center,center);
+    #name{
+      @include box(90%,90%);
+    }
+    #button{
+      @include box(10%,90%);
+    }
   }
 }
 
-.searchBox{
-  width: 300px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border:1px solid black;
-  border-radius: 10px;
-  margin: 20px;
-  >div{
-    width: 280px;
-    height: 180px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+.user_info{
+  @include box(80%,70%);
+  @include flex;
+  >div:nth-child(1){
+    @include box(50%,100%);
+    >div:nth-child(1){
+      @include box(100%,40px);
+      @include flex;
+    }
     >div:nth-child(2){
-      width: 100px;
-      height: 80px;
+      @include box(100%,140px);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
     }
     >div:nth-child(3){
-      width: 180px;
-      height: 180px;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      >div:nth-child(3){
-        width: 180px;
-        height: 90px;
-        display: flex;
+      @include flex;
+    }
+    >form{
+      @include flex;
+    }
+  }
+  >div:nth-child(2){
+    @include box(50%,100%);
+    @include flex;
+    flex-direction: column;
+    >div:nth-child(1){
+      @include box(160px,160px);
+      position: relative;
+      >p:nth-child(2){
+        @include box(80px,15px);
+        @include flex;
+        position: absolute;
+        top: 65px;
+        left: 40px;
+        font-size: 12px;
+      }
+      >p:nth-child(3){
+        @include box(80px,15px);
+        @include flex;
+        position: absolute;
+        top: 80px;
+        left: 40px;
+        font-size: 12px;
       }
     }
   }
 }
-.champ_img{
-  width: 100px;
-  height: 100px;
-  position: relative;
+.rank{
+  @include box(50%,100%);
+  @include flex;
+  flex-direction: column;
   >img{
-    width: 96px;
-    height: 96px;
-    border-radius: 48px;
+    @include box(80px,80px);
+  }
+}
+
+main{
+  @include box(100%,70vh);
+  display: flex;
+  justify-content: center;
+  >div{
+    @include box(600px,inherit);
+    @include flex(flex-start,center);
+    flex-direction: column;
+  }
+}
+.win{
+  border-top:5px solid blue;
+  border-bottom:5px solid blue;
+  background-color: rgb(217, 241, 251);
+}
+.lose{
+  border-top:5px solid red;
+  border-bottom:5px solid red;
+  background-color: rgb(255, 229, 226);
+}
+
+.game_Box{
+  @include box(80%,200px);
+  @include flex(center,center);
+  margin: 10px;
+  box-shadow: 0px 2px 5px 5px rgba(0,0,0,0.1);
+  >div{
+    @include box(320px,180px);
+    display: flex;
+    flex-direction: column;
+    >div{
+      display: flex;
+    }
+  }
+}
+.champ_img{
+  @include box(80px,80px);
+  position: relative;
+  @include flex(center,center);
+  >img{
+    @include box(80px,80px);
+    border-radius: 40px;
   }
   >div:nth-child(2){
-    width: 28px;
-    height: 28px;
+    @include box(24px,24px);
     background-color: #888;
-    border-radius: 14px;
+    border-radius: 12px;
     position:absolute;
     color:white;
-    bottom: 4px;
+    bottom: 0px;
     left: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex(center,center);
   }
   >img:nth-child(3){
-    width: 28px;
-    height: 28px;
+    @include box(24px,24px);
     background-color: black;
-    border-radius: 14px;
+    border-radius: 12px;
     position: absolute;
-    bottom: 4px;
-    right: 4px;
+    bottom: 0px;
+    right: 0px;
   }
 }
-.spellbox{
-  width: 40px;
-  height: 90px;
+.info_box{
+  @include box(240px,80px);
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  >img{
-    width: 40px;
-    height: 40px;
-    border:1px gray solid;
-    border-radius: 10px;
+  align-items: flex-end;
+  >div:nth-child(1){
+    @include box(210px,30px);
+    display: flex;
+    justify-content: space-between;
+    >div{
+      display: flex;
+      align-items: center;
+    }
+    >div:nth-child(1){
+      font-size:20px;
+    }
+    >div:nth-child(2){
+      font-size:16px;
+    }
+    >div:nth-child(3){
+      font-size:12px;
+    }
+  }
+  >div:nth-child(2){
+    @include box(210px,50px);
+    @include flex(space-between,center);
+    >div:nth-child(1){
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      white-space: pre;
+    }
+    >div:nth-child(2){
+      display: inline-block;
+      background-color: violet;
+      border-radius: 40px;
+      text-align: center;
+      color:white;
+      font-size: 12px;
+      padding: 4px 8px;
+    }
   }
 }
-.itembox{
-  width: 140px;
-  height: 90px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  >div{
-    width: 40px;
-    height: 40px;
+
+.spell_box{
+  @include box(80px,60px);
+  @include flex(space-around,center);
+  >img{
+    @include box(35px,35px);
     border:1px gray solid;
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 8px;
+  }
+}
+.item_box{
+  @include box(240px,60px);
+  display: flex;
+  justify-content: flex-end;
+  >div{
+    @include box(210px,60px);
+    display: flex;
+    align-items: center;
     >img{
-      width: 40px;
-      height: 40px;
+      @include box(35px,35px);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  }
+}
+
+.kda_box{
+  @include box(80px,40px);
+  @include flex(center,center);
+  >div{
+    font-size: 20px;
+    font-weight: 800;
+    white-space: pre;
+  }
+}
+.info_box2{
+  @include box(240px,40px);
+  display: flex;
+  justify-content: flex-end;
+  >div{
+    @include box(210px,40px);
+    display: flex;
+    flex-wrap: wrap;
+    >div:nth-child(1){
+      width: 210px;
+    }
+    >div:nth-child(2){
+      width: 80px;
     }
   }
 }

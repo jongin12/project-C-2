@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
-const key = "RGAPI-dc7d6cde-b1e8-4aa2-9538-89fbd2082c37";
 const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
+const key = require("./module/RiotApiKey");
 
 const LOL_API = {
   summoners: (name) => {
@@ -16,9 +16,19 @@ const LOL_API = {
   summonersLeague: (id) => {
     var url = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${key}`;
     return new Promise((resolve, reject) => {
+      let league = {};
       fetch(url)
         .then((res) => res.json())
-        .then((data) => resolve(data));
+        .then((data) => {
+          data.forEach(function (value) {
+            if (value.queueType === "RANKED_SOLO_5x5") {
+              league.solo = value;
+            } else if (value.queueType === "RANKED_FLEX_SR") {
+              league.flex = value;
+            }
+          });
+        })
+        .then(() => resolve(league));
     });
   },
   matchList: (puuid) => {
@@ -170,9 +180,6 @@ const LOL_API = {
   },
 };
 
-// LOL_API.summoners("흰긴꼬리원숭이")
-//   .then((data) => LOL_API.matchList(data.puuid))
-//   .then((data) => LOL_API.matchInfo(data[0]))
-//   .then((data) => console.log(data));
+// LOL_API.summoners("흰긴꼬리원숭이").then((data) => console.log(data));
 
 module.exports = LOL_API;

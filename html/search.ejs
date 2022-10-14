@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/search.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <style>
       * {
         margin: 0;
@@ -17,72 +18,113 @@
   <body>
     <div id="root">
       <header>
-        <form>
-          <input type="text" placeholder="소환사명" id="name" />
-          <input
+        <div class="search_box">
+          <form>
+            <input type="text" placeholder="소환사명" id="name" />
+            <input
             type="button"
             value="검색"
             onclick="document.location.href=getvalue()"
-          />
-        </form>
-        <%
-        let Name = league[0].summonerName;
-        let win = 0;
-        let lose = 0;
-        for(let i=0;i<league.length;i++){
-          win += league[i].wins
-          lose += league[i].losses 
-        }
-        %>
-        <%=Name%><%=league[0].tier%> <%=league[0].rank%> <%=win%>승 <%=lose%>패
+            />
+          </form>
+        </div>
+        <div class="user_info">
+          <%
+          let Name = summoner.name;
+          let win = 0;
+          let lose = 0;
+          for (key in league){
+            win += league[key].wins
+            lose += league[key].losses 
+          }
+          let win_lose = Math.floor((win*1000)/(win+lose))/10;
+          %>
+          <div>
+            <div id="name_text">
+              <%=Name%>
+            </div>
+            <div>
+              <div class="rank">
+                <p>솔로 랭크</p>
+                <img src="/img/ranked-emblems/<%=league.solo.tier%>.png">
+                <p style="font-size : 12px">
+                  <%=league.solo.tier%>
+                  <%=league.solo.rank%>
+                  <%=league.solo.leaguePoints%>
+                </p>
+                <p style="font-size : 14px">
+                  <%=league.solo.wins%>승 
+                  <%=league.solo.losses%>패
+                </p>
+              </div>
+              <div class="rank">
+                <p>자유 랭크</p>
+                <img src="/img/ranked-emblems/<%=league.flex.tier%>.png">
+                <p style="font-size : 12px">
+                  <%=league.flex.tier%>
+                  <%=league.flex.rank%>
+                  <%=league.flex.leaguePoints%>
+                </p>
+                <p style="font-size : 14px">
+                  <%=league.flex.wins%>승 
+                  <%=league.flex.losses%>패
+                </p>
+              </div>
+            </div>
+            <% if(!activeGame.status) {%>
+            <form>
+              <% } else { %>
+            <div>진행중인 게임 없음</div>
+            <form style="display : none">
+                <% } %>
+              <input
+              type="button"
+              value="진행중인 게임"
+              onclick="document.location.href=activegame()"
+              />
+            </form>
+          </div>
+          <div>
+            <%
+            let win20 = math.win;
+            let lose20 = math.matchData - win20;
+            let matchText = `(${win20}승 ${lose20}패)`
+            %>
+            <div>
+              <p>
+                최근 <%=math.matchData%> 게임
+              </p>
+              <p><%=matchText%></p>
+              <canvas id="myChart"></canvas>
+              <div id="win_text" style="display : none"><%=win20%></div>
+              <div id="lose_text" style="display : none"><%=lose20%></div>
+            </div>
+          </div>
+        </div>
       </header>
       <main>
         <div>
         <% for(let i=0;i<searchData.length;i++) { %>
-          <% var myData = searchData[i].userinfo[searchData[i].myNum] %>
+          <% let myData = searchData[i].userinfo[searchData[i].myNum] %>
           <% if(myData.win === true) {%>
-        <section class="searchBox" style="background-color: skyblue">
+        <section class="game_Box win" >
           <% } else if (myData.win === false) { %>
-        <section class="searchBox" style="background-color: salmon">
+        <section class="game_Box lose">
           <% } %>
           <div>
-            <div class="champ_img">
-              <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
-              <div><%=myData.champLevel%></div>
-              <% var rune_img = myData.mainRune_kr.img; %>
-              <img src="<%=rune_img%>">
-            </div>
-            <%
-            var kda = (myData.kills+myData.assists)/myData.deaths;
-            var kda2 = kda.toFixed(2);
-            var multikill = myData.largestMultiKill;
-            if(multikill === 5){
-              multikillText = '펜타킬'
-            } else if (multikill === 4){
-              multikillText = '쿼드라킬'
-            } else if (multikill === 3){
-              multikillText = '트리플킬'
-            } else if (multikill === 2){
-              multikillText = '더블킬'
-            } else if (multikill === 1){
-              multikillText = ''
-            }
-            %>
-            <div>
-              <div><%=myData.kills%> / <%=myData.deaths%> / <%=myData.assists%></div>
-              <div>평점 : <%=kda2%></div>
-              <div><%=multikillText%></div>
-            </div>
-            <div>
-              <div>
-                <%=searchData[i].queueId_kr%>
+            <div><!--111111111111111111111111111-->
+              <div class="champ_img">
+                <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
+                <div><%=myData.champLevel%></div>
+                <% let rune_img = myData.mainRune_kr.img; %>
+                <img src="<%=rune_img%>">
               </div>
-              <div>
+              <div class="info_box">
                 <%
-                var now = new Date();
-                var endtime = searchData[i].gameEndTimestamp;
-                var value = now - endtime;
-                var hour = value / 1000 / 60 / 60;
+                let now = new Date();
+                let endtime = searchData[i].gameEndTimestamp;
+                let value = now - endtime;
+                let hour = value / 1000 / 60 / 60;
                 if (hour >= 24) {
                   time = Math.floor(hour / 24);
                   time = time + "일 전";
@@ -94,53 +136,132 @@
                   time = time + "분 전";
                 }
                 
-                var playtime = searchData[i].gameDuration;
-                var min = Math.floor(playtime/60);
-                var sec = playtime%60;
+                let playtime = searchData[i].gameDuration;
+                let min = Math.floor(playtime/60);
+                let sec = playtime%60;
                 %>
-                <%=time%>
-                (<%=min%>분<%=sec%>초)
-              </div>
-              <div>
-                <div class="spellbox">
+                <div>
+                  <div><%=searchData[i].queueId_kr%></div>
+                  <div><%=time%></div>
+                  <div>(<%=min%>분<%=sec%>초)</div>
+                </div>
                 <%
-                var spell1_img = myData.summoner1Id_kr.img;
-                var spell2_img = myData.summoner2Id_kr.img;
+                let multikill = myData.largestMultiKill;
+                if(multikill === 5){
+                  multikillText = '펜타킬'
+                } else if (multikill === 4){
+                  multikillText = '쿼드라킬'
+                } else if (multikill === 3){
+                  multikillText = '트리플킬'
+                } else if (multikill === 2){
+                  multikillText = '더블킬'
+                } else if (multikill === 1){
+                  multikillText = ''
+                }
+                %>
+                <div>
+                  <div><%=myData.kills%> / <%=myData.deaths%> / <%=myData.assists%></div>
+                  <% if(multikill > 1){ %>
+                  <div><%=multikillText%></div>
+                  <% } %>
+                </div>
+              </div>
+            </div><!--111111111111111111111111111-->
+            <div><!--22222222222222222222-->
+              <div class="spell_box">
+                <%
+                let spell1_img = myData.summoner1Id_kr.img;
+                let spell2_img = myData.summoner2Id_kr.img;
                 %>
                 <img src="<%=spell1_img%>">
                 <img src="<%=spell2_img%>">
               </div>
-              <div class="itembox">
-                <% for(let j=0;j<6;j++) { %>
-                  <div>
+              <div class="item_box">
+                <div>
+                  <% for(let j=0;j<6;j++) { %>
                     <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png" onerror="this.style.display='none'"/>
-                  </div>
                   <%} %>
                 </div>
               </div>
-              <div>
+            </div><!--22222222222222222222-->
+            <div><!--33333333333333333333333333-->
+              <div class="kda_box">
                 <%
-                var tdp = myData.teamDamagePercentage
-                var tdp2 = (Math.floor(tdp*1000))/10;
-                var cs = myData.csJg + myData.csLine
+                if(myData.deaths === 0){
+                  kdaText = "perfect";
+                } else {
+                  let kda = (myData.kills+myData.assists)/myData.deaths;
+                  kda2 = kda.toFixed(1);
+                  kdaText = "평점 : "+kda2;
+                }
                 %>
-                Deal : <%=myData.totalDamageDealtToChampions%>
-                (<%=tdp2%>%)
+                <div><%=kdaText%></div>
               </div>
-              <div>cs : <%=cs%></div>
-            </div>
+              <div class="info_box2">
+                <%
+                let tdp = myData.teamDamagePercentage;
+                let tdp2 = (Math.floor(tdp*1000))/10;
+                let deal = myData.totalDamageDealtToChampions;
+                let cs = myData.csJg + myData.csLine;
+                let gold = myData.gold;
+                %>
+                <div>
+                  <div>Deal : <%=deal%> (<%=tdp2%>%)</div>
+                  <div>cs : <%=cs%></div>
+                  <div>Gold : <%=gold%></div>
+                </div>
+              </div>
+            </div><!--33333333333333333333333333-->
           </div>
         </section>
         <%} %>
         </div>
       </main>
     </div>
-    <script>
+    <script type="text/javascript">
       function getvalue() {
         var text = document.getElementById("name").value;
         var url = "/summoner/" + text;
         return url;
       }
+      const name = document.getElementById('name_text');
+      function activegame() {
+        var url = "/summoner/" + name.innerText + "/activegame";
+        return url;
+      }
+      const win = document.getElementById('win_text');
+      const lose = document.getElementById('lose_text');
+      var context = document
+        .getElementById('myChart')
+        .getContext('2d');
+      var myChart = new Chart(context, {
+        type: 'doughnut', // 차트의 형태
+        data: { // 차트에 들어갈 데이터
+          labels:['패','승'],
+          datasets: [
+            { //데이터
+              label: '승률', //차트 제목
+              data: [
+                lose.innerText, win.innerText //x축 label에 대응되는 데이터 값
+              ],
+              backgroundColor: [//색상
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+              ],
+              borderColor: [//경계선 색상
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+              ],
+              borderWidth: 1, //경계선 굵기
+            }
+          ]
+        },
+        options: {
+          legend: false,
+          animation: false,
+          events:[],
+        }
+      });
     </script>
   </body>
 </html>

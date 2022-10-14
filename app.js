@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
 const LOL_API = require("./LOL_API");
 const ejs = require("ejs");
-const { matchList } = require("./LOL_API");
+const math = require("./math");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +29,7 @@ app.get("/list/:name", async function (req, res) {
   for (let i = 0; i < list.matchList.length; i++) {
     list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
   }
+  list.math = math.matchData(list.matchData);
   res.send(list);
 });
 
@@ -42,6 +43,7 @@ app.get("/summoner/:name", async function (req, res) {
   for (let i = 0; i < list.matchList.length; i++) {
     list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
   }
+  list.math = math.matchData(list.matchData);
   new Promise((resolve, reject) => {
     if (!list.matchList[0]) {
       reject();
@@ -57,6 +59,8 @@ app.get("/summoner/:name", async function (req, res) {
             searchData: list.matchData,
             league: list.league,
             summoner: list.summoner,
+            math: list.math,
+            activeGame: list.activeGame,
           })
         );
       });
