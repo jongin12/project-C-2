@@ -212,6 +212,16 @@ const LOL_API = {
         });
     });
   },
+  timeLine: (matchId) => {
+    let url = `https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}/timeline?api_key=${key}`;
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          resolve(data);
+        });
+    });
+  },
 };
 
 // LOL_API.summoners("흰긴꼬리원숭이").then((data) => console.log(data));
