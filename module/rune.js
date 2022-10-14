@@ -1,6 +1,6 @@
 const runeJson = require("./rune.json");
 
-let rune = {};
+const rune = {};
 
 for (let i = 0; i < runeJson.length; i++) {
   for (let j = 0; j < runeJson[i].slots.length; j++) {

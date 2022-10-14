@@ -1,13 +1,13 @@
 const fetch = require("node-fetch");
+const key = require("./module/RiotApiKey");
 const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
-const key = require("./module/RiotApiKey");
 const champion = require("./module/champion");
 
 const LOL_API = {
   summoners: (name) => {
-    var url = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${key}`;
+    let url = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())
@@ -15,7 +15,7 @@ const LOL_API = {
     });
   },
   summonersLeague: (id) => {
-    var url = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${key}`;
+    let url = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${key}`;
     return new Promise((resolve, reject) => {
       let league = {};
       fetch(url)
@@ -53,7 +53,7 @@ const LOL_API = {
     });
   },
   matchList: (puuid) => {
-    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=${key}`;
+    let url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())
@@ -61,7 +61,7 @@ const LOL_API = {
     });
   },
   matchInfo: (matchid, name) => {
-    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/${matchid}?api_key=${key}`;
+    let url = `https://asia.api.riotgames.com/lol/match/v5/matches/${matchid}?api_key=${key}`;
     return new Promise((resolve, reject) => {
       matchData = {};
       fetch(url)
@@ -175,7 +175,7 @@ const LOL_API = {
     });
   },
   activeGame: (id) => {
-    var url = `https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${key}`;
+    let url = `https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${key}`;
     matchData = {};
     return new Promise((resolve, reject) => {
       fetch(url)
