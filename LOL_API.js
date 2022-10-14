@@ -3,6 +3,7 @@ const queueId = require("./module/queueId");
 const spell = require("./module/spell");
 const rune = require("./module/rune");
 const key = require("./module/RiotApiKey");
+const champion = require("./module/champion");
 
 const LOL_API = {
   summoners: (name) => {
@@ -52,7 +53,7 @@ const LOL_API = {
     });
   },
   matchList: (puuid) => {
-    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`;
+    var url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())
