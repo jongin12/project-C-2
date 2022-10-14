@@ -1,0 +1,19 @@
+@mixin box($width, $height) {
+  width: $width;
+  height: $height;
+}
+@mixin flex($justify:center,$align:center) {
+  display: flex;
+  justify-content:$justify ; 
+  align-items:$align ;
+}
+
+#root{
+  @include box(100vw,100vh);
+  @include flex;
+}
+
+#deal{
+  @include box(300px,300px);
+  border: 1px solid black;
+}

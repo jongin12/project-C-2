@@ -106,6 +106,37 @@ app.get("/summoner/:name/activegame", async function (req, res) {
     });
 });
 
+app.get("/match/:id", async function (req, res) {
+  let list = { user: [] };
+  list.match = await LOL_API.matchInfo(req.params.id, "name");
+  for (let i = 0; i < 10; i++) {
+    let userId = list.match.userinfo[i].summonerId;
+    list.user[i] = await LOL_API.summonersLeague(userId);
+  }
+  // res.send(list);
+  new Promise((resolve, reject) => {
+    if (list.status) {
+      reject("없는 matchId입니다");
+    } else {
+      resolve();
+    }
+  })
+    .then(() => {
+      fs.readFile("html/match-info.ejs", "utf8", function (err, data) {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(
+          ejs.render(data, {
+            matchData: list.match,
+            userData: list.user,
+          })
+        );
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.listen(8080, function () {
   console.log("server start..");
 });

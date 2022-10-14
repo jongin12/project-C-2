@@ -79,6 +79,7 @@ const LOL_API = {
           let userinfo = user.map((item) => {
             return {
               summonerName: item.summonerName,
+              summonerId: item.summonerId,
               puuid: item.puuid,
               championId: item.championId,
               championName: item.championName,
@@ -144,24 +145,24 @@ const LOL_API = {
           }
         })
         .then(() => {
-          var smallname = name.toLowerCase();
-          var smallname2 = smallname.split(" ").join("");
+          let smallname = name.toLowerCase();
+          let smallname2 = smallname.split(" ").join("");
           for (let i = 0; i < 10; i++) {
-            var smalluser = matchData.userinfo[i].summonerName.toLowerCase();
-            var smalluser2 = smalluser.split(" ").join("");
+            let smalluser = matchData.userinfo[i].summonerName.toLowerCase();
+            let smalluser2 = smalluser.split(" ").join("");
             if (smalluser2 === smallname2) {
               matchData.myNum = i;
             }
           }
-          var quNum = matchData.queueId;
-          var queueId_kr = queueId[quNum];
+          let quNum = matchData.queueId;
+          let queueId_kr = queueId[quNum];
           matchData.queueId_kr = queueId_kr;
 
           for (let i = 0; i < 10; i++) {
-            var spell1 = matchData.userinfo[i].summoner1Id;
-            var spell2 = matchData.userinfo[i].summoner2Id;
-            var summoner1Id_kr = spell[spell1];
-            var summoner2Id_kr = spell[spell2];
+            let spell1 = matchData.userinfo[i].summoner1Id;
+            let spell2 = matchData.userinfo[i].summoner2Id;
+            let summoner1Id_kr = spell[spell1];
+            let summoner2Id_kr = spell[spell2];
             matchData.userinfo[i].summoner1Id_kr = summoner1Id_kr;
             matchData.userinfo[i].summoner2Id_kr = summoner2Id_kr;
           }
