@@ -96,14 +96,12 @@
               </p>
               <p><%=matchText%></p>
               <canvas id="myChart"></canvas>
-              <div id="win_text" style="display : none"><%=win20%></div>
-              <div id="lose_text" style="display : none"><%=lose20%></div>
             </div>
           </div>
         </div>
       </header>
       <main>
-        <div>
+        <div id="game_list">
         <% for(let i=0;i<searchData.length;i++) { %>
           <% let myData = searchData[i].userinfo[searchData[i].myNum] %>
           <% if(myData.win === true) {%>
@@ -218,6 +216,12 @@
         </div>
       </main>
     </div>
+    <%
+    let arr = matchList.map((item)=>{
+      var a = item.slice(3);
+      return Number(a);
+    })
+    %>
     <script type="text/javascript">
       function getvalue() {
         var text = document.getElementById("name").value;
@@ -229,8 +233,20 @@
         var url = "/summoner/" + name.innerText + "/activegame";
         return url;
       }
-      const win = document.getElementById('win_text');
-      const lose = document.getElementById('lose_text');
+
+      let winData = JSON.parse("<%- JSON.stringify(math.win)%>");
+      let matchData = JSON.parse("<%- JSON.stringify(math.matchData)%>");
+      let matchList = JSON.parse("<%- JSON.stringify(arr)%>");
+
+      const game_list = document.getElementById("game_list");
+
+      for(let i=0; i<game_list.children.length;i++){
+        let button = game_list.children[i];
+        button.addEventListener(('click'),()=>{
+          document.location.href = `/match/KR_${matchList[i]}`
+        })
+      }
+
       var context = document
         .getElementById('myChart')
         .getContext('2d');
@@ -242,7 +258,7 @@
             { //데이터
               label: '승률', //차트 제목
               data: [
-                lose.innerText, win.innerText //x축 label에 대응되는 데이터 값
+                matchData-winData, winData //x축 label에 대응되는 데이터 값
               ],
               backgroundColor: [//색상
                 'rgba(255, 99, 132, 0.2)',

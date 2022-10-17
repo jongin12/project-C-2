@@ -57,6 +57,7 @@ app.get("/summoner/:name", async function (req, res) {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(
           ejs.render(data, {
+            matchList: list.matchList,
             searchData: list.matchData,
             league: list.league,
             summoner: list.summoner,
