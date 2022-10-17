@@ -17,16 +17,24 @@
   </head>
   <body>
     <div id="root">
-      <div id="gold">
-        <canvas id="myChart" width="400px" height="400px"></canvas>
+      <div>
+        <header></header>
+        <main>
+          <div></div>
+          <div>
+            <div id="gold">
+              <canvas id="myChart" width="500px" height="300px"></canvas>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
+
     <script type="text/javascript">
       let goldData = JSON.parse("<%- JSON.stringify(math.goldDifference)%>");
-      let goldTime = [];
-      for (let i = 0; i < goldData.length; i++) {
-        goldTime.push(i);
-      }
+      let goldTime = goldData.map((item, index) => {
+        return index;
+      });
 
       Chart.defaults.NegativeTransparentLine = Chart.helpers.clone(
         Chart.defaults.line

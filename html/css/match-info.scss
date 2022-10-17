@@ -11,9 +11,25 @@
 #root{
   @include box(100vw,100vh);
   @include flex;
+  >div{
+    @include box(1000px,600px);
+  }
 }
 
-#deal{
-  @include box(300px,300px);
+header{
+  @include box(1000px,80px);
   border: 1px solid black;
+}
+
+main{
+  @include box(1000px,520px);
+  @include flex;
+  border: 1px solid black;
+  >div{
+    @include box(50%,100%);
+  }
+}
+
+#gold{
+  @include box(500px,300px);
 }
