@@ -22,8 +22,25 @@
         <main>
           <div></div>
           <div>
+            <div id="deal">
+              <% for(let i=0; i<10; i++) { let user =
+              matchData.info.participants[i]; let Kdeal =
+              Math.floor(math.deal_end[i]/100) %>
+              <div>
+                <div>
+                  <img
+                    src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=user.championName%>.png"
+                  />
+                </div>
+                <div>
+                  <p> <%=user.summonerName%> </p>
+                  <p> <%=Kdeal/10%>K </p>
+                </div>
+              </div>
+              <%}%>
+            </div>
             <div id="gold">
-              <canvas id="myChart" width="500px" height="300px"></canvas>
+              <canvas id="myChart"></canvas>
             </div>
           </div>
         </main>

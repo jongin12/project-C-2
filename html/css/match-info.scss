@@ -27,9 +27,32 @@ main{
   border: 1px solid black;
   >div{
     @include box(50%,100%);
+    flex-direction: column;
+  }
+}
+
+#deal{
+  @include box(500px,300px);
+  @include flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  >div{
+    @include box(50%,20%);//250,60
+    @include flex;
+    border:1px black solid;
+    >div:nth-child(1){
+      @include box(60px,60px);
+      @include flex;
+      >img{
+        @include box(50px,50px);
+      }
+    }
+    >div:nth-child(2){
+      @include box(190px,60px);
+    }
   }
 }
 
 #gold{
-  @include box(500px,300px);
+  @include box(500px,220px);
 }

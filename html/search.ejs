@@ -50,7 +50,7 @@
                 <p style="font-size : 12px">
                   <%=league.solo.tier%>
                   <%=league.solo.rank%>
-                  <%=league.solo.leaguePoints%>
+                  <%=league.solo.leaguePoints%>점
                 </p>
                 <p style="font-size : 14px">
                   <%=league.solo.wins%>승 
@@ -63,7 +63,7 @@
                 <p style="font-size : 12px">
                   <%=league.flex.tier%>
                   <%=league.flex.rank%>
-                  <%=league.flex.leaguePoints%>
+                  <%=league.flex.leaguePoints%>점
                 </p>
                 <p style="font-size : 14px">
                   <%=league.flex.wins%>승 
@@ -237,6 +237,7 @@
       let winData = JSON.parse("<%- JSON.stringify(math.win)%>");
       let matchData = JSON.parse("<%- JSON.stringify(math.matchData)%>");
       let matchList = JSON.parse("<%- JSON.stringify(arr)%>");
+      //JSON.parse("JSON.stringify(arr)") => 숫자로만 이루어진 배열이면 작동, 문자열은 작동
 
       const game_list = document.getElementById("game_list");
 

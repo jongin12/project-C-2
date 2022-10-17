@@ -42,6 +42,16 @@ const math = {
     return value;
     //유저별로 15분 시점의 딜량 배열로 반환
   },
+  deal_end: (frames) => {
+    let value = [];
+    let arr = frames[frames.length - 1].participantFrames;
+    for (key in arr) {
+      let dmg = arr[key].damageStats.totalDamageDoneToChampions;
+      value.push(dmg);
+    }
+    return value;
+    //유저별로 게임 종료 시점의 딜량 배열로 반환
+  },
   eliteMonster_Kill: (frames) => {
     value = [];
     frames.forEach((item) => {

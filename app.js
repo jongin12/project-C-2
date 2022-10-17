@@ -115,11 +115,11 @@ app.get("/match/:id", async function (req, res) {
     let userId = list.match.info.participants[i].summonerId;
     list.user[i] = await LOL_API.summonersLeague(userId);
   }
-  list.math.deal_15min = math.deal_15min(list.timeLine.info.frames);
-  list.math.eliteMonster_Kill = math.eliteMonster_Kill(
-    list.timeLine.info.frames
-  );
-  list.math.goldDifference = math.goldDifference(list.timeLine.info.frames);
+  let frames = list.timeLine.info.frames;
+  list.math.deal_15min = math.deal_15min(frames);
+  list.math.deal_end = math.deal_end(frames);
+  list.math.eliteMonster_Kill = math.eliteMonster_Kill(frames);
+  list.math.goldDifference = math.goldDifference(frames);
   // res.send(list);
   new Promise((resolve, reject) => {
     if (list.status) {

@@ -5,16 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #root {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      form {
+        width: 330px;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #name {
+        width: 240px;
+        height: 40px;
+        font-size: 20px;
+      }
+      #button {
+        width: 80px;
+        height: 40px;
+        font-size: 20px;
+      }
+    </style>
   </head>
   <body>
-    <form>
-      <input type="text" placeholder="소환사명" id="name" />
-      <input
-        type="button"
-        value="검색"
-        onclick="document.location.href=getvalue()"
-      />
-    </form>
+    <div id="root">
+      <form>
+        <input type="text" placeholder="소환사명" id="name" />
+        <input
+          id="button"
+          type="button"
+          value="검색"
+          onclick="document.location.href=getvalue()"
+        />
+      </form>
+    </div>
     <script>
       function getvalue() {
         var text = document.getElementById("name").value;
