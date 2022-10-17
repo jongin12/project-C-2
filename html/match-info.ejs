@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <link rel="stylesheet" href="/css/match-info.css" />
     <style>
       * {
@@ -16,7 +17,83 @@
   </head>
   <body>
     <div id="root">
-      <div id="deal"></div>
+      <div id="gold">
+        <canvas id="myChart" width="400px" height="400px"></canvas>
+      </div>
     </div>
+    <script type="text/javascript">
+      let goldData = JSON.parse("<%- JSON.stringify(math.goldDifference)%>");
+      let goldTime = [];
+      for (let i = 0; i < goldData.length; i++) {
+        goldTime.push(i);
+      }
+
+      Chart.defaults.NegativeTransparentLine = Chart.helpers.clone(
+        Chart.defaults.line
+      );
+      Chart.controllers.NegativeTransparentLine = Chart.controllers.line.extend(
+        {
+          update: function () {
+            // get the min and max values
+            var min = Math.min.apply(null, this.chart.data.datasets[0].data);
+            var max = Math.max.apply(null, this.chart.data.datasets[0].data);
+            var yScale = this.getScaleForId(this.getDataset().yAxisID);
+
+            // figure out the pixels for these and the value 0
+            var top = yScale.getPixelForValue(max);
+            var zero = yScale.getPixelForValue(0);
+            var bottom = yScale.getPixelForValue(min);
+
+            // build a gradient that switches color at the 0 point
+            var ctx = this.chart.chart.ctx;
+            var gradient = ctx.createLinearGradient(0, top, 0, bottom);
+            var ratio = Math.min((zero - top) / (bottom - top), 1);
+            gradient.addColorStop(0, "rgba(0,0,230,0.8)");
+            gradient.addColorStop(ratio, "rgba(0,0,230,0.8)");
+            gradient.addColorStop(ratio, "rgba(230,0,0,0.8)");
+            gradient.addColorStop(1, "rgba(230,0,0,0.8)");
+            this.chart.data.datasets[0].backgroundColor = gradient;
+
+            return Chart.controllers.line.prototype.update.apply(
+              this,
+              arguments
+            );
+          },
+        }
+      );
+
+      var context = document.getElementById("myChart").getContext("2d");
+      var myChart = new Chart(context, {
+        type: "NegativeTransparentLine", // 차트의 형태
+        data: {
+          // 차트에 들어갈 데이터
+          labels: goldTime,
+          datasets: [
+            {
+              yAxisID: "y-axis-0",
+              //데이터
+              label: "gold", //차트 제목
+              data: goldData,
+              backgroundColor: [
+                //색상
+                "rgba(255, 99, 132, 0.2)",
+              ],
+              borderColor: [
+                //경계선 색상
+                "rgba(255, 99, 132, 1)",
+              ],
+              borderWidth: 1, //경계선 굵기
+              lineTension: 0.5,
+              pointRadius: 0,
+            },
+          ],
+        },
+        options: {
+          legend: false,
+          animation: false,
+          events: [],
+        },
+      });
+    </script>
   </body>
 </html>

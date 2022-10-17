@@ -108,10 +108,10 @@ app.get("/summoner/:name/activegame", async function (req, res) {
 
 app.get("/match/:id", async function (req, res) {
   let list = { user: [], math: {} };
-  list.match = await LOL_API.matchInfo(req.params.id, "name");
+  list.match = await LOL_API.matchInfoAll(req.params.id, "name");
   list.timeLine = await LOL_API.timeLine(req.params.id);
   for (let i = 0; i < 10; i++) {
-    let userId = list.match.userinfo[i].summonerId;
+    let userId = list.match.info.participants[i].summonerId;
     list.user[i] = await LOL_API.summonersLeague(userId);
   }
   list.math.deal_15min = math.deal_15min(list.timeLine.info.frames);
@@ -119,28 +119,29 @@ app.get("/match/:id", async function (req, res) {
     list.timeLine.info.frames
   );
   list.math.goldDifference = math.goldDifference(list.timeLine.info.frames);
-  res.send(list);
-  // new Promise((resolve, reject) => {
-  //   if (list.status) {
-  //     reject("없는 matchId입니다");
-  //   } else {
-  //     resolve();
-  //   }
-  // })
-  //   .then(() => {
-  //     fs.readFile("html/match-info.ejs", "utf8", function (err, data) {
-  //       res.writeHead(200, { "Content-Type": "text/html" });
-  //       res.end(
-  //         ejs.render(data, {
-  //           matchData: list.match,
-  //           userData: list.user,
-  //         })
-  //       );
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     res.send(err);
-  //   });
+  // res.send(list);
+  new Promise((resolve, reject) => {
+    if (list.status) {
+      reject("없는 matchId입니다");
+    } else {
+      resolve();
+    }
+  })
+    .then(() => {
+      fs.readFile("html/match-info.ejs", "utf8", function (err, data) {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(
+          ejs.render(data, {
+            matchData: list.match,
+            userData: list.user,
+            math: list.math,
+          })
+        );
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 app.listen(8080, function () {

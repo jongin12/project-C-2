@@ -57,7 +57,7 @@ const math = {
   },
 };
 
-console.log(math.goldDifference(timestamp.info.frames));
+// console.log(math.goldDifference(timestamp.info.frames));
 // console.log(math.deal_15min(timestamp.info.frames));
 // console.log(math.eliteMonster_Kill(timestamp.info.frames));
 
