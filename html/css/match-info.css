@@ -13,6 +13,16 @@
 header {
   width: 1000px;
   height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header > div {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid black;
 }
 
@@ -22,12 +32,51 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
 }
 main > div {
   width: 50%;
   height: 100%;
   flex-direction: column;
+}
+
+#game_stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#game_stats > div {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+#game_stats > div > div:nth-child(1) {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#game_stats > div > div:nth-child(2) {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#game_stats > div > div:nth-child(3) {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#game_stats > div img {
+  width: 35px;
+  height: 35px;
 }
 
 #deal {
@@ -39,31 +88,71 @@ main > div {
   flex-direction: column;
   flex-wrap: wrap;
 }
-#deal > div {
+
+.deal_left {
   width: 50%;
   height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px black solid;
 }
-#deal > div > div:nth-child(1) {
+.deal_left > div:nth-child(1) {
   width: 60px;
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#deal > div > div:nth-child(1) > img {
+.deal_left > div:nth-child(1) > img {
   width: 50px;
   height: 50px;
 }
-#deal > div > div:nth-child(2) {
+.deal_left > div:nth-child(2) {
   width: 190px;
   height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.deal_right {
+  width: 50%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.deal_right > div:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.deal_right > div:nth-child(2) > img {
+  width: 50px;
+  height: 50px;
+}
+.deal_right > div:nth-child(1) {
+  width: 190px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+}
+.deal_right > div:nth-child(1) > div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 #gold {
   width: 500px;
   height: 220px;
+}
+#gold > canvas {
+  width: 100%;
+  height: 100%;
 }/*# sourceMappingURL=match-info.css.map */

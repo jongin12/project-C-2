@@ -1,4 +1,6 @@
-const timestamp = require("./timestamp.json");
+// const timestamp = require("./timestamp.json");
+// const match = require("./match.json");
+const champion = require("./module/champion");
 
 const math = {
   matchData: (matchData) => {
@@ -33,13 +35,17 @@ const math = {
     //1분당 골드차이 배열로 반환
   },
   deal_15min: (frames) => {
-    let value = [];
-    let arr = frames[15].participantFrames;
-    for (key in arr) {
-      let dmg = arr[key].damageStats.totalDamageDoneToChampions;
-      value.push(dmg);
+    if (frames.length > 15) {
+      let value = [];
+      let arr = frames[15].participantFrames;
+      for (key in arr) {
+        let dmg = arr[key].damageStats.totalDamageDoneToChampions;
+        value.push(dmg);
+      }
+      return value;
+    } else {
+      return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     }
-    return value;
     //유저별로 15분 시점의 딜량 배열로 반환
   },
   deal_end: (frames) => {
@@ -65,7 +71,53 @@ const math = {
     return value;
     //엘리트몬스터 처치로그 배열로 반환
   },
+  game_stats: (match) => {
+    value = [
+      { kda: { k: 0, d: 0, a: 0 }, gold: 0 },
+      { kda: { k: 0, d: 0, a: 0 }, gold: 0 },
+    ];
+    let users = match.info.participants;
+    let teams = match.info.teams;
+    for (i = 0; i < 5; i++) {
+      value[0].kda.k += users[i].kills;
+      value[0].kda.d += users[i].deaths;
+      value[0].kda.a += users[i].assists;
+      value[0].gold += users[i].goldEarned;
+      value[0].tower = teams[0].objectives.tower.kills;
+      value[0].riftHerald = teams[0].objectives.riftHerald.kills;
+      value[0].baron = teams[0].objectives.baron.kills;
+      value[0].ban = [];
+      teams[0].bans.forEach((item) => {
+        let img = champion[item.championId].img;
+        value[0].ban.push(img);
+      });
+    }
+    for (i = 5; i < 10; i++) {
+      value[1].kda.k += users[i].kills;
+      value[1].kda.d += users[i].deaths;
+      value[1].kda.a += users[i].assists;
+      value[1].gold += users[i].goldEarned;
+      value[1].tower = teams[1].objectives.tower.kills;
+      value[1].riftHerald = teams[1].objectives.riftHerald.kills;
+      value[1].baron = teams[1].objectives.baron.kills;
+      value[1].ban = [];
+      teams[1].bans.forEach((item) => {
+        if (item.championId !== -1) {
+          let img = champion[item.championId].img;
+          value[1].ban.push(img);
+        }
+      });
+    }
+    if (users[0].challenges) {
+      value[0].elderdragon = users[0].challenges.teamElderDragonKills;
+      value[1].elderdragon = users[5].challenges.teamElderDragonKills;
+    }
+    return value;
+    //엘리트몬스터 처치로그 배열로 반환
+  },
 };
+
+// console.log(math.game_stats(match));
 
 // console.log(math.goldDifference(timestamp.info.frames));
 // console.log(math.deal_15min(timestamp.info.frames));

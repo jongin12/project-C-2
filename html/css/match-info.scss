@@ -4,8 +4,8 @@
 }
 @mixin flex($justify:center,$align:center) {
   display: flex;
-  justify-content:$justify ; 
-  align-items:$align ;
+  justify-content:$justify; 
+  align-items:$align;
 }
 
 #root{
@@ -18,16 +18,45 @@
 
 header{
   @include box(1000px,80px);
-  border: 1px solid black;
+  @include flex;
+  >div{
+    @include box(20%,100%);
+    @include flex;
+    border: 1px solid black;
+  }
 }
 
 main{
   @include box(1000px,520px);
   @include flex;
-  border: 1px solid black;
   >div{
     @include box(50%,100%);
     flex-direction: column;
+  }
+}
+
+#game_stats{
+  @include flex;
+  flex-direction: column;
+  >div{
+    @include box(100%,10%);
+    @include flex;
+    border-bottom: 1px solid black;
+      >div:nth-child(1){
+        @include box(40%,100%);
+        @include flex(flex-end,center);
+      }
+      >div:nth-child(2){
+        @include box(20%,100%);
+        @include flex;
+      }
+      >div:nth-child(3){
+        @include box(40%,100%);
+        @include flex(flex-start,center);
+      }
+      img{
+        @include box(35px,35px);
+      }
   }
 }
 
@@ -36,10 +65,11 @@ main{
   @include flex;
   flex-direction: column;
   flex-wrap: wrap;
-  >div{
-    @include box(50%,20%);//250,60
+}
+
+.deal_left{
+  @include box(50%,20%);//250,60
     @include flex;
-    border:1px black solid;
     >div:nth-child(1){
       @include box(60px,60px);
       @include flex;
@@ -49,10 +79,33 @@ main{
     }
     >div:nth-child(2){
       @include box(190px,60px);
+      @include flex(center,flex-start);
+      flex-direction: column;
     }
-  }
+}
+.deal_right{
+  @include box(50%,20%);//250,60
+    @include flex;
+    >div:nth-child(2){
+      @include box(60px,60px);
+      @include flex;
+      >img{
+        @include box(50px,50px);
+      }
+    }
+    >div:nth-child(1){
+      @include box(190px,60px);
+      @include flex(center,flex-end);
+      flex-direction: column;
+      >div{
+        @include flex(flex-end,center);
+      }
+    }
 }
 
 #gold{
   @include box(500px,220px);
+  >canvas{
+    @include box(100%,100%);
+  }
 }

@@ -10,4 +10,6 @@ for (key in championJson.data) {
   };
 }
 
+// console.log(champion);
+
 module.exports = champion;

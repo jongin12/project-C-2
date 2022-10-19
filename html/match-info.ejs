@@ -18,15 +18,90 @@
   <body>
     <div id="root">
       <div>
-        <header></header>
+        <header>
+          <% let team1 = matchData.info.teams[0]; let team2 =
+          matchData.info.teams[1]; let team1_text = 'WIN'; let team2_text =
+          'LOSE'; if(team2.win === true){ team1_text = 'LOSE'; team2_text =
+          'WIN'; }; %>
+          <div>BLUE</div>
+          <div><%=team1_text%></div>
+          <div>
+            <% let time = matchData.info.gameDuration; let min =
+            Math.floor(time/60); let sec = time%60; %> <%=min%>분<%=sec%>초
+          </div>
+          <div><%=team2_text%></div>
+          <div>RED</div>
+        </header>
         <main>
-          <div></div>
+          <div id="game_stats">
+            <div>GAME STATS</div>
+            <% let stats = math.stats; let team1_kda =
+            stats[0].kda.k+'/'+stats[0].kda.d+'/'+stats[0].kda.a; let team2_kda
+            = stats[1].kda.k+'/'+stats[1].kda.d+'/'+stats[1].kda.a; %>
+            <div>
+              <div><%=team1_kda%></div>
+              <div>KDA</div>
+              <div><%=team2_kda%></div>
+            </div>
+            <div>
+              <div><%=stats[0].gold%></div>
+              <div>GOLD</div>
+              <div><%=stats[1].gold%></div>
+            </div>
+            <div>
+              <div><%=stats[0].tower%></div>
+              <div>TOWERS</div>
+              <div><%=stats[1].tower%></div>
+            </div>
+            <div>
+              <div><%=stats[0].riftHerald%></div>
+              <div>HERALDS</div>
+              <div><%=stats[1].riftHerald%></div>
+            </div>
+            <div>
+              <div></div>
+              <div>DRAKES</div>
+              <div></div>
+            </div>
+            <div>
+              <div><%=stats[0].elderdragon%></div>
+              <div>ELDERS</div>
+              <div><%=stats[1].elderdragon%></div>
+            </div>
+            <div>
+              <div><%=stats[0].baron%></div>
+              <div>BARONS</div>
+              <div><%=stats[1].baron%></div>
+            </div>
+            <div>
+              <div>
+                <%for(let i=0;i<5;i++){%>
+                <img
+                  src="<%=stats[0].ban[i]%>"
+                  onerror="this.style.display='none'"
+                />
+                <%}%>
+              </div>
+              <div>BANS</div>
+              <div>
+                <%for(let i=0;i<5;i++){%>
+                <img
+                  src="<%=stats[1].ban[i]%>"
+                  onerror="this.style.display='none'"
+                />
+                <%}%>
+              </div>
+            </div>
+          </div>
           <div>
             <div id="deal">
-              <% for(let i=0; i<10; i++) { let user =
+              <% for(let i=0; i<5; i++) { let user =
               matchData.info.participants[i]; let Kdeal =
-              Math.floor(math.deal_end[i]/100) %>
-              <div>
+              Math.floor(math.deal_end[i]/100); let maxDeal =
+              Math.max(...math.deal_end); let barSize = 18000*Kdeal/maxDeal; let
+              deal_15min = math.deal_15min[i]; let barSize_15min =
+              180*deal_15min/maxDeal;%>
+              <div class="deal_left">
                 <div>
                   <img
                     src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=user.championName%>.png"
@@ -35,6 +110,52 @@
                 <div>
                   <p> <%=user.summonerName%> </p>
                   <p> <%=Kdeal/10%>K </p>
+                  <div
+                    style="
+                      width: <%=barSize%>px;
+                      height: 10px;
+                      background-color: blue;
+                    "
+                  >
+                    <div
+                      style="
+                        width: <%=barSize_15min%>px;
+                        height: 10px;
+                        background-color: skyblue;
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <%}%> <% for(let i=5; i<10; i++) { let user =
+              matchData.info.participants[i]; let Kdeal =
+              Math.floor(math.deal_end[i]/100); let maxDeal =
+              Math.max(...math.deal_end); let barSize = 18000*Kdeal/maxDeal; let
+              deal_15min = math.deal_15min[i]; let barSize_15min =
+              180*deal_15min/maxDeal; %>
+              <div class="deal_right">
+                <div>
+                  <p> <%=user.summonerName%> </p>
+                  <p> <%=Kdeal/10%>K </p>
+                  <div
+                    style="
+                      width: <%=barSize%>px;
+                      height: 10px;
+                      background-color: red;
+                    "
+                    ><div
+                      style="
+                        width: <%=barSize_15min%>px;
+                        height: 10px;
+                        background-color: salmon;
+                      "
+                    ></div
+                  ></div>
+                </div>
+                <div>
+                  <img
+                    src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=user.championName%>.png"
+                  />
                 </div>
               </div>
               <%}%>
