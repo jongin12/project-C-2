@@ -88,8 +88,10 @@ const math = {
       value[0].baron = teams[0].objectives.baron.kills;
       value[0].ban = [];
       teams[0].bans.forEach((item) => {
-        let img = champion[item.championId].img;
-        value[0].ban.push(img);
+        if (item.championId !== -1) {
+          let img = champion[item.championId].img;
+          value[0].ban.push(img);
+        }
       });
     }
     for (i = 5; i < 10; i++) {
@@ -113,7 +115,7 @@ const math = {
       value[1].elderdragon = users[5].challenges.teamElderDragonKills;
     }
     return value;
-    //엘리트몬스터 처치로그 배열로 반환
+    //stats 객체 반환
   },
 };
 

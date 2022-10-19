@@ -53,7 +53,7 @@ app.get("/summoner/:name", async function (req, res) {
     }
   })
     .then(() => {
-      fs.readFile("html/search.ejs", "utf8", function (err, data) {
+      fs.readFile("html/search-v2.ejs", "utf8", function (err, data) {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(
           ejs.render(data, {

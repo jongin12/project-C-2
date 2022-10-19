@@ -1,0 +1,280 @@
+@mixin box($width,$height) {
+  width: $width;
+  height: $height;
+}
+@mixin flex($justify:center,$align:center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+body{
+  overflow-x: hidden;
+}
+
+#root{
+  @include box(100vw,100vh);
+  background-color:#292E40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header{
+  @include box(100vw,100px);
+  @include flex(center,center);
+  flex-direction: column;
+}
+
+.search_box{
+  @include box(80%,30px);
+  @include flex(center,center);
+  >form{
+    @include box(90%,100%);
+    @include flex(center,center);
+    #name{
+      @include box(90%,90%);
+    }
+    #button{
+      @include box(10%,90%);
+    }
+  }
+}
+
+main{
+  width: 100%;
+  display: flex;
+}
+
+#user_info{
+  @include box(50%,550px);
+  @include flex;
+  flex-direction: column;
+  >div:nth-child(1){
+    @include box(100%,10%);
+    @include flex;
+    >div{
+      @include box(400px,40px);
+      @include flex;
+      background-color: #65A3DC;
+      border-radius: 10px;
+      >p{
+        font-size: 1.5em;
+        color:white;
+      }
+    }
+  }
+  >div:nth-child(2){
+    @include box(100%,5%);
+    @include flex;
+    >form{
+      @include box(400px,100%);
+      @include flex(flex-end,center);
+      >div{
+        @include box(120px,24px);
+        @include flex;
+        background-color: #85A0B9;
+        border-radius: 12px;
+        >p{
+          @include box(96px,100%);
+          @include flex;
+          font-size: 14px;
+          color:white;
+        }
+        >div{
+          @include box(12px,12px);
+          border-radius: 6px;
+          margin: 6px;
+        }
+      }
+    }
+  }
+  >div:nth-child(3){
+    @include box(100%,85%);
+    @include flex;
+    >div{
+      @include box(400px,370px);
+      position: relative;
+    }
+  }
+}
+.rank{
+  @include box(240px,320px);
+  @include flex;
+  position: absolute;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 3px white solid;
+  background-color: #657FDC;
+  color:white;
+  >img{
+    @include box(150px,150px);
+  }
+}
+#match_list{
+  @include box(50%,100%);
+  border: 1px solid black;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+#match_list::-webkit-scrollbar{
+  display:none;
+}
+.game_box{
+  @include box(450px,300px);
+  @include flex;
+  >div{
+    @include box(430px,280px);
+  }
+}
+.box_1{
+  @include box(430px,40px);
+  @include flex(space-between,center);
+  >div:nth-child(1){
+    @include box(80px,30px);
+    @include flex;
+    border-radius: 15px;
+    background-color: #65A3DC;
+    color:white;
+  }
+  >div:nth-child(2){
+    @include box(100px,30px);
+    @include flex(center,flex-end);
+    flex-direction: column;
+    border-bottom: 2px solid #65A3DC;
+    color:white;
+    font-size: 12px;
+  }
+  >div:nth-child(3){
+    @include box(140px,30px);
+    @include flex(space-between,center);
+    >p{
+      color:#65A3DC;
+      font-size: 24px;
+      font-weight: 800;
+    }
+    >div{
+      @include box(80px,30px);
+      @include flex;
+      border-radius: 15px;
+      background-color: #65A3DC;
+      color: white;
+    }
+  }
+}
+.box_2{
+  @include box(430px,100px);
+  @include flex;
+  >div:nth-child(1){
+    @include box(140px,100px);
+    @include flex(center,flex-end);
+    >img:nth-child(1){
+      @include box(90px,90px);
+      border-radius: 45px;
+    }
+    >div:nth-child(2){
+      @include box(30px,100px);
+      @include flex(flex-end,center);
+      flex-direction: column;
+      >div:nth-child(1){
+        @include box(30px,30px);
+        @include flex;
+        background-color: #65A3DC;
+        border-radius: 15px;
+        color: white;
+      }
+      >img:nth-child(2){
+        @include box(30px,30px);
+        @include flex;
+        background-color: black;
+        border-radius: 15px;
+      }
+    }
+  }
+  >div:nth-child(2){
+    @include box(190px,100px);
+    @include flex(space-between,center);
+    >div{
+      @include box(60px,100px);
+      @include flex(flex-end,center);
+      flex-direction: column;
+      >p{
+        color:#65A3DC;
+        font-size: 16px;
+        font-weight: 800;
+      }
+      >div{
+        @include box(55px,70px);
+        @include flex;
+        background-color: #A7C1DA;
+        border-radius: 8px;
+        font-size: 32px;
+        font-weight: 800;
+      }
+    }
+  }
+  >div:nth-child(3){
+    @include box(100px,100px);
+    @include flex(center,flex-end);
+    >div{
+      display: inline-block;
+      background-color: #65A3DC;
+      border-radius: 30px;
+      text-align: center;
+      color:white;
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+  }
+}
+.box_3{
+  @include box(430px,60px);
+  @include flex;
+  >div:nth-child(1){
+    @include box(140px,60px);
+    @include flex;
+    >img{
+      @include box(40px,40px);
+      border-radius: 5px;
+      margin:3px;
+    }
+  }
+  >div:nth-child(2){
+    @include box(290px,60px);
+    @include flex(flex-start,center);
+    >img{
+      @include box(40px,40px);
+      border-radius: 5px;
+      margin:3px;
+    }
+  }
+}
+.box_4{
+  @include box(430px,80px);
+  @include flex;
+  >div:nth-child(1){
+    @include box(140px,80px);
+  }
+  >div:nth-child(2){
+    @include box(290px,80px);
+    >div{
+      @include box(290px,40px);
+      @include flex;
+      >div{
+        @include box(200px,40px);
+        @include flex(center,flex-start);
+        flex-direction:column;
+        color:white;
+        >p:nth-child(1){font-size: 16px;}
+        >p:nth-child(2){font-size: 12px;}
+      }
+      >p{
+        @include box(90px,40px);
+        @include flex;
+        color:#65A3DC;
+        font-size: 24px;
+        font-weight: 800;
+      }
+    }
+  }
+}

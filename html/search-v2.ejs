@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/search-v2.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+    </style>
+    <title>main</title>
+  </head>
+  <body>
+    <div id="root">
+      <header>
+        <div class="search_box">
+          <form>
+            <input type="text" placeholder="소환사명" id="name" />
+            <input
+              type="button"
+              value="검색"
+              onclick="document.location.href=getvalue()"
+            />
+          </form>
+        </div>
+      </header>
+      <main>
+        <div id="user_info">
+          <div>
+            <div>
+              <p id="name_text"><%=summoner.name%></p>
+            </div>
+          </div>
+          <div>
+            <form>
+              <div id="nowPlaying">
+                <p>Now Playing</p>
+                <% if(!activeGame.status) {%>
+                <div style="background-color: blue"></div>
+                <% } else { %>
+                <div style="background-color: #ccc"></div>
+                <% } %>
+              </div>
+            </form>
+          </div>
+          <div>
+            <div>
+              <div class="rank" style="z-index: 2">
+                <p style="font-size: 16px">SOLO RANK</p>
+                <img src="/img/ranked-emblems/<%=league.solo.tier%>.png" />
+                <p style="font-size: 12px">
+                  <%=league.solo.tier%> <%=league.solo.rank%>
+                  <%=league.solo.leaguePoints%>점
+                </p>
+                <p style="font-size: 20px">
+                  <%=league.solo.wins%> WIN <%=league.solo.losses%> LOSS
+                </p>
+              </div>
+              <div class="rank" style="left: 160px; top: 50px; z-index: 1">
+                <p style="font-size: 16px">FREE RANK</p>
+                <img src="/img/ranked-emblems/<%=league.flex.tier%>.png" />
+                <p style="font-size: 12px">
+                  <%=league.flex.tier%> <%=league.flex.rank%>
+                  <%=league.flex.leaguePoints%>점
+                </p>
+                <p style="font-size: 20px">
+                  <%=league.flex.wins%> WIN <%=league.flex.losses%> LOSS
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="match_list">
+          <% for(let i=0;i<searchData.length;i++) { %>
+            <% let myData = searchData[i].userinfo[searchData[i].myNum] %>
+            <% if(myData.win === true) {%>
+          <section class="game_box win" >
+            <% } else if (myData.win === false) { %>
+          <section class="game_box lose">
+            <% } %>
+            <div>
+              <div class="box_1">
+                <%
+                let now = new Date();
+                let endtime = searchData[i].gameEndTimestamp;
+                let value = now - endtime;
+                let hour = value / 1000 / 60 / 60;
+                if (hour >= 24) {
+                  time = Math.floor(hour / 24);
+                  time = time + "일 전";
+                } else if (24 > hour && hour >= 1) {
+                  time = Math.floor(hour);
+                  time = time + "시간 전";
+                } else if (1 > hour) {
+                  time = Math.floor(hour * 60);
+                  time = time + "분 전";
+                }
+                let playtime = searchData[i].gameDuration;
+                let min = Math.floor(playtime/60);
+                let sec = playtime%60;
+                %>
+                <div><%=searchData[i].queueId_kr%></div>
+                <div>
+                  <p><%=time%></p>
+                  <p>(<%=min%>분<%=sec%>초)</p>
+                </div>
+                  <%
+                  if(myData.deaths === 0){
+                    kdaText = "perfect";
+                  } else {
+                    let kda = (myData.kills+myData.assists)/myData.deaths;
+                    kda2 = kda.toFixed(1);
+                    kdaText = kda2;
+                  }
+                  %>
+                  <div>
+                    <p>KDA</p>
+                    <div>
+                      <%=kdaText%>
+                    </div>
+                  </div>
+              </div>
+              <div class="box_2">
+                <div>
+                  <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
+                  <div>
+                    <div><%=myData.champLevel%></div>
+                    <% let rune_img = myData.mainRune_kr.img; %>
+                    <img src="<%=rune_img%>">
+                  </div>
+                </div>
+                <%
+                let multikill = myData.largestMultiKill;
+                if(multikill === 5){
+                  multikillText = '펜타킬'
+                } else if (multikill === 4){
+                  multikillText = '쿼드라킬'
+                } else if (multikill === 3){
+                  multikillText = '트리플킬'
+                } else if (multikill === 2){
+                  multikillText = '더블킬'
+                } else if (multikill === 1){
+                  multikillText = ''
+                }
+                %>
+                <div>
+                  <div><p>KILL</p><div><%=myData.kills%></div></div>
+                  <div><p>DEATH</p><div><%=myData.deaths%></div></div>
+                  <div><p>ASSIST</p><div><%=myData.assists%></div></div>
+                </div>
+                <div>
+                  <% if(multikill > 1){ %>
+                  <div><%=multikillText%></div>
+                  <% } %>
+              </div>
+            </div>
+              <div class="box_3">
+                <div>
+                  <%
+                  let spell1_img = myData.summoner1Id_kr.img;
+                  let spell2_img = myData.summoner2Id_kr.img;
+                  %>
+                  <img src="<%=spell1_img%>">
+                  <img src="<%=spell2_img%>">
+                </div>
+                <div>
+                    <% for(let j=0;j<6;j++) { %>
+                      <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png" onerror="this.style.display='none'"/>
+                    <%} %>
+                </div>
+              </div>
+              <div class="box_4">
+                <div></div>
+                <div>
+                  <%
+                  let tdp = myData.teamDamagePercentage;
+                  let tdp2 = (Math.floor(tdp*1000))/10;
+                  let deal = myData.totalDamageDealtToChampions;
+                  let cs = myData.csJg + myData.csLine;
+                  let gold = myData.gold;
+                  %>
+                  <div>
+                    <div>
+                      <p>TOTAL <%=deal%></p>
+                      <p>minute average</p>
+                    </div>
+                    <p><%=tdp2%>%</p>
+                  </div>
+                  <div>
+                    <div>
+                      <p>TOTAL CS<%=cs%></p>
+                      <p>minute average</p>
+                    </div>
+                    <p><%=tdp2%>%</p>
+                  </div>
+                  <div>
+                    <div>
+                      <p>TOTAL GOLD<%=gold%></p>
+                      <p>minute average</p>
+                    </div>
+                    <p><%=tdp2%>%</p>
+                  </div>
+              </div>
+          </section>
+          <%} %>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script type="text/javascript">
+    function getvalue() {
+      var text = document.getElementById("name").value;
+      var url = "/summoner/" + text;
+      return url;
+    }
+    const nowPlaying = document.getElementById("nowPlaying");
+    const name = document.getElementById("name_text");
+    nowPlaying.addEventListener("click", function () {
+      var url = "/summoner/" + name.innerText + "/activegame";
+      document.location.href = url;
+    });
+
+    const rank_card = document.getElementsByClassName("rank");
+    rank_card[0].addEventListener("click", function () {
+      this.style.zIndex = 2;
+      rank_card[1].style.zIndex = 1;
+    });
+    rank_card[1].addEventListener("click", function () {
+      this.style.zIndex = 2;
+      rank_card[0].style.zIndex = 1;
+    });
+  </script>
+</html>
