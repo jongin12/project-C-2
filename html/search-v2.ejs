@@ -57,6 +57,16 @@
               <div class="rank" style="z-index: 2; opacity: 1;">
                 <p style="font-size: 16px">SOLO RANK</p>
                 <img src="/img/ranked-emblems/<%=league.solo.tier%>.png" />
+                <% if(league.solo.tier === 'UNRANK') { %>
+                <p style="font-size: 16px">
+                  <%=league.solo.tier%> <%=league.solo.rank%>
+                </p>
+                <div>
+                  <p><%=league.solo.wins%> WIN</p>
+                  <p>/</p>
+                  <p><%=league.solo.losses%> LOSS</p>
+                </div>
+                <%} else {%>
                 <p style="font-size: 16px">
                   <%=league.solo.tier%> <%=league.solo.rank%>
                   <%=league.solo.leaguePoints%>점
@@ -67,10 +77,21 @@
                   <p><%=league.solo.losses%> LOSS</p>
                 </div>
                 <p><%=(solo_win*100).toFixed(1)%>%</p>
+                <%}%>
               </div>
               <div class="rank" style="left: 160px; top: 50px; z-index: 1">
                 <p style="font-size: 16px">FREE RANK</p>
                 <img src="/img/ranked-emblems/<%=league.flex.tier%>.png" />
+                <% if(league.flex.tier === 'UNRANK') { %>
+                <p style="font-size: 16px">
+                  <%=league.flex.tier%> <%=league.flex.rank%>
+                </p>
+                <div>
+                  <p><%=league.flex.wins%> WIN</p>
+                  <p>/</p>
+                  <p><%=league.flex.losses%> LOSS</p>
+                </div>
+                <% } else {%>
                 <p style="font-size: 16px">
                   <%=league.flex.tier%> <%=league.flex.rank%>
                   <%=league.flex.leaguePoints%>점
@@ -81,6 +102,7 @@
                   <p><%=league.flex.losses%> LOSS</p>
                 </div>
                 <p><%=(flex_win*100).toFixed(1)%>%</p>
+                <%}%>
               </div>
             </div>
             <div>
