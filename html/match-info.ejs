@@ -67,12 +67,18 @@
                     let dragon = math.Dragon_Kill.team1[i]%>
                     <img src="/img/dragon/<%=dragon%>.png">
                   <%}%>
+                  <% if (math.Dragon_Kill.team1.length === 0) {%>
+                    -
+                  <%}%>
                 </div>
                 <div>DRAKES</div>
                 <div>
                   <% for(let i=0; i<math.Dragon_Kill.team2.length;i++){
                     let dragon = math.Dragon_Kill.team2[i]%>
                     <img src="/img/dragon/<%=dragon%>.png">
+                  <%}%>
+                  <% if (math.Dragon_Kill.team2.length === 0) {%>
+                    -
                   <%}%>
                 </div>
               </div>
@@ -213,8 +219,8 @@
       });
 
       const gold_max_min = document.getElementById('gold_max_min');
-      gold_max_min.children[0].textContent = Math.max(...goldData);
-      gold_max_min.children[1].textContent = -Math.min(...goldData);
+      gold_max_min.children[0].textContent = (Math.max(...goldData)/1000).toFixed(1) + 'K';
+      gold_max_min.children[1].textContent = (-Math.min(...goldData)/1000).toFixed(1) + 'K';
 
       Chart.defaults.NegativeTransparentLine = Chart.helpers.clone(
         Chart.defaults.line
@@ -289,9 +295,6 @@
             }],
             yAxes: [{
               ticks:{
-                min:Math.min(...goldData),
-                max:Math.max(...goldData),
-                maxTicksLimit:2,
                 display:false,
               }
             }],
