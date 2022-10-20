@@ -17,13 +17,22 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        background-color: #292e40;
+      }
+      #text {
+        width: 330px;
+        height: 40px;
+        color: white;
+        font-size: 32px;
       }
       form {
         width: 330px;
         height: 40px;
-        display: flex;
+        display: none;
         justify-content: space-between;
         align-items: center;
+        transition: 1s;
       }
       #name {
         width: 240px;
@@ -39,7 +48,7 @@
   </head>
   <body>
     <div id="root">
-      <form>
+      <form id="form">
         <input type="text" placeholder="소환사명" id="name" />
         <input
           id="button"
@@ -48,6 +57,7 @@
           onclick="document.location.href=getvalue()"
         />
       </form>
+      <div id="text">League of Legend</div>
     </div>
     <script>
       function getvalue() {
@@ -55,6 +65,13 @@
         var url = "/summoner/" + text;
         return url;
       }
+
+      const root = document.getElementById("root");
+      const form = document.getElementById("form");
+
+      root.addEventListener("click", function () {
+        form.style.display = "flex";
+      });
     </script>
   </body>
 </html>
