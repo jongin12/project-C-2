@@ -151,10 +151,14 @@
               </div>
               <%}%>
             </div>
-            <div id="gold">
-              <div>GOLD DIFFERENCE</div>
-              <div>
-                <canvas id="myChart"></canvas>
+            <div>GOLD DIFFERENCE</div>
+            <div>
+              <div id="gold_max_min">
+                <p></p>
+                <p></p>
+              </div>
+              <div id="gold">
+                <canvas id="myChart" style="width: 450px; height:140px"></canvas>
               </div>
             </div>
           </div>
@@ -207,6 +211,10 @@
       let goldTime = goldData.map((item, index) => {
         return index;
       });
+
+      const gold_max_min = document.getElementById('gold_max_min');
+      gold_max_min.children[0].textContent = Math.max(...goldData);
+      gold_max_min.children[1].textContent = -Math.min(...goldData);
 
       Chart.defaults.NegativeTransparentLine = Chart.helpers.clone(
         Chart.defaults.line
@@ -275,7 +283,8 @@
           scales: {
             xAxes: [{
               ticks:{
-                maxTicksLimit:6
+                maxTicksLimit:6,
+                fontColor:'white',
               }
             }],
             yAxes: [{

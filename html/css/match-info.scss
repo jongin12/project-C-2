@@ -27,6 +27,7 @@ header{
   border-top: 2px solid $gray-color;
   border-bottom: 2px solid $gray-color;
   color:white;
+  font-size: 24px;
   >div{
     @include box(20%,100%);
     @include flex;
@@ -35,6 +36,7 @@ header{
     flex-direction: column;
     >p:nth-child(2){
       font-size: 32px;
+      font-weight: 800;
     }
   }
 }
@@ -47,6 +49,32 @@ main{
       @include box(500px,40px);
       @include flex;
       color: white;
+    }
+    >div:nth-child(3){
+      @include box(500px,40px);
+      @include flex;
+      color: white;
+    }
+    >div:nth-child(4){
+      @include box(500px,140px);
+      @include flex;
+      >div:nth-child(1){
+        @include box(50px,140px);
+        @include flex(space-between,flex-end);
+        flex-direction: column;
+        color: white;
+        font-size: 12px;
+        >p:nth-child(1){
+          position: relative;
+          bottom:9px;
+          right: 2px;
+        }
+        >p:nth-child(2){
+          position: relative;
+          bottom: 29px;
+          right: 2px;
+        }
+      }
     }
   }
 }
@@ -157,16 +185,5 @@ main{
 }
 
 #gold{
-  @include box(500px,180px);
-  >div:nth-child(2){
-    @include box(500px,40px);
-    @include flex;
-    color:white;
-  }
-  >div:nth-child(3){
-    @include box(500px,140px);
-    >canvas{
-      @include box(450px,140px);
-    }
-  }
+  @include box(450px,140px);
 }
