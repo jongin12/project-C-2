@@ -18,7 +18,7 @@
   <body>
     <div id="root">
       <div>
-        <header>
+        <header id="header">
           <% let team1 = matchData.info.teams[0]; let team2 =
           matchData.info.teams[1]; let team1_text = 'WIN'; let team2_text =
           'LOSE'; if(team2.win === true){ team1_text = 'LOSE'; team2_text =
@@ -27,7 +27,9 @@
           <div><%=team1_text%></div>
           <div>
             <% let time = matchData.info.gameDuration; let min =
-            Math.floor(time/60); let sec = time%60; %> <%=min%>분<%=sec%>초
+            Math.floor(time/60); let sec = time%60; %> 
+            <p>GAME TIME</p>
+            <p><%=min%>:<%=sec%></p>
           </div>
           <div><%=team2_text%></div>
           <div>RED</div>
@@ -39,68 +41,82 @@
             stats[0].kda.k+'/'+stats[0].kda.d+'/'+stats[0].kda.a; let team2_kda
             = stats[1].kda.k+'/'+stats[1].kda.d+'/'+stats[1].kda.a; %>
             <div>
-              <div><%=team1_kda%></div>
-              <div>KDA</div>
-              <div><%=team2_kda%></div>
-            </div>
-            <div>
-              <div><%=stats[0].gold%></div>
-              <div>GOLD</div>
-              <div><%=stats[1].gold%></div>
-            </div>
-            <div>
-              <div><%=stats[0].tower%></div>
-              <div>TOWERS</div>
-              <div><%=stats[1].tower%></div>
-            </div>
-            <div>
-              <div><%=stats[0].riftHerald%></div>
-              <div>HERALDS</div>
-              <div><%=stats[1].riftHerald%></div>
-            </div>
-            <div>
-              <div></div>
-              <div>DRAKES</div>
-              <div></div>
-            </div>
-            <div>
-              <div><%=stats[0].elderdragon%></div>
-              <div>ELDERS</div>
-              <div><%=stats[1].elderdragon%></div>
-            </div>
-            <div>
-              <div><%=stats[0].baron%></div>
-              <div>BARONS</div>
-              <div><%=stats[1].baron%></div>
-            </div>
-            <div>
               <div>
-                <%for(let i=0;i<5;i++){%>
-                <img
-                  src="<%=stats[0].ban[i]%>"
-                  onerror="this.style.display='none'"
-                />
-                <%}%>
+                <div><%=team1_kda%></div>
+                <div>KDA</div>
+                <div><%=team2_kda%></div>
               </div>
-              <div>BANS</div>
               <div>
-                <%for(let i=0;i<5;i++){%>
-                <img
-                  src="<%=stats[1].ban[i]%>"
-                  onerror="this.style.display='none'"
-                />
-                <%}%>
+                <div><%=(stats[0].gold/1000).toFixed(1)%>K</div>
+                <div>GOLD</div>
+                <div><%=(stats[1].gold/1000).toFixed(1)%>K</div>
+              </div>
+              <div>
+                <div><%=stats[0].tower%></div>
+                <div>TOWERS</div>
+                <div><%=stats[1].tower%></div>
+              </div>
+              <div>
+                <div><%=stats[0].riftHerald%></div>
+                <div>HERALDS</div>
+                <div><%=stats[1].riftHerald%></div>
+              </div>
+              <div>
+                <div>
+                  <% for(let i=0; i<math.Dragon_Kill.team1.length;i++){
+                    let dragon = math.Dragon_Kill.team1[i]%>
+                    <img src="/img/dragon/<%=dragon%>.png">
+                  <%}%>
+                </div>
+                <div>DRAKES</div>
+                <div>
+                  <% for(let i=0; i<math.Dragon_Kill.team2.length;i++){
+                    let dragon = math.Dragon_Kill.team2[i]%>
+                    <img src="/img/dragon/<%=dragon%>.png">
+                  <%}%>
+                </div>
+              </div>
+              <div>
+                <div><%=stats[0].elderdragon%></div>
+                <div>ELDERS</div>
+                <div><%=stats[1].elderdragon%></div>
+              </div>
+              <div>
+                <div><%=stats[0].baron%></div>
+                <div>BARONS</div>
+                <div><%=stats[1].baron%></div>
+              </div>
+              <div>
+                <div>
+                  <%for(let i=0;i<5;i++){%>
+                  <img
+                    src="<%=stats[0].ban[i]%>"
+                    onerror="this.style.display='none'"
+                  />
+                  <%}%>
+                </div>
+                <div>BANS</div>
+                <div>
+                  <%for(let i=0;i<5;i++){%>
+                  <img
+                    src="<%=stats[1].ban[i]%>"
+                    onerror="this.style.display='none'"
+                  />
+                  <%}%>
+                </div>
               </div>
             </div>
           </div>
           <div>
+            <div>TOTAL DAMAGE DEALT</div>
             <div id="deal">
-              <% for(let i=0; i<5; i++) { let user =
-              matchData.info.participants[i]; let Kdeal =
-              Math.floor(math.deal_end[i]/100); let maxDeal =
+              <% let barSize_arr_L = []; let barSize_15min_arr_L = []; %> <%
+              for(let i=0; i<5; i++) {let user = matchData.info.participants[i];
+              let Kdeal = Math.floor(math.deal_end[i]/100); let maxDeal =
               Math.max(...math.deal_end); let barSize = 18000*Kdeal/maxDeal; let
               deal_15min = math.deal_15min[i]; let barSize_15min =
-              180*deal_15min/maxDeal;%>
+              180*deal_15min/maxDeal; barSize_arr_L.push(barSize);
+              barSize_15min_arr_L.push(barSize_15min);%>
               <div class="deal_left">
                 <div>
                   <img
@@ -109,48 +125,23 @@
                 </div>
                 <div>
                   <p> <%=user.summonerName%> </p>
-                  <p> <%=Kdeal/10%>K </p>
-                  <div
-                    style="
-                      width: <%=barSize%>px;
-                      height: 10px;
-                      background-color: blue;
-                    "
-                  >
-                    <div
-                      style="
-                        width: <%=barSize_15min%>px;
-                        height: 10px;
-                        background-color: skyblue;
-                      "
-                    ></div>
-                  </div>
+                  <p> <%=(Kdeal/10).toFixed(1)%>K </p>
+                  <div><div></div></div>
                 </div>
               </div>
-              <%}%> <% for(let i=5; i<10; i++) { let user =
+              <%}%> <% let barSize_arr_R = []; let barSize_15min_arr_R = []; %>
+              <% for(let i=5; i<10; i++) { let user =
               matchData.info.participants[i]; let Kdeal =
               Math.floor(math.deal_end[i]/100); let maxDeal =
               Math.max(...math.deal_end); let barSize = 18000*Kdeal/maxDeal; let
               deal_15min = math.deal_15min[i]; let barSize_15min =
-              180*deal_15min/maxDeal; %>
+              180*deal_15min/maxDeal; barSize_arr_R.push(barSize);
+              barSize_15min_arr_R.push(barSize_15min);%>
               <div class="deal_right">
                 <div>
                   <p> <%=user.summonerName%> </p>
-                  <p> <%=Kdeal/10%>K </p>
-                  <div
-                    style="
-                      width: <%=barSize%>px;
-                      height: 10px;
-                      background-color: red;
-                    "
-                    ><div
-                      style="
-                        width: <%=barSize_15min%>px;
-                        height: 10px;
-                        background-color: salmon;
-                      "
-                    ></div
-                  ></div>
+                  <p> <%=(Kdeal/10).toFixed(1)%>K </p>
+                  <div><div></div></div>
                 </div>
                 <div>
                   <img
@@ -161,7 +152,10 @@
               <%}%>
             </div>
             <div id="gold">
-              <canvas id="myChart"></canvas>
+              <div>GOLD DIFFERENCE</div>
+              <div>
+                <canvas id="myChart"></canvas>
+              </div>
             </div>
           </div>
         </main>
@@ -169,6 +163,46 @@
     </div>
 
     <script type="text/javascript">
+      const deal_left = document.getElementsByClassName("deal_left");
+      const deal_right = document.getElementsByClassName("deal_right");
+
+      let barSize_arr_L = JSON.parse("<%- JSON.stringify(barSize_arr_L)%>");
+      let barSize_15min_arr_L = JSON.parse(
+        "<%- JSON.stringify(barSize_15min_arr_L)%>"
+      );
+
+      barSize_arr_L.forEach((item, index) => {
+        deal_left[index].children[1].children[2].style.width = item + "px";
+      });
+      barSize_15min_arr_L.forEach((item, index) => {
+        deal_left[index].children[1].children[2].children[0].style.width =
+          item + "px";
+      });
+
+      let barSize_arr_R = JSON.parse("<%- JSON.stringify(barSize_arr_R)%>");
+      let barSize_15min_arr_R = JSON.parse(
+        "<%- JSON.stringify(barSize_15min_arr_R)%>"
+      );
+
+      barSize_arr_R.forEach((item, index) => {
+        deal_right[index].children[0].children[2].style.width = item + "px";
+      });
+      barSize_15min_arr_R.forEach((item, index) => {
+        deal_right[index].children[0].children[2].children[0].style.width =
+          item + "px";
+      });
+
+      const header = document.getElementById('header');
+
+      if('<%=team1_text%>' === 'WIN'){
+        header.children[0].style.background = 'linear-gradient(#292E40, blue)';
+        header.children[1].style.background = 'linear-gradient(#292E40, blue)';
+      }
+      if('<%=team2_text%>' === 'WIN'){
+        header.children[3].style.background = 'linear-gradient(#292E40, red)';
+        header.children[4].style.background = 'linear-gradient(#292E40, red)';
+      }
+
       let goldData = JSON.parse("<%- JSON.stringify(math.goldDifference)%>");
       let goldTime = goldData.map((item, index) => {
         return index;
@@ -194,10 +228,10 @@
             var ctx = this.chart.chart.ctx;
             var gradient = ctx.createLinearGradient(0, top, 0, bottom);
             var ratio = Math.min((zero - top) / (bottom - top), 1);
-            gradient.addColorStop(0, "rgba(0,0,230,0.8)");
-            gradient.addColorStop(ratio, "rgba(0,0,230,0.8)");
-            gradient.addColorStop(ratio, "rgba(230,0,0,0.8)");
-            gradient.addColorStop(1, "rgba(230,0,0,0.8)");
+            gradient.addColorStop(0, "rgba(0,0,230,0.7)");
+            gradient.addColorStop(ratio, "rgba(0,0,230,0.7)");
+            gradient.addColorStop(ratio, "rgba(230,0,0,0.7)");
+            gradient.addColorStop(1, "rgba(230,0,0,0.7)");
             this.chart.data.datasets[0].backgroundColor = gradient;
 
             return Chart.controllers.line.prototype.update.apply(
@@ -222,11 +256,11 @@
               data: goldData,
               backgroundColor: [
                 //색상
-                "rgba(255, 99, 132, 0.2)",
+                "black",
               ],
               borderColor: [
                 //경계선 색상
-                "rgba(255, 99, 132, 1)",
+                "white",
               ],
               borderWidth: 1, //경계선 굵기
               lineTension: 0.5,
@@ -238,6 +272,21 @@
           legend: false,
           animation: false,
           events: [],
+          scales: {
+            xAxes: [{
+              ticks:{
+                maxTicksLimit:6
+              }
+            }],
+            yAxes: [{
+              ticks:{
+                min:Math.min(...goldData),
+                max:Math.max(...goldData),
+                maxTicksLimit:2,
+                display:false,
+              }
+            }],
+          }
         },
       });
     </script>

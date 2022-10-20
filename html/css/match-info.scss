@@ -7,10 +7,15 @@
   justify-content:$justify; 
   align-items:$align;
 }
+$root-color:#292E40;
+$blue-color1:#65A3DC;
+$blue-color1:#657FDC;
+$gray-color:rgb(121, 118, 118);
 
 #root{
   @include box(100vw,100vh);
   @include flex;
+  background-color: $root-color;
   >div{
     @include box(1000px,600px);
   }
@@ -19,44 +24,77 @@
 header{
   @include box(1000px,80px);
   @include flex;
+  border-top: 2px solid $gray-color;
+  border-bottom: 2px solid $gray-color;
+  color:white;
   >div{
     @include box(20%,100%);
     @include flex;
-    border: 1px solid black;
+  }
+  >div:nth-child(3){
+    flex-direction: column;
+    >p:nth-child(2){
+      font-size: 32px;
+    }
   }
 }
 
 main{
   @include box(1000px,520px);
   @include flex;
-  >div{
-    @include box(50%,100%);
-    flex-direction: column;
+  >div:nth-child(2){
+    >div:nth-child(1){
+      @include box(500px,40px);
+      @include flex;
+      color: white;
+    }
   }
 }
 
 #game_stats{
+  @include box(500px,520px);
   @include flex;
   flex-direction: column;
-  >div{
-    @include box(100%,10%);
+  color:white;
+  >div:nth-child(1){
+    @include box(500px,40px);
     @include flex;
-    border-bottom: 1px solid black;
+  }
+  >div:nth-child(2){
+    @include box(500px,480px);
+    @include flex;
+    flex-direction: column;
+    border-right: 1px solid white;
+    >div{
+      @include box(100%,12.5%);
+      @include flex;
+      >div{
+        border-top: 1px solid $gray-color;
+      }
       >div:nth-child(1){
-        @include box(40%,100%);
+        @include box(35%,100%);
         @include flex(flex-end,center);
+        font-size: 24px;
       }
       >div:nth-child(2){
         @include box(20%,100%);
         @include flex;
       }
       >div:nth-child(3){
-        @include box(40%,100%);
+        @include box(35%,100%); 
         @include flex(flex-start,center);
+        font-size: 24px;
       }
       img{
         @include box(35px,35px);
       }
+    }
+    >div:nth-child(5){
+      >div:nth-child(1){
+        @include flex(flex-start,center);
+        flex-direction: row-reverse;
+      }
+    }
   }
 }
 
@@ -65,6 +103,7 @@ main{
   @include flex;
   flex-direction: column;
   flex-wrap: wrap;
+  color:white;
 }
 
 .deal_left{
@@ -81,31 +120,53 @@ main{
       @include box(190px,60px);
       @include flex(center,flex-start);
       flex-direction: column;
+      >div{
+        background-color: blue;
+        height: 10px;
+        >div{
+          background-color: skyblue;
+          height: 10px;
+        }
+      }
     }
 }
 .deal_right{
   @include box(50%,20%);//250,60
+  @include flex;
+  >div:nth-child(2){
+    @include box(60px,60px);
     @include flex;
-    >div:nth-child(2){
-      @include box(60px,60px);
-      @include flex;
-      >img{
-        @include box(50px,50px);
-      }
+    >img{
+      @include box(50px,50px);
     }
-    >div:nth-child(1){
-      @include box(190px,60px);
-      @include flex(center,flex-end);
-      flex-direction: column;
+  }
+  >div:nth-child(1){
+    @include box(190px,60px);
+    @include flex(center,flex-end);
+    flex-direction: column;
+    >div{
+      @include flex(flex-end,center);
+      background-color: red;
+      height: 10px;
       >div{
-        @include flex(flex-end,center);
+        background-color: salmon;
+        height: 10px;
       }
     }
+  }
 }
 
 #gold{
-  @include box(500px,220px);
-  >canvas{
-    @include box(100%,100%);
+  @include box(500px,180px);
+  >div:nth-child(2){
+    @include box(500px,40px);
+    @include flex;
+    color:white;
+  }
+  >div:nth-child(3){
+    @include box(500px,140px);
+    >canvas{
+      @include box(450px,140px);
+    }
   }
 }

@@ -7,14 +7,16 @@
   justify-content: $justify;
   align-items: $align;
 }
+$root-color:#292E40;
+$blue-color1:#65A3DC;
+$blue-color1:#657FDC;
 
 body{
   overflow-x: hidden;
 }
-
 #root{
   @include box(100vw,100vh);
-  background-color:#292E40;
+  background-color:$root-color;
   display: flex;
   flex-direction: column;
   align-items: center;

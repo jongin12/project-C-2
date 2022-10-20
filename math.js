@@ -71,6 +71,29 @@ const math = {
     return value;
     //엘리트몬스터 처치로그 배열로 반환
   },
+  Dragon_Kill: (frames) => {
+    value = { team1: [], team2: [] };
+    frames.forEach((item) => {
+      let events = item.events;
+      events.forEach((event) => {
+        if (
+          event.type === "ELITE_MONSTER_KILL" &&
+          event.monsterType === "DRAGON" &&
+          event.killerTeamId === 100
+        ) {
+          value.team1.push(event.monsterSubType);
+        } else if (
+          event.type === "ELITE_MONSTER_KILL" &&
+          event.monsterType === "DRAGON" &&
+          event.killerTeamId === 200
+        ) {
+          value.team2.push(event.monsterSubType);
+        }
+      });
+    });
+    return value;
+    //엘리트몬스터 처치로그 배열로 반환
+  },
   game_stats: (match) => {
     value = [
       { kda: { k: 0, d: 0, a: 0 }, gold: 0 },
@@ -123,6 +146,6 @@ const math = {
 
 // console.log(math.goldDifference(timestamp.info.frames));
 // console.log(math.deal_15min(timestamp.info.frames));
-// console.log(math.eliteMonster_Kill(timestamp.info.frames));
+// console.log(math.Dragon_Kill(timestamp.info.frames));
 
 module.exports = math;
