@@ -55,7 +55,7 @@ const LOL_API = {
     });
   },
   matchList: (puuid) => {
-    let url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=1&api_key=${key}`;
+    let url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then((res) => res.json())

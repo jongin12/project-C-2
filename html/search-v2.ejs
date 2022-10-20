@@ -21,6 +21,7 @@
           <form>
             <input type="text" placeholder="소환사명" id="name" />
             <input
+              id="button"
               type="button"
               value="검색"
               onclick="document.location.href=getvalue()"
@@ -49,28 +50,41 @@
           </div>
           <div>
             <div>
-              <div class="rank" style="z-index: 2">
+              <%
+              let solo_win = league.solo.wins/(league.solo.wins+league.solo.losses);
+              let flex_win = league.flex.wins/(league.flex.wins+league.flex.losses);
+              %>
+              <div class="rank" style="z-index: 2; opacity: 1;">
                 <p style="font-size: 16px">SOLO RANK</p>
                 <img src="/img/ranked-emblems/<%=league.solo.tier%>.png" />
-                <p style="font-size: 12px">
+                <p style="font-size: 16px">
                   <%=league.solo.tier%> <%=league.solo.rank%>
                   <%=league.solo.leaguePoints%>점
                 </p>
-                <p style="font-size: 20px">
-                  <%=league.solo.wins%> WIN <%=league.solo.losses%> LOSS
-                </p>
+                <div>
+                  <p><%=league.solo.wins%> WIN</p>
+                  <p>/</p>
+                  <p><%=league.solo.losses%> LOSS</p>
+                </div>
+                <p><%=(solo_win*100).toFixed(1)%>%</p>
               </div>
               <div class="rank" style="left: 160px; top: 50px; z-index: 1">
                 <p style="font-size: 16px">FREE RANK</p>
                 <img src="/img/ranked-emblems/<%=league.flex.tier%>.png" />
-                <p style="font-size: 12px">
+                <p style="font-size: 16px">
                   <%=league.flex.tier%> <%=league.flex.rank%>
                   <%=league.flex.leaguePoints%>점
                 </p>
-                <p style="font-size: 20px">
-                  <%=league.flex.wins%> WIN <%=league.flex.losses%> LOSS
-                </p>
+                <div>
+                  <p><%=league.flex.wins%> WIN</p>
+                  <p>/</p>
+                  <p><%=league.flex.losses%> LOSS</p>
+                </div>
+                <p><%=(flex_win*100).toFixed(1)%>%</p>
               </div>
+            </div>
+            <div>
+              <div class="most"></div>
             </div>
           </div>
         </div>
@@ -103,34 +117,42 @@
                 let min = Math.floor(playtime/60);
                 let sec = playtime%60;
                 %>
-                <div><%=searchData[i].queueId_kr%></div>
                 <div>
-                  <p><%=time%></p>
-                  <p>(<%=min%>분<%=sec%>초)</p>
-                </div>
-                  <%
-                  if(myData.deaths === 0){
-                    kdaText = "perfect";
-                  } else {
-                    let kda = (myData.kills+myData.assists)/myData.deaths;
-                    kda2 = kda.toFixed(1);
-                    kdaText = kda2;
-                  }
-                  %>
                   <div>
-                    <p>KDA</p>
+                    <%=searchData[i].queueId_kr%>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <div><div></div></div>
                     <div>
-                      <%=kdaText%>
+                      <p><%=time%></p>
+                      <p>(<%=min%>분<%=sec%>초)</p>
                     </div>
                   </div>
+                </div>
+                <%
+                if(myData.deaths === 0){
+                  kdaText = "perfect";
+                } else {
+                  let kda = (myData.kills+myData.assists)/myData.deaths;
+                  kda2 = kda.toFixed(1);
+                  kdaText = kda2;
+                }
+                %>
+                <div>
+                  <p>KDA</p>
+                  <div>
+                    <%=kdaText%>
+                  </div>
+                </div>
               </div>
               <div class="box_2">
                 <div>
                   <img src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=myData.championName%>.png"/>
                   <div>
+                    <img src="<%=myData.mainRune_kr.img%>">
                     <div><%=myData.champLevel%></div>
-                    <% let rune_img = myData.mainRune_kr.img; %>
-                    <img src="<%=rune_img%>">
                   </div>
                 </div>
                 <%
@@ -167,6 +189,7 @@
                   <img src="<%=spell1_img%>">
                   <img src="<%=spell2_img%>">
                 </div>
+                <div></div>
                 <div>
                     <% for(let j=0;j<6;j++) { %>
                       <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png" onerror="this.style.display='none'"/>
@@ -180,29 +203,27 @@
                   let tdp = myData.teamDamagePercentage;
                   let tdp2 = (Math.floor(tdp*1000))/10;
                   let deal = myData.totalDamageDealtToChampions;
+                  let deal_min = Math.floor(deal/playtime*600)/10;
                   let cs = myData.csJg + myData.csLine;
+                  let cs_min = Math.floor(cs/playtime*600)/10;
                   let gold = myData.gold;
                   %>
                   <div>
                     <div>
-                      <p>TOTAL <%=deal%></p>
-                      <p>minute average</p>
+                      <p>TOTAL DAMAGE <%=deal%></p>
+                      <p>minute average <%=deal_min%></p>
                     </div>
                     <p><%=tdp2%>%</p>
                   </div>
                   <div>
                     <div>
-                      <p>TOTAL CS<%=cs%></p>
-                      <p>minute average</p>
+                      <p>CS <%=cs%></p>
+                      <p>minute average <%=cs_min%></p>
                     </div>
-                    <p><%=tdp2%>%</p>
-                  </div>
-                  <div>
                     <div>
-                      <p>TOTAL GOLD<%=gold%></p>
-                      <p>minute average</p>
+                      <p>GOLD <%=gold%></p>
+                      <p></p>
                     </div>
-                    <p><%=tdp2%>%</p>
                   </div>
               </div>
           </section>
@@ -210,6 +231,12 @@
         </div>
       </main>
     </div>
+    <%
+    let arr = matchList.map((item)=>{
+      var a = item.slice(3);
+      return Number(a);
+    })
+    %>
   </body>
   <script type="text/javascript">
     function getvalue() {
@@ -223,15 +250,29 @@
       var url = "/summoner/" + name.innerText + "/activegame";
       document.location.href = url;
     });
-
     const rank_card = document.getElementsByClassName("rank");
     rank_card[0].addEventListener("click", function () {
       this.style.zIndex = 2;
+      this.style.opacity = 1;
       rank_card[1].style.zIndex = 1;
+      rank_card[1].style.opacity = 0.5;
     });
     rank_card[1].addEventListener("click", function () {
       this.style.zIndex = 2;
+      this.style.opacity = 1;
       rank_card[0].style.zIndex = 1;
+      rank_card[0].style.opacity = 0.5;
     });
+
+    let matchList = JSON.parse("<%- JSON.stringify(arr)%>");
+
+    const game_list = document.getElementById("match_list");
+
+      for(let i=0; i<game_list.children.length;i++){
+        let button = game_list.children[i];
+        button.addEventListener(('click'),()=>{
+          document.location.href = `/match/KR_${matchList[i]}`
+        })
+      }
   </script>
 </html>
