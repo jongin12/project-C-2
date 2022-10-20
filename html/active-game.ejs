@@ -26,38 +26,42 @@
         user = User[i];%>
         <div class="user_left">
           <div>
-            <img src="<%=myData.championImg%>" />
-          </div>
-          <div>
-            <img src="<%=myData.main_perk_kr.img%>" />
-            <img src="<%=myData.sub_perk_kr.img%>" />
+            <p style="font-size: 17px"><%=myData.summonerName%></p>
+            <p style="font-size: 14px"
+              ><%=user.solo.tier%> <%=user.solo.rank%></p
+            >
           </div>
           <div>
             <img src="<%=myData.spell1Id_kr.img%>" />
             <img src="<%=myData.spell2Id_kr.img%>" />
           </div>
           <div>
-            <p style="font-size: 17px"><%=myData.summonerName%></p>
-            <p><%=user.solo.tier%> <%=user.solo.rank%></p>
+            <img src="<%=myData.main_perk_kr.img%>" />
+            <img src="<%=myData.sub_perk_kr.img%>" />
+          </div>
+          <div>
+            <img src="<%=myData.championImg%>" />
           </div>
         </div>
         <% } %> <% for(let i=5; i<10; i++) { %> <% let myData =
         Data.participants[i]; let user = User[i];%>
         <div class="user_right">
           <div>
-            <p style="font-size: 17px"><%=myData.summonerName%></p>
-            <p><%=user.solo.tier%> <%=user.solo.rank%></p>
-          </div>
-          <div>
-            <img src="<%=myData.spell1Id_kr.img%>" />
-            <img src="<%=myData.spell2Id_kr.img%>" />
+            <img src="<%=myData.championImg%>" />
           </div>
           <div>
             <img src="<%=myData.main_perk_kr.img%>" />
             <img src="<%=myData.sub_perk_kr.img%>" />
           </div>
           <div>
-            <img src="<%=myData.championImg%>" />
+            <img src="<%=myData.spell1Id_kr.img%>" />
+            <img src="<%=myData.spell2Id_kr.img%>" />
+          </div>
+          <div>
+            <p style="font-size: 17px"><%=myData.summonerName%></p>
+            <p style="font-size: 14px"
+              ><%=user.solo.tier%> <%=user.solo.rank%></p
+            >
           </div>
         </div>
         <% } %>
