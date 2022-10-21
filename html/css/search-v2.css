@@ -937,18 +937,18 @@ header {
     height: 70px;
   }
   .box_4 > div:nth-child(2) {
-    width: 290px;
+    width: 340px;
     height: 70px;
   }
   .box_4 > div:nth-child(2) > div:nth-child(1) {
-    width: 290px;
+    width: 340px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .box_4 > div:nth-child(2) > div:nth-child(1) > div {
-    width: 200px;
+    width: 250px;
     height: 40px;
     display: flex;
     justify-content: center;
@@ -973,14 +973,14 @@ header {
     font-weight: 800;
   }
   .box_4 > div:nth-child(2) > div:nth-child(2) {
-    width: 290px;
+    width: 340px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .box_4 > div:nth-child(2) > div:nth-child(2) > div {
-    width: 145px;
+    width: 170px;
     height: 40px;
     color: white;
   }

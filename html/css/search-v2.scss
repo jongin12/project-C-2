@@ -665,12 +665,12 @@ header{
       @include box(0px,70px);
     }
     >div:nth-child(2){
-      @include box(290px,70px);
+      @include box(340px,70px);
       >div:nth-child(1){
-        @include box(290px,40px);
+        @include box(340px,40px);
         @include flex;
         >div{
-          @include box(200px,40px);
+          @include box(250px,40px);
           @include flex(center,flex-start);
           flex-direction:column;
           color:white;
@@ -686,10 +686,10 @@ header{
         }
       }
       >div:nth-child(2){
-        @include box(290px,40px);
+        @include box(340px,40px);
         @include flex;
         >div{
-          @include box(145px,40px);
+          @include box(170px,40px);
           color:white;
           >p:nth-child(1){font-size: 16px;}
           >p:nth-child(2){font-size: 12px;}
