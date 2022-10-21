@@ -71,7 +71,7 @@ main{
         }
         >p:nth-child(2){
           position: relative;
-          bottom: 29px;
+          bottom: 22px;
           right: 2px;
         }
       }
@@ -211,7 +211,7 @@ main{
     }
     >div:nth-child(3){
       @include flex(flex-end,center);
-      background-color: red;
+      background-color: rgb(211, 11, 11);
       height: 10px;
       >div{
         background-color: salmon;

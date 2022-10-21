@@ -360,10 +360,10 @@
             var ctx = this.chart.chart.ctx;
             var gradient = ctx.createLinearGradient(0, top, 0, bottom);
             var ratio = Math.min((zero - top) / (bottom - top), 1);
-            gradient.addColorStop(0, "rgba(0,0,230,0.7)");
-            gradient.addColorStop(ratio, "rgba(0,0,230,0.7)");
-            gradient.addColorStop(ratio, "rgba(230,0,0,0.7)");
-            gradient.addColorStop(1, "rgba(230,0,0,0.7)");
+            gradient.addColorStop(0, "rgb(78, 78, 253)");
+            gradient.addColorStop(ratio, "rgb(78, 78, 253)");
+            gradient.addColorStop(ratio, "rgb(211, 11, 11)");
+            gradient.addColorStop(1, "rgb(211, 11, 11)");
             this.chart.data.datasets[0].backgroundColor = gradient;
 
             return Chart.controllers.line.prototype.update.apply(
@@ -414,6 +414,8 @@
             yAxes: [{
               ticks:{
                 display:false,
+                max:Math.max(...goldData)+100,
+                min:Math.min(...goldData)-100,
               }
             }],
           }

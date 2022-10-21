@@ -84,7 +84,7 @@ main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(1) {
 }
 main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(2) {
   position: relative;
-  bottom: 29px;
+  bottom: 22px;
   right: 2px;
 }
 
@@ -285,7 +285,7 @@ main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(2) {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: red;
+  background-color: rgb(211, 11, 11);
   height: 10px;
 }
 .deal_right > div:nth-child(1) > div:nth-child(3) > div {
