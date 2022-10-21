@@ -6,7 +6,6 @@ const fetch = require("node-fetch");
 const LOL_API = require("./LOL_API");
 const ejs = require("ejs");
 const math = require("./math");
-const { activeGame } = require("./LOL_API");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,78 +19,73 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/html/index.html");
 });
 
-app.get("/list/:name", async function (req, res) {
-  let list = { matchData: [] };
-  let name = req.params.name;
-  list.summoner = await LOL_API.summoners(req.params.name);
-  list.activeGame = await LOL_API.activeGame(list.summoner.id);
-  list.league = await LOL_API.summonersLeague(list.summoner.id);
-  list.matchList = await LOL_API.matchList(list.summoner.puuid);
-  for (let i = 0; i < list.matchList.length; i++) {
-    list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
-  }
-  list.math = math.matchData(list.matchData);
-  res.send(list);
-});
+// app.get("/list/:name", async function (req, res) {
+//   let list = { matchData: [] };
+//   let name = req.params.name;
+//   list.summoner = await LOL_API.summoners(req.params.name);
+//   list.activeGame = await LOL_API.activeGame(list.summoner.id);
+//   list.league = await LOL_API.summonersLeague(list.summoner.id);
+//   list.matchList = await LOL_API.matchList(list.summoner.puuid);
+//   for (let i = 0; i < list.matchList.length; i++) {
+//     list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
+//   }
+//   list.math = math.matchData(list.matchData);
+//   res.send(list);
+// });
 
 app.get("/summoner/:name", async function (req, res) {
   let list = { matchData: [] };
   let name = req.params.name;
   list.summoner = await LOL_API.summoners(req.params.name);
-  list.activeGame = await LOL_API.activeGame(list.summoner.id);
-  list.league = await LOL_API.summonersLeague(list.summoner.id);
-  list.matchList = await LOL_API.matchList(list.summoner.puuid);
-  for (let i = 0; i < list.matchList.length; i++) {
-    list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
-  }
-  list.math = math.matchData(list.matchData);
-  new Promise((resolve, reject) => {
-    if (!list.matchList[0]) {
-      reject();
-    } else {
-      resolve();
+  if (list.summoner.status) {
+    if (list.summoner.status.status_code === 403) {
+      res.send("Riot Key error");
+    } else if (list.summoner.status.status_code === 404) {
+      res.send("없는 소환사명입니다");
     }
-  })
-    .then(() => {
-      fs.readFile("html/search-v2.ejs", "utf8", function (err, data) {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(
-          ejs.render(data, {
-            matchList: list.matchList,
-            searchData: list.matchData,
-            league: list.league,
-            summoner: list.summoner,
-            math: list.math,
-            activeGame: list.activeGame,
-          })
-        );
-      });
-    })
-    .catch(() => {
-      res.send("없는 소환사명입니다.");
+  } else {
+    list.activeGame = await LOL_API.activeGame(list.summoner.id);
+    list.league = await LOL_API.summonersLeague(list.summoner.id);
+    list.matchList = await LOL_API.matchList(list.summoner.puuid);
+    for (let i = 0; i < list.matchList.length; i++) {
+      list.matchData[i] = await LOL_API.matchInfo(list.matchList[i], name);
+    }
+    list.math = math.matchData(list.matchData);
+    fs.readFile("html/search-v2.ejs", "utf8", function (err, data) {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(
+        ejs.render(data, {
+          matchList: list.matchList,
+          searchData: list.matchData,
+          league: list.league,
+          summoner: list.summoner,
+          math: list.math,
+          activeGame: list.activeGame,
+        })
+      );
     });
+  }
 });
 
 app.get("/summoner/:name/activegame", async function (req, res) {
   let list = { userInfo: [] };
   list.summoner = await LOL_API.summoners(req.params.name);
-  list.activeGame = await LOL_API.activeGame(list.summoner.id);
-  if (!list.activeGame.status) {
-    for (let i = 0; i < 10; i++) {
-      var userId = list.activeGame.participants[i].summonerId;
-      list.userInfo[i] = await LOL_API.summonersLeague(userId);
+  if (list.summoner.status) {
+    if (list.summoner.status.status_code === 403) {
+      res.send("Riot Key error");
+    } else if (list.summoner.status.status_code === 404) {
+      res.send("없는 소환사명입니다");
     }
-  }
-  new Promise((resolve, reject) => {
-    if (list.summoner.status) {
-      reject("없는 소환사명입니다.");
-    } else if (list.activeGame.status) {
-      reject("진행중인 게임이 없습니다.");
+  } else {
+    list.activeGame = await LOL_API.activeGame(list.summoner.id);
+    if (list.activeGame.status) {
+      res.send("진행중인 게임이 없습니다.");
     } else {
-      resolve();
-    }
-  })
-    .then(() => {
+      for (let i = 0; i < 10; i++) {
+        let userId = list.activeGame.participants[i].summonerId;
+        list.userInfo[i] = await LOL_API.summonersLeague(userId);
+      }
+      list.activeGame = await LOL_API.activeGame(list.summoner.id);
       fs.readFile("html/active-game.ejs", "utf8", function (err, data) {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(
@@ -101,10 +95,8 @@ app.get("/summoner/:name/activegame", async function (req, res) {
           })
         );
       });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+    }
+  }
 });
 
 app.get("/match/:id", async function (req, res) {

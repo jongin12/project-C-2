@@ -296,5 +296,12 @@
         document.location.href = `/match/KR_${matchList[i]}`
       })
     }
+
+    if(matchList.length === 0){
+      game_list.textContent = '최근 전적이 없습니다.';
+      game_list.style.fontSize = '3em';
+      game_list.style.justifyContent = 'center';
+      game_list.style.color = 'white';
+    }
   </script>
 </html>
