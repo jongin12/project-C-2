@@ -104,6 +104,22 @@ main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(2) {
   justify-content: center;
   align-items: center;
 }
+#game_stats > div:nth-child(1) > div {
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#game_stats > div:nth-child(1) > div > p {
+  display: inline-block;
+  background-color: #65A3DC;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  padding: 4px 8px;
+}
 #game_stats > div:nth-child(2) {
   width: 500px;
   height: 480px;
@@ -194,11 +210,29 @@ main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(2) {
   align-items: flex-start;
   flex-direction: column;
 }
-.deal_left > div:nth-child(2) > div {
-  background-color: blue;
+.deal_left > div:nth-child(2) > div:nth-child(1) {
+  width: 190px;
+  height: 21px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.deal_left > div:nth-child(2) > div:nth-child(1) > div {
+  width: 30px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px white solid;
+  color: black;
+  font-size: 14px;
+}
+.deal_left > div:nth-child(2) > div:nth-child(3) {
+  background-color: rgb(78, 78, 253);
   height: 10px;
 }
-.deal_left > div:nth-child(2) > div > div {
+.deal_left > div:nth-child(2) > div:nth-child(3) > div {
   background-color: skyblue;
   height: 10px;
 }
@@ -229,14 +263,32 @@ main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(2) {
   align-items: flex-end;
   flex-direction: column;
 }
-.deal_right > div:nth-child(1) > div {
+.deal_right > div:nth-child(1) > div:nth-child(1) {
+  width: 190px;
+  height: 21px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.deal_right > div:nth-child(1) > div:nth-child(1) > div {
+  width: 30px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px white solid;
+  color: black;
+  font-size: 14px;
+}
+.deal_right > div:nth-child(1) > div:nth-child(3) {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   background-color: red;
   height: 10px;
 }
-.deal_right > div:nth-child(1) > div > div {
+.deal_right > div:nth-child(1) > div:nth-child(3) > div {
   background-color: salmon;
   height: 10px;
 }

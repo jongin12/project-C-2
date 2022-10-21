@@ -1,6 +1,7 @@
 // const timestamp = require("./timestamp.json");
 // const match = require("./match.json");
 const champion = require("./module/champion");
+const queueId = require("./module/queueId");
 
 const math = {
   matchData: (matchData) => {
@@ -98,9 +99,28 @@ const math = {
     value = [
       { kda: { k: 0, d: 0, a: 0 }, gold: 0 },
       { kda: { k: 0, d: 0, a: 0 }, gold: 0 },
+      {},
     ];
     let users = match.info.participants;
     let teams = match.info.teams;
+    value[2].queueId = queueId[match.info.queueId];
+    let gameEndTime = match.info.gameEndTimestamp;
+    let date = new Date(gameEndTime);
+    var year = date.getFullYear();
+    var month = "0" + (date.getMonth() + 1);
+    var day = "0" + date.getDate();
+    var hour = "0" + date.getHours();
+    var minute = "0" + date.getMinutes();
+    value[2].gameEndTime =
+      year +
+      "-" +
+      month.substr(-2) +
+      "-" +
+      day.substr(-2) +
+      " " +
+      hour.substr(-2) +
+      ":" +
+      minute.substr(-2);
     for (i = 0; i < 5; i++) {
       value[0].kda.k += users[i].kills;
       value[0].kda.d += users[i].deaths;

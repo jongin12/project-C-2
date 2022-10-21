@@ -268,11 +268,11 @@
 
     const game_list = document.getElementById("match_list");
 
-      for(let i=0; i<game_list.children.length;i++){
-        let button = game_list.children[i];
-        button.addEventListener(('click'),()=>{
-          document.location.href = `/match/KR_${matchList[i]}`
-        })
-      }
+    for(let i=0; i<game_list.children.length;i++){
+      let button = game_list.children[i];
+      button.addEventListener(('click'),()=>{
+        document.location.href = `/match/KR_${matchList[i]}`
+      })
+    }
   </script>
 </html>
