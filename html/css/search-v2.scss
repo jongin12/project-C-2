@@ -20,7 +20,36 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+}
+
+@media (max-width: 500px) {
+  main{
+    @include box(100vw,160vh);
+    @include flex;
+    flex-direction: column;
+  }
+  #root{
+    @include box(100vw,180vh);
+  }
+}
+@media (max-width: 900px) and (min-width: 500px) {
+  main{
+    @include box(100vw,160vh);
+    @include flex;
+    flex-direction: column;
+  }
+  #root{
+    @include box(100vw,180vh);
+  }
+}
+@media (min-width: 900px) {
+  main{
+    @include box(100vw,90vh);
+    @include flex;
+  }
+  #root{
+    @include box(100vw,100vh);
+  }
 }
 
 header{
@@ -36,19 +65,13 @@ header{
     @include box(90%,100%);
     @include flex(center,center);
     #name{
-      @include box(400px,30px);
+      @include box(350px,30px);
     }
     #button{
       @include box(40px,30px);
     }
   }
 }
-
-main{
-  @include box(100vw,90vh);
-  @include flex;
-}
-
 #user_info{
   @include box(500px,90vh);
   @include flex;
@@ -152,7 +175,6 @@ main{
   position: absolute;
   flex-direction: column;
   border-radius: 10px;
-  background-color: #65A3DC;
   color:white;
 }
 #match_list{
@@ -373,6 +395,305 @@ main{
         color:white;
         >p:nth-child(1){font-size: 16px;}
         >p:nth-child(2){font-size: 12px;}
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  main{
+    @include box(100vw,160vh);
+    @include flex;
+    flex-direction: column;
+  }
+  #root{
+    @include box(100vw,180vh);
+  }
+  #user_info{
+    @include box(360px,80vh);
+    @include flex;
+    flex-direction: column;
+    >div:nth-child(1){
+      @include box(100%,10%);
+      >div{
+        @include box(360px,40px);
+      }
+    }
+    >div:nth-child(2){
+      @include box(100%,5%);
+      @include flex;
+      >form{
+        @include box(400px,100%);
+        @include flex(flex-end,center);
+        >div{
+          @include box(120px,24px);
+          @include flex;
+          background-color: #85A0B9;
+          border-radius: 12px;
+          >p{
+            @include box(96px,100%);
+            @include flex;
+            font-size: 14px;
+            color:white;
+          }
+          >div{
+            @include box(12px,12px);
+            border-radius: 6px;
+            margin: 6px;
+          }
+        }
+      }
+    }
+    >div:nth-child(3){
+      >div:nth-child(1){
+        @include box(360px,370px);
+      }
+      >div:nth-child(2){
+        @include box(360px,200px);
+      }
+    }
+  }
+  .rank{
+    @include box(200px,280px);
+    @include flex;
+    position: absolute;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 3px white solid;
+    background-color: #657FDC;
+    color:white;
+    opacity: 0.5;
+    >img{
+      @include box(150px,150px);
+    }
+    >div{
+      @include box(200px,60px);
+      @include flex;
+      flex-direction: column;
+      font-size: 20px;
+      >p:nth-child(1){
+        @include box(100px,30px);
+        @include flex;
+        position: relative;
+        right: 50px;
+        top:5px;
+      }
+      >p:nth-child(2){
+        @include flex;
+        position: absolute;
+        font-size: 36px;
+      }
+      >p:nth-child(3){
+        @include box(100px,30px);
+        @include flex;
+        position: relative;
+        left: 50px;
+        bottom: 5px;
+      }
+    }
+  }
+  .most{
+    @include box(360px,180px);
+  }
+  #match_list{
+    @include box(360px,90vh);
+  }
+  .game_box{
+    @include box(360px,280px);
+    >div{
+      @include box(340px,260px);
+    }
+  }
+  .box_1{
+    @include box(340px,40px);
+    @include flex(space-between,flex-start);
+    >div:nth-child(1){
+      @include box(100px,40px);
+      >div{
+        @include box(80px,30px);
+        @include flex;
+        border-radius: 15px;
+        background-color: #65A3DC;
+        color:white;
+      }
+    }
+    >div:nth-child(2){
+      @include box(150px,40px);
+      >div{
+        @include box(120px,35px);
+        @include flex(center,flex-end);
+        border-bottom: 2px solid #65A3DC;
+        color:white;
+        font-size: 12px;
+        >div:nth-child(1){
+          @include box(30px,30px);
+          background-color: white;
+          border-radius: 15px;
+          >div{
+            @include box(12px,12px);
+            border-left: 3px solid black;
+            border-bottom: 3px solid black;
+            position: relative;
+            left: 13px;
+            top: 5px;
+          }
+        }
+        >div:nth-child(2){
+          @include box(90px,35px);
+          @include flex(center,flex-end);
+          flex-direction: column;
+          color:white;
+          font-size: 12px;
+        }
+      }
+    }
+    >div:nth-child(3){
+      @include box(140px,40px);
+      @include flex(space-between,flex-start);
+      >p{
+        color:#65A3DC;
+        font-size: 24px;
+        font-weight: 800;
+      }
+      >div{
+        @include box(60px,30px);
+        @include flex;
+        border-radius: 15px;
+        background-color: #65A3DC;
+        color: white;
+      }
+    }
+  }
+  .box_2{
+    @include box(340px,90px);
+    @include flex;
+    >div:nth-child(1){
+      @include box(110px,100px);
+      @include flex(flex-start,flex-end);
+      >img:nth-child(1){
+        @include box(90px,90px);
+        border-radius: 50px;
+      }
+      >div:nth-child(2){
+        @include box(30px,100px);
+        @include flex(flex-end,center);
+        position: relative;
+        right: 10px;
+        flex-direction: column;
+        >div:nth-child(2){
+          @include box(30px,30px);
+          @include flex;
+          background-color: #65A3DC;
+          border-radius: 15px;
+          color: white;
+          font-weight: 600;
+          font-size: 16px;
+        }
+        >img:nth-child(1){
+          @include box(30px,30px);
+          @include flex;
+          background-color: black;
+          border-radius: 15px;
+        }
+      }
+    }
+    >div:nth-child(2){
+      @include box(160px,90px);
+      @include flex(space-between,center);
+      >div{
+        @include box(50px,90px);
+        @include flex(flex-end,center);
+        flex-direction: column;
+        >p{
+          color:#65A3DC;
+          font-size: 12px;
+          font-weight: 800;
+        }
+        >div{
+          @include box(45px,60px);
+          @include flex;
+          background-color: #A7C1DA;
+          border-radius: 8px;
+          font-size: 24px;
+          font-weight: 800;
+        }
+      }
+    }
+    >div:nth-child(3){
+      @include box(100px,90px);
+      @include flex(center,flex-end);
+      >div{
+        display: inline-block;
+        background-color: #65A3DC;
+        border-radius: 30px;
+        text-align: center;
+        color:white;
+        font-size: 14px;
+        padding: 4px 8px;
+      }
+    }
+  }
+  .box_3{
+    @include box(340px,50px);
+    @include flex;
+    >div:nth-child(1){
+      @include box(100px,50px);
+      @include flex(flex-start,center);
+      >img{
+        @include box(35px,35px);
+        border-radius: 5px;
+        margin:3px;
+      }
+    }
+    >div:nth-child(2){
+      @include box(0px,50px);
+    }
+    >div:nth-child(3){
+      @include box(290px,50px);
+      @include flex(flex-start,center);
+      >img{
+        @include box(35px,35px);
+        border-radius: 5px;
+        margin:3px;
+      }
+    }
+  }
+  .box_4{
+    @include box(340px,70px);
+    @include flex;
+    >div:nth-child(1){
+      @include box(0px,70px);
+    }
+    >div:nth-child(2){
+      @include box(290px,70px);
+      >div:nth-child(1){
+        @include box(290px,40px);
+        @include flex;
+        >div{
+          @include box(200px,40px);
+          @include flex(center,flex-start);
+          flex-direction:column;
+          color:white;
+          >p:nth-child(1){font-size: 16px;}
+          >p:nth-child(2){font-size: 12px;}
+        }
+        >p{
+          @include box(90px,40px);
+          @include flex;
+          color:#65A3DC;
+          font-size: 24px;
+          font-weight: 800;
+        }
+      }
+      >div:nth-child(2){
+        @include box(290px,40px);
+        @include flex;
+        >div{
+          @include box(145px,40px);
+          color:white;
+          >p:nth-child(1){font-size: 16px;}
+          >p:nth-child(2){font-size: 12px;}
+        }
       }
     }
   }

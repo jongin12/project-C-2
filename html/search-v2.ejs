@@ -19,7 +19,7 @@
       <header>
         <div class="search_box">
           <form>
-            <input type="text" placeholder="소환사명" id="name" />
+            <input type="text" placeholder="summoner name" id="name" onkeyup="enterkey()" />
             <input
               id="button"
               type="button"
@@ -261,6 +261,12 @@
     %>
   </body>
   <script type="text/javascript">
+
+    function enterkey(){
+      if(window.event.keyCode == 13){
+        document.location.href=getvalue();
+      }
+    }
     function getvalue() {
       var text = document.getElementById("name").value;
       var url = "/summoner/" + text;
@@ -299,7 +305,7 @@
 
     if(matchList.length === 0){
       game_list.textContent = '최근 전적이 없습니다.';
-      game_list.style.fontSize = '3em';
+      game_list.style.fontSize = '2em';
       game_list.style.justifyContent = 'center';
       game_list.style.color = 'white';
     }

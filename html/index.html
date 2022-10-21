@@ -48,8 +48,13 @@
   </head>
   <body>
     <div id="root">
-      <form id="form">
-        <input type="text" placeholder="소환사명" id="name" />
+      <form id="form" onsubmit="return false;">
+        <input
+          type="text"
+          placeholder="summoner name"
+          id="name"
+          onkeyup="enterkey()"
+        />
         <input
           id="button"
           type="button"
@@ -60,6 +65,12 @@
       <div id="text">League of Legend</div>
     </div>
     <script>
+      function enterkey() {
+        if (window.event.keyCode == 13) {
+          document.location.href = getvalue();
+        }
+      }
+      console.log("dadf");
       function getvalue() {
         var text = document.getElementById("name").value;
         var url = "/summoner/" + text;
