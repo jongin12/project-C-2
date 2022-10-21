@@ -21,8 +21,8 @@ $blue-color2:#657FDC;
 header{
   @include box(600px,50px);
   @include flex(space-between,center);
-  background-color: $blue-color2;
-  border-radius: 10px 10px 0 0 ;
+  background-color: $blue-color1;
+  border-radius: 10px;
   >p{
     font-size: 24px;
   }
@@ -33,16 +33,14 @@ main{
   @include flex;
   flex-direction: column;
   flex-wrap: wrap;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
 }
 
 .user_right{
   @include box(300px,80px);
   @include flex;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgb(177, 177, 177);
   >div:nth-child(1){
-    @include box(80px,80px);
+    @include box(70px,80px);
     @include flex;
     >img{
       @include box(70px,70px);
@@ -50,61 +48,115 @@ main{
     }
   }
   >div:nth-child(2){
-    @include box(40px,80px);
+    @include box(30px,80px);
     @include flex;
     flex-direction: column;
-    >img{
-      @include box(35px,35px);
+    >div:nth-child(1){
+      @include box(30px,30px);
+      >img{
+        @include box(30px,30px);
+      }
+    }
+    >div:nth-child(2){
+      @include box(30px,30px);
+      @include flex;
+      >img{
+        @include box(20px,20px);
+      }
     }
   }
   >div:nth-child(3){
-    @include box(40px,80px);
+    @include box(30px,80px);
     @include flex;
     flex-direction: column;
     >img{
-      @include box(35px,35px);
+      @include box(30px,30px);
     }
   }
   >div:nth-child(4){
-    @include box(140px,70px);
-    @include flex(flex-start,flex-start);
+    @include box(160px,70px);
+    @include flex(center,flex-start);
     flex-direction: column;
     color: white;
+    >p:nth-child(1){font-size: 17px;}
+    >p:nth-child(2){font-size: 14px;}
+    >p:nth-child(3){font-size: 13px;}
   }
 }
 
 .user_left{
   @include box(300px,80px);
   @include flex;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid rgb(177, 177, 177);
   >div:nth-child(1){
-    @include box(140px,70px);
-    @include flex(flex-start,flex-end);
+    @include box(160px,70px);
+    @include flex(center,flex-end);
     flex-direction: column;
+    padding:0px 8px;
     color:white;
+    >p:nth-child(1){font-size: 17px;}
+    >p:nth-child(2){font-size: 14px;}
+    >p:nth-child(3){font-size: 13px;}
   }
   >div:nth-child(2){
-    @include box(40px,80px);
+    @include box(30px,80px);
     @include flex;
     flex-direction: column;
     >img{
-      @include box(35px,35px);
+      @include box(30px,30px);
     }
   }
   >div:nth-child(3){
-    @include box(40px,80px);
+    @include box(30px,80px);
     @include flex;
     flex-direction: column;
-    >img{
-      @include box(35px,35px);
+    >div:nth-child(1){
+      @include box(30px,30px);
+      >img{
+        @include box(30px,30px);
+      }
+    }
+    >div:nth-child(2){
+      @include box(30px,30px);
+      @include flex;
+      >img{
+        @include box(20px,20px);
+      }
     }
   }
   >div:nth-child(4){
-    @include box(80px,80px);
+    @include box(70px,80px);
     @include flex;
     >img{
       @include box(70px,70px);
       border-radius: 35px;
     }
+  }
+}
+@media (max-width: 640px) {
+  header{
+    @include box(350px,50px);
+    >p{
+      font-size: 20px;
+    }
+  }
+  main{
+    @include box(350px,800px);
+    @include flex;
+    flex-direction: column;
+  }
+  .user_left{
+    @include box(300px,80px);
+    @include flex;
+    border-bottom: 1px solid rgb(177, 177, 177);
+    position: relative;
+    left:25px;
+  }
+  .user_right{
+    @include box(300px,80px);
+    @include flex;
+    border-bottom: 1px solid rgb(177, 177, 177);
+    position: relative;
+    right:25px;
   }
 }

@@ -213,9 +213,10 @@
                 </div>
                 <div></div>
                 <div>
-                    <% for(let j=0;j<6;j++) { %>
+                    <% for(let j=0;j<6;j++) { 
+                      if(myData.item[j] !== 0){%>
                       <img src="http://ddragon.leagueoflegends.com/cdn/12.19.1/img/item/<%=myData.item[j]%>.png" onerror="this.style.display='none'"/>
-                    <%} %>
+                    <%}} %>
                 </div>
               </div>
               <div class="box_4">

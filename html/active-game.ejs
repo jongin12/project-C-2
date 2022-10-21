@@ -19,25 +19,34 @@
       <header>
         <% let time = Data.gameLength;%>
         <p><%=Data.queueId_kr%></p>
-        <p id="time"><%=time%></p>
+        <p id="time"></p>
       </header>
       <main>
         <% for(let i=0; i<5; i++) { %> <% let myData = Data.participants[i]; let
         user = User[i];%>
         <div class="user_left">
           <div>
-            <p style="font-size: 17px"><%=myData.summonerName%></p>
-            <p style="font-size: 14px"
-              ><%=user.solo.tier%> <%=user.solo.rank%></p
-            >
+            <% let
+            win_lose=100*user.solo.wins/(user.solo.wins+user.solo.losses); let
+            win_lose_text=win_lose.toFixed(1); %>
+            <p><%=myData.summonerName%></p>
+            <p><%=user.solo.tier%> <%=user.solo.rank%></p>
+            <p>
+              <%=user.solo.wins%>승 <%=user.solo.losses%>패 <%if(user.solo.tier
+              !== 'UNRANK'){%> (<%=win_lose.toFixed(1)%>%)<%}%>
+            </p>
           </div>
           <div>
             <img src="<%=myData.spell1Id_kr.img%>" />
             <img src="<%=myData.spell2Id_kr.img%>" />
           </div>
           <div>
-            <img src="<%=myData.main_perk_kr.img%>" />
-            <img src="<%=myData.sub_perk_kr.img%>" />
+            <div>
+              <img src="<%=myData.main_perk_kr.img%>" />
+            </div>
+            <div>
+              <img src="<%=myData.sub_perk_kr.img%>" />
+            </div>
           </div>
           <div>
             <img src="<%=myData.championImg%>" />
@@ -50,18 +59,27 @@
             <img src="<%=myData.championImg%>" />
           </div>
           <div>
-            <img src="<%=myData.main_perk_kr.img%>" />
-            <img src="<%=myData.sub_perk_kr.img%>" />
+            <div>
+              <img src="<%=myData.main_perk_kr.img%>" />
+            </div>
+            <div>
+              <img src="<%=myData.sub_perk_kr.img%>" />
+            </div>
           </div>
           <div>
             <img src="<%=myData.spell1Id_kr.img%>" />
             <img src="<%=myData.spell2Id_kr.img%>" />
           </div>
           <div>
-            <p style="font-size: 17px"><%=myData.summonerName%></p>
-            <p style="font-size: 14px"
-              ><%=user.solo.tier%> <%=user.solo.rank%></p
-            >
+            <% let
+            win_lose=100*user.solo.wins/(user.solo.wins+user.solo.losses); let
+            win_lose_text=win_lose.toFixed(1); %>
+            <p><%=myData.summonerName%></p>
+            <p><%=user.solo.tier%> <%=user.solo.rank%></p>
+            <p>
+              <%=user.solo.wins%>승 <%=user.solo.losses%>패 <%if(user.solo.tier
+              !== 'UNRANK'){%> (<%=win_lose.toFixed(1)%>%)<%}%>
+            </p>
           </div>
         </div>
         <% } %>
@@ -69,7 +87,7 @@
     </div>
     <script>
       const time = document.getElementById("time");
-      let now = time.innerText;
+      let now = Number("<%=time%>");
 
       if (now < 0) {
         time.innerText = "loading..";
