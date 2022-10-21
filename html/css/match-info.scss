@@ -287,9 +287,9 @@ main{
       >div{
         @include box(100%,12.5%);
         @include flex;
+        border-bottom: 1px solid $gray-color;
         >div{
-          border-top: 0px solid $gray-color;
-          border-bottom: 1px solid $gray-color;
+          border-top: 0px;
         }
         >div:nth-child(1){
           @include box(35%,100%);

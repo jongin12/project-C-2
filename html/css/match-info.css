@@ -387,10 +387,10 @@ main > div:nth-child(2) > div:nth-child(4) > div:nth-child(1) > p:nth-child(2) {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid rgb(121, 118, 118);
   }
   #game_stats > div:nth-child(2) > div > div {
-    border-top: 0px solid rgb(121, 118, 118);
-    border-bottom: 1px solid rgb(121, 118, 118);
+    border-top: 0px;
   }
   #game_stats > div:nth-child(2) > div > div:nth-child(1) {
     width: 35%;
