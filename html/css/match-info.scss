@@ -87,6 +87,19 @@ main{
   >div:nth-child(1){
     @include box(500px,40px);
     @include flex;
+    >div{
+      @include box(150px,40px);
+      @include flex;
+      >p{
+        display: inline-block;
+        background-color: #65A3DC;
+        border-radius: 30px;
+        text-align: center;
+        color:white;
+        font-size: 16px;
+        padding: 4px 8px;
+      }
+    }
   }
   >div:nth-child(2){
     @include box(500px,480px);
@@ -148,8 +161,20 @@ main{
       @include box(190px,60px);
       @include flex(center,flex-start);
       flex-direction: column;
-      >div{
-        background-color: blue;
+      >div:nth-child(1){
+        @include box(190px,21px);
+        @include flex(flex-start,center);
+        >div{
+          @include box(30px,21px);
+          @include flex;
+          border-radius: 10px;
+          border:1px white solid;
+          color:black;
+          font-size: 14px;
+        }
+      }
+      >div:nth-child(3){
+        background-color: rgb(78, 78, 253);
         height: 10px;
         >div{
           background-color: skyblue;
@@ -172,7 +197,19 @@ main{
     @include box(190px,60px);
     @include flex(center,flex-end);
     flex-direction: column;
-    >div{
+    >div:nth-child(1){
+      @include box(190px,21px);
+      @include flex(flex-end,center);
+      >div{
+        @include box(30px,21px);
+        @include flex;
+        border-radius: 10px;
+        border:1px white solid;
+        color:black;
+        font-size: 14px;
+      }
+    }
+    >div:nth-child(3){
       @include flex(flex-end,center);
       background-color: red;
       height: 10px;

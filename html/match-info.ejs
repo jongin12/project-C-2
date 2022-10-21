@@ -36,7 +36,11 @@
         </header>
         <main>
           <div id="game_stats">
-            <div>GAME STATS</div>
+            <div>
+              <div><p><%=math.stats[2].gameEndTime%></p></div>
+              <div>GAME STATS</div>
+              <div><p><%=math.stats[2].queueId%></p></div>
+            </div>
             <% let stats = math.stats; let team1_kda =
             stats[0].kda.k+'/'+stats[0].kda.d+'/'+stats[0].kda.a; let team2_kda
             = stats[1].kda.k+'/'+stats[1].kda.d+'/'+stats[1].kda.a; %>
@@ -116,36 +120,82 @@
           <div>
             <div>TOTAL DAMAGE DEALT</div>
             <div id="deal">
-              <% let barSize_arr_L = []; let barSize_15min_arr_L = []; %> <%
-              for(let i=0; i<5; i++) {let user = matchData.info.participants[i];
-              let Kdeal = Math.floor(math.deal_end[i]/100); let maxDeal =
-              Math.max(...math.deal_end); let barSize = 18000*Kdeal/maxDeal; let
-              deal_15min = math.deal_15min[i]; let barSize_15min =
-              180*deal_15min/maxDeal; barSize_arr_L.push(barSize);
-              barSize_15min_arr_L.push(barSize_15min);%>
-              <div class="deal_left">
+              <%
+              let barSize_arr_L = [];
+              let barSize_15min_arr_L = [];
+              %> <%
+              for(let i=0; i<5; i++) {
+                let user = matchData.info.participants[i];
+                let Kdeal = Math.floor(math.deal_end[i]/100);
+                let maxDeal = Math.max(...math.deal_end);
+                let barSize = 18000*Kdeal/maxDeal;
+                let deal_15min = math.deal_15min[i];
+                let barSize_15min = 180*deal_15min/maxDeal;
+                barSize_arr_L.push(barSize);
+                barSize_15min_arr_L.push(barSize_15min);
+              %>
+              <div class="deal_left user">
                 <div>
                   <img
                     src="https://ddragon.leagueoflegends.com/cdn/12.18.1/img/champion/<%=user.championName%>.png"
                   />
                 </div>
                 <div>
-                  <p> <%=user.summonerName%> </p>
+                  <div>
+                    <%
+                    let tier = userData[i].solo.tier;
+                    let rank = userData[i].solo.rank;
+                    if(rank === 'IV'){rankNum = 4;}
+                    else if(rank === 'III'){rankNum = 3;}
+                    else if(rank === 'II'){rankNum = 2;}
+                    else if(rank === 'I'){rankNum = 1;}
+                    if(tier === 'GRANDMASTER'){
+                      tierRank = 'GM'
+                    } else {
+                      tierRank = tier.substr(0,1)+rankNum;
+                    }
+                    %>
+                    <p><%=user.summonerName%></p>
+                    <div class=""><%=tierRank%></div>
+                  </div>
                   <p> <%=(Kdeal/10).toFixed(1)%>K </p>
                   <div><div></div></div>
                 </div>
               </div>
-              <%}%> <% let barSize_arr_R = []; let barSize_15min_arr_R = []; %>
-              <% for(let i=5; i<10; i++) { let user =
-              matchData.info.participants[i]; let Kdeal =
-              Math.floor(math.deal_end[i]/100); let maxDeal =
-              Math.max(...math.deal_end); let barSize = 18000*Kdeal/maxDeal; let
-              deal_15min = math.deal_15min[i]; let barSize_15min =
-              180*deal_15min/maxDeal; barSize_arr_R.push(barSize);
-              barSize_15min_arr_R.push(barSize_15min);%>
-              <div class="deal_right">
+              <%}%>
+              <%
+              let barSize_arr_R = [];
+              let barSize_15min_arr_R = [];
+              %>
+              <% for(let i=5; i<10; i++) {
+                let user = matchData.info.participants[i];
+                let Kdeal = Math.floor(math.deal_end[i]/100);
+                let maxDeal = Math.max(...math.deal_end);
+                let barSize = 18000*Kdeal/maxDeal;
+                let deal_15min = math.deal_15min[i];
+                let barSize_15min = 180*deal_15min/maxDeal;
+                barSize_arr_R.push(barSize);
+                barSize_15min_arr_R.push(barSize_15min);
+              %>
+              <div class="deal_right user">
                 <div>
-                  <p> <%=user.summonerName%> </p>
+                  <div>
+                    <%
+                    let tier = userData[i].solo.tier;
+                    let rank = userData[i].solo.rank;
+                    if(rank === 'IV'){rankNum = 4;}
+                    else if(rank === 'III'){rankNum = 3;}
+                    else if(rank === 'II'){rankNum = 2;}
+                    else if(rank === 'I'){rankNum = 1;}
+                    if(tier === 'GRANDMASTER'){
+                      tierRank = 'GM'
+                    } else {
+                      tierRank = tier.substr(0,1)+rankNum;
+                    }
+                    %>
+                    <div><%=tierRank%></div>
+                    <p><%=user.summonerName%></p>
+                  </div>
                   <p> <%=(Kdeal/10).toFixed(1)%>K </p>
                   <div><div></div></div>
                 </div>
@@ -211,6 +261,74 @@
       if('<%=team2_text%>' === 'WIN'){
         header.children[3].style.background = 'linear-gradient(#292E40, red)';
         header.children[4].style.background = 'linear-gradient(#292E40, red)';
+      }
+
+      const user = document.getElementsByClassName('user');
+
+      for(let i=0; i<5;i++){
+        let button = user[i];
+        let name = button.children[1].children[0].children[0].textContent;
+        button.addEventListener(('click'),()=>{
+        document.location.href = `/summoner/${name}`
+        })
+      }
+      for(let i=5; i<10;i++){
+        let button = user[i];
+        let name = button.children[0].children[0].children[1].textContent;
+        button.addEventListener(('click'),()=>{
+        document.location.href = `/summoner/${name}`
+        })
+      }
+
+      for(let i=0; i<5;i++){
+        let tierRank = user[i].children[1].children[0].children[1].textContent;
+        let tier = tierRank.substr(0,1);
+        if(tier === 'I'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(121, 106, 90)'
+        } else if(tier === 'B'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(161, 86, 0)'
+        } else if(tier === 'S'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(226, 226, 226)'
+        } else if(tier === 'G'){
+          if(tierRank === 'GM'){
+            user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(236, 16, 0)'
+          } else {
+            user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(251, 255, 0)'
+          }
+        } else if(tier === 'P'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(26, 223, 174)'
+        } else if(tier === 'D'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(4, 164, 238)'
+        } else if(tier === 'M'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(177, 0, 231)'
+        } else if(tier === 'C'){
+          user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(131, 231, 0)'
+        }
+      }
+      for(let i=5; i<10;i++){
+        let tierRank = user[i].children[0].children[0].children[0].textContent;
+        let tier = tierRank.substr(0,1);
+        if(tier === 'I'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(121, 106, 90)'
+        } else if(tier === 'B'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(161, 86, 0)'
+        } else if(tier === 'S'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(226, 226, 226)'
+        } else if(tier === 'G'){
+          if(tierRank === 'GM'){
+            user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(236, 16, 0)'
+          } else {
+            user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(251, 255, 0)'
+          }
+        } else if(tier === 'P'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(26, 223, 174)'
+        } else if(tier === 'D'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(4, 164, 238)'
+        } else if(tier === 'M'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(177, 0, 231)'
+        } else if(tier === 'C'){
+          user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(131, 231, 0)'
+        }
       }
 
       let goldData = JSON.parse("<%- JSON.stringify(math.goldDifference)%>");
