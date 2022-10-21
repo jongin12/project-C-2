@@ -69,7 +69,6 @@
     </div>
     <script>
       const time = document.getElementById("time");
-      console.dir(time);
       let now = time.innerText;
 
       if (now < 0) {
@@ -87,6 +86,23 @@
           let timeset = `${min}분 ${sec}초`;
           time.innerText = timeset;
         }, 1000);
+      }
+
+      const user_left = document.getElementsByClassName("user_left");
+      const user_right = document.getElementsByClassName("user_right");
+      for (let i = 0; i < 5; i++) {
+        let button = user_left[i];
+        let name = user_left[i].children[0].children[0].textContent;
+        button.addEventListener("click", () => {
+          document.location.href = `/summoner/${name}`;
+        });
+      }
+      for (let i = 0; i < 5; i++) {
+        let button = user_right[i];
+        let name = user_right[i].children[3].children[0].textContent;
+        button.addEventListener("click", () => {
+          document.location.href = `/summoner/${name}`;
+        });
       }
     </script>
   </body>
