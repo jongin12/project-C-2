@@ -164,6 +164,9 @@ main{
       >div:nth-child(1){
         @include box(190px,21px);
         @include flex(flex-start,center);
+        >p{
+          margin-right: 3px;
+        }
         >div{
           @include box(30px,21px);
           @include flex;
@@ -200,6 +203,9 @@ main{
     >div:nth-child(1){
       @include box(190px,21px);
       @include flex(flex-end,center);
+      >p{
+        margin-left: 3px;
+      }
       >div{
         @include box(30px,21px);
         @include flex;
@@ -220,7 +226,95 @@ main{
     }
   }
 }
-
 #gold{
   @include box(450px,140px);
+}
+
+@media (max-width: 1024px) {
+  #root{
+    @include box(100vw,1400px);
+    >div{
+      @include box(500px,1200px);
+    }
+  }
+  header{
+    @include box(500px,50px);
+    font-size: 16px;
+    >div{
+      @include box(20%,100%);
+      @include flex;
+    }
+    >div:nth-child(3){
+      flex-direction: column;
+      >p:nth-child(2){
+        font-size: 20px;
+        font-weight: 800;
+      }
+    }
+  }
+  main{
+    @include box(500px,1040px);
+    @include flex;
+    flex-direction: column;
+  }
+  #game_stats{
+    @include box(500px,520px);
+    @include flex;
+    flex-direction: column;
+    color:white;
+    >div:nth-child(1){
+      @include box(500px,40px);
+      @include flex;
+      >div{
+        @include box(150px,40px);
+        @include flex;
+        >p{
+          display: inline-block;
+          background-color: #65A3DC;
+          border-radius: 30px;
+          text-align: center;
+          color:white;
+          font-size: 16px;
+          padding: 4px 8px;
+        }
+      }
+    }
+    >div:nth-child(2){
+      @include box(500px,480px);
+      @include flex;
+      flex-direction: column;
+      border-right: 0px solid white;
+      >div{
+        @include box(100%,12.5%);
+        @include flex;
+        >div{
+          border-top: 0px solid $gray-color;
+          border-bottom: 1px solid $gray-color;
+        }
+        >div:nth-child(1){
+          @include box(35%,100%);
+          @include flex(flex-end,center);
+          font-size: 24px;
+        }
+        >div:nth-child(2){
+          @include box(20%,100%);
+          @include flex;
+        }
+        >div:nth-child(3){
+          @include box(35%,100%); 
+          @include flex(flex-start,center);
+          font-size: 24px;
+        }
+        img{
+          @include box(35px,35px);
+        }
+      }
+      >div:nth-child(5){
+        >div:nth-child(1){
+          @include flex(flex-start,center);
+          flex-direction: row-reverse;
+        }
+      }
+    }
+  }
 }

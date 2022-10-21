@@ -150,12 +150,18 @@
                     else if(rank === 'II'){rankNum = 2;}
                     else if(rank === 'I'){rankNum = 1;}
                     if(tier === 'GRANDMASTER'){
-                      tierRank = 'GM'
+                      tierRank = 'GM';
+                    } else if (tier === 'MASTER'){
+                      tierRank = 'M';
+                    } else if (tier === 'CHALLENGER'){
+                      tierRank = 'C';
+                    } else if (tier === 'UNRANK'){
+                      tierRank = 'UN';
                     } else {
                       tierRank = tier.substr(0,1)+rankNum;
                     }
                     %>
-                    <p><%=user.summonerName%></p>
+                    <p><%=user.summonerName%> </p>
                     <div class=""><%=tierRank%></div>
                   </div>
                   <p> <%=(Kdeal/10).toFixed(1)%>K </p>
@@ -188,7 +194,13 @@
                     else if(rank === 'II'){rankNum = 2;}
                     else if(rank === 'I'){rankNum = 1;}
                     if(tier === 'GRANDMASTER'){
-                      tierRank = 'GM'
+                      tierRank = 'GM';
+                    } else if (tier === 'MASTER'){
+                      tierRank = 'M';
+                    } else if (tier === 'CHALLENGER'){
+                      tierRank = 'C';
+                    } else if (tier === 'UNRANK'){
+                      tierRank = 'UN';
                     } else {
                       tierRank = tier.substr(0,1)+rankNum;
                     }
@@ -283,7 +295,7 @@
       for(let i=0; i<5;i++){
         let tierRank = user[i].children[1].children[0].children[1].textContent;
         let tier = tierRank.substr(0,1);
-        if(tier === 'I'){
+        if(tier === 'I' || tier === 'U'){
           user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(121, 106, 90)'
         } else if(tier === 'B'){
           user[i].children[1].children[0].children[1].style.backgroundColor = 'rgb(161, 86, 0)'
@@ -308,7 +320,7 @@
       for(let i=5; i<10;i++){
         let tierRank = user[i].children[0].children[0].children[0].textContent;
         let tier = tierRank.substr(0,1);
-        if(tier === 'I'){
+        if(tier === 'I' || tier === 'U'){
           user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(121, 106, 90)'
         } else if(tier === 'B'){
           user[i].children[0].children[0].children[0].style.backgroundColor = 'rgb(161, 86, 0)'
