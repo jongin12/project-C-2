@@ -41,9 +41,10 @@
               <div>GAME STATS</div>
               <div><p><%=math.stats[2].queueId%></p></div>
             </div>
-            <% let stats = math.stats; let team1_kda =
-            stats[0].kda.k+'/'+stats[0].kda.d+'/'+stats[0].kda.a; let team2_kda
-            = stats[1].kda.k+'/'+stats[1].kda.d+'/'+stats[1].kda.a; %>
+            <% let stats = math.stats;
+            let team1_kda = stats[0].kda.k+'/'+stats[0].kda.d+'/'+stats[0].kda.a;
+            let team2_kda = stats[1].kda.k+'/'+stats[1].kda.d+'/'+stats[1].kda.a;
+            %>
             <div>
               <div>
                 <div><%=team1_kda%></div>
@@ -67,8 +68,8 @@
               </div>
               <div>
                 <div>
-                  <% for(let i=0; i<math.Dragon_Kill.team1.length;i++){
-                    let dragon = math.Dragon_Kill.team1[i]%>
+                  <% for(let i=0; i<math.Dragon_Kill.team1.length;i++){%>
+                  <% let dragon = math.Dragon_Kill.team1[i] %>
                     <img src="/img/dragon/<%=dragon%>.png">
                   <%}%>
                   <% if (math.Dragon_Kill.team1.length === 0) {%>
@@ -77,8 +78,8 @@
                 </div>
                 <div>DRAKES</div>
                 <div>
-                  <% for(let i=0; i<math.Dragon_Kill.team2.length;i++){
-                    let dragon = math.Dragon_Kill.team2[i]%>
+                  <% for(let i=0; i<math.Dragon_Kill.team2.length;i++){%>
+                  <%let dragon = math.Dragon_Kill.team2[i]%>
                     <img src="/img/dragon/<%=dragon%>.png">
                   <%}%>
                   <% if (math.Dragon_Kill.team2.length === 0) {%>
@@ -123,7 +124,8 @@
               <%
               let barSize_arr_L = [];
               let barSize_15min_arr_L = [];
-              %> <%
+              %>
+              <%
               for(let i=0; i<5; i++) {
                 let user = matchData.info.participants[i];
                 let Kdeal = Math.floor(math.deal_end[i]/100);
@@ -173,7 +175,8 @@
               let barSize_arr_R = [];
               let barSize_15min_arr_R = [];
               %>
-              <% for(let i=5; i<10; i++) {
+              <% for(let i=5; i<10; i++) { %>
+              <%
                 let user = matchData.info.participants[i];
                 let Kdeal = Math.floor(math.deal_end[i]/100);
                 let maxDeal = Math.max(...math.deal_end);

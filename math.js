@@ -46,7 +46,7 @@ const math = {
       return value;
     } else {
       return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    }
+    } // 가끔 15분 이전에 끝난 게임에서 오류 발생.
     //유저별로 15분 시점의 딜량 배열로 반환
   },
   deal_end: (frames) => {
@@ -93,7 +93,7 @@ const math = {
       });
     });
     return value;
-    //엘리트몬스터 처치로그 배열로 반환
+    //엘리트몬스터(드래곤) 처치로그 배열로 반환
   },
   game_stats: (match) => {
     value = [

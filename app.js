@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const bodyParser = require("body-parser");
-const fetch = require("node-fetch");
 const LOL_API = require("./LOL_API");
 const ejs = require("ejs");
 const math = require("./math");
